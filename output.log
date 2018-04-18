@@ -1,0 +1,1090 @@
+make  all-recursive
+make[1]: Entering directory '/local/src/x86_64/ww-1.2.1'
+Making all in sdlallegro
+make[2]: Entering directory '/local/src/x86_64/ww-1.2.1/sdlallegro'
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/usr/include  -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT sdl_allegro.o -MD -MP -MF ".deps/sdl_allegro.Tpo" -c -o sdl_allegro.o sdl_allegro.c; \
+then mv -f ".deps/sdl_allegro.Tpo" ".deps/sdl_allegro.Po"; else rm -f ".deps/sdl_allegro.Tpo"; exit 1; fi
+sdl_allegro.c:24:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ sa_version_info() {
+ ^
+sdl_allegro.c:41:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ sa_sdl_info() {
+ ^
+sdl_allegro.c:56:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ sa_getmodes() {
+ ^
+sdl_allegro.c:120:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ install_keyboard()  {
+ ^
+sdl_allegro.c:140:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ simulate_keypress(int key) {
+ ^
+sdl_allegro.c: In function ‘keypressed’:
+sdl_allegro.c:158:4: warning: implicit declaration of function ‘poll_mouse’ [-Wimplicit-function-declaration]
+    poll_mouse();
+    ^
+sdl_allegro.c: At top level:
+sdl_allegro.c:210:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ set_color_depth(int depth)  {
+ ^
+sdl_allegro.c:219:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ install_mouse()  {
+ ^
+sdl_allegro.c:222:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ scare_mouse() {
+ ^
+sdl_allegro.c:225:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ show_mouse(BITMAP *bmp) {
+ ^
+sdl_allegro.c:228:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ unscare_mouse() {
+ ^
+sdl_allegro.c:402:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ get_palette(PALETTE *p) {
+ ^
+sdl_allegro.c:434:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ destroy_bitmap(SDL_Surface *bmp) 
+ ^
+sdl_allegro.c:440:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ blit(SDL_Surface *src, SDL_Surface *dest, int srx, int sry, int dsx, int dsy, int wdt, int hgt)  
+ ^
+sdl_allegro.c:467:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ masked_blit(SDL_Surface *src, SDL_Surface *dest, int srx, int sry, int dsx, int dsy, int wdt, int hgt)  
+ ^
+sdl_allegro.c: In function ‘play_sample’:
+sdl_allegro.c:528:20: warning: passing argument 1 of ‘Mix_VolumeChunk’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+    Mix_VolumeChunk(spl, (vol/2));
+                    ^
+In file included from sdl_allegro.h:7:0,
+                 from sdl_allegro.c:5:
+/usr/include/SDL/SDL_mixer.h:553:29: note: expected ‘Mix_Chunk * {aka struct Mix_Chunk *}’ but argument is of type ‘const Mix_Chunk * {aka const struct Mix_Chunk *}’
+ extern DECLSPEC int SDLCALL Mix_VolumeChunk(Mix_Chunk *chunk, int volume);
+                             ^
+sdl_allegro.c:529:26: warning: passing argument 2 of ‘Mix_PlayChannelTimed’ discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+    r=Mix_PlayChannel(-1, spl, loop);
+                          ^
+/usr/include/SDL/SDL_mixer.h:536:75: note: in definition of macro ‘Mix_PlayChannel’
+ #define Mix_PlayChannel(channel,chunk,loops) Mix_PlayChannelTimed(channel,chunk,loops,-1)
+                                                                           ^
+/usr/include/SDL/SDL_mixer.h:538:29: note: expected ‘Mix_Chunk * {aka struct Mix_Chunk *}’ but argument is of type ‘const Mix_Chunk * {aka const struct Mix_Chunk *}’
+ extern DECLSPEC int SDLCALL Mix_PlayChannelTimed(int channel, Mix_Chunk *chunk, int loops, int ticks);
+                             ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/usr/include  -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT sa_prims.o -MD -MP -MF ".deps/sa_prims.Tpo" -c -o sa_prims.o sa_prims.c; \
+then mv -f ".deps/sa_prims.Tpo" ".deps/sa_prims.Po"; else rm -f ".deps/sa_prims.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/usr/include  -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT sa_sdlimage.o -MD -MP -MF ".deps/sa_sdlimage.Tpo" -c -o sa_sdlimage.o sa_sdlimage.c; \
+then mv -f ".deps/sa_sdlimage.Tpo" ".deps/sa_sdlimage.Po"; else rm -f ".deps/sa_sdlimage.Tpo"; exit 1; fi
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/usr/include  -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT sa_timer.o -MD -MP -MF ".deps/sa_timer.Tpo" -c -o sa_timer.o sa_timer.c; \
+then mv -f ".deps/sa_timer.Tpo" ".deps/sa_timer.Po"; else rm -f ".deps/sa_timer.Tpo"; exit 1; fi
+sa_timer.c: In function ‘install_int’:
+sa_timer.c:77:24: warning: passing argument 1 of ‘sa_lookup_timer’ from incompatible pointer type [-Wincompatible-pointer-types]
+    tid=sa_lookup_timer(proc);
+                        ^
+sa_timer.c:28:5: note: expected ‘int (*)()’ but argument is of type ‘void (*)()’
+ int sa_lookup_timer(int (*tname)()) {
+     ^
+sa_timer.c:80:26: warning: passing argument 1 of ‘SDL_RemoveTimer’ makes pointer from integer without a cast [-Wint-conversion]
+       rv=SDL_RemoveTimer(tid);
+                          ^
+In file included from /usr/include/SDL/SDL.h:42:0,
+                 from sa_timer.c:1:
+/usr/include/SDL/SDL_timer.h:115:34: note: expected ‘SDL_TimerID {aka struct _SDL_TimerID *}’ but argument is of type ‘int’
+ extern DECLSPEC SDL_bool SDLCALL SDL_RemoveTimer(SDL_TimerID t);
+                                  ^
+sa_timer.c:83:28: warning: passing argument 2 of ‘SDL_AddTimer’ from incompatible pointer type [-Wincompatible-pointer-types]
+    tid=SDL_AddTimer(speed, proc, 0);
+                            ^
+In file included from /usr/include/SDL/SDL.h:42:0,
+                 from sa_timer.c:1:
+/usr/include/SDL/SDL_timer.h:109:37: note: expected ‘SDL_NewTimerCallback {aka unsigned int (*)(unsigned int,  void *)}’ but argument is of type ‘void (*)()’
+ extern DECLSPEC SDL_TimerID SDLCALL SDL_AddTimer(Uint32 interval, SDL_NewTimerCallback callback, void *param);
+                                     ^
+sa_timer.c:83:7: warning: assignment makes integer from pointer without a cast [-Wint-conversion]
+    tid=SDL_AddTimer(speed, proc, 0);
+       ^
+sa_timer.c:84:25: warning: passing argument 2 of ‘sa_reg_timer’ from incompatible pointer type [-Wincompatible-pointer-types]
+    rv=sa_reg_timer(tid, proc);
+                         ^
+sa_timer.c:13:5: note: expected ‘int (*)()’ but argument is of type ‘void (*)()’
+ int sa_reg_timer(int tid, int (*tname)()) {
+     ^
+sa_timer.c: In function ‘remove_int’:
+sa_timer.c:91:24: warning: passing argument 1 of ‘sa_lookup_timer’ from incompatible pointer type [-Wincompatible-pointer-types]
+    tid=sa_lookup_timer(proc);
+                        ^
+sa_timer.c:28:5: note: expected ‘int (*)()’ but argument is of type ‘void (*)()’
+ int sa_lookup_timer(int (*tname)()) {
+     ^
+sa_timer.c:92:23: warning: passing argument 1 of ‘SDL_RemoveTimer’ makes pointer from integer without a cast [-Wint-conversion]
+    rv=SDL_RemoveTimer(tid);
+                       ^
+In file included from /usr/include/SDL/SDL.h:42:0,
+                 from sa_timer.c:1:
+/usr/include/SDL/SDL_timer.h:115:34: note: expected ‘SDL_TimerID {aka struct _SDL_TimerID *}’ but argument is of type ‘int’
+ extern DECLSPEC SDL_bool SDLCALL SDL_RemoveTimer(SDL_TimerID t);
+                                  ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I..   -I/usr/include  -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT sa_joystick.o -MD -MP -MF ".deps/sa_joystick.Tpo" -c -o sa_joystick.o sa_joystick.c; \
+then mv -f ".deps/sa_joystick.Tpo" ".deps/sa_joystick.Po"; else rm -f ".deps/sa_joystick.Tpo"; exit 1; fi
+sa_joystick.c:8:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ install_joystick(int type)  {
+ ^
+sa_joystick.c:24:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ poll_joystick() {
+ ^
+rm -f libsdlallegro.a
+ar cru libsdlallegro.a sdl_allegro.o sa_prims.o sa_sdlimage.o sa_timer.o sa_joystick.o 
+ar: `u' modifier ignored since `D' is the default (see `U')
+ranlib libsdlallegro.a
+make[2]: Leaving directory '/local/src/x86_64/ww-1.2.1/sdlallegro'
+Making all in hiscore
+make[2]: Entering directory '/local/src/x86_64/ww-1.2.1/hiscore'
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../src  -I/usr/include  -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT hiscore.o -MD -MP -MF ".deps/hiscore.Tpo" -c -o hiscore.o hiscore.c; \
+then mv -f ".deps/hiscore.Tpo" ".deps/hiscore.Po"; else rm -f ".deps/hiscore.Tpo"; exit 1; fi
+hiscore.c:33:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_names(int tno,char *desc,char *game) {
+ ^
+hiscore.c:38:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_getfield(char *ret, int tno, int sno, char *fname) {
+ ^
+hiscore.c:50:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hss_index(char* rstr, char *ostr, int idx, char del) {
+ ^
+hiscore.c:79:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_version_info() {
+ ^
+hiscore.c:88:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_getdate(char *now) {
+ ^
+hiscore.c:104:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_crypt(char *out, char *in, char *type, int key) { 
+ ^
+hiscore.c:124:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_decrypt(char *out, char *in, char *type, int key) { 
+ ^
+hiscore.c: In function ‘hs_newtable’:
+hiscore.c:150:4: warning: implicit declaration of function ‘hs_cleartable’ [-Wimplicit-function-declaration]
+    hs_cleartable(hs_numtbls);
+    ^
+hiscore.c: At top level:
+hiscore.c:154:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_loadtable(char *fn) {
+ ^
+hiscore.c: In function ‘hs_loadtable’:
+hiscore.c:165:11: warning: implicit declaration of function ‘atoi’ [-Wimplicit-function-declaration]
+       ver=atoi(wst);
+           ^
+hiscore.c: At top level:
+hiscore.c:228:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_deleteall(){
+ ^
+hiscore.c: In function ‘hs_random’:
+hiscore.c:236:6: warning: implicit declaration of function ‘rand’ [-Wimplicit-function-declaration]
+    x=rand();
+      ^
+hiscore.c: At top level:
+hiscore.c:241:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_writetable(char *fn) {
+ ^
+hiscore.c:272:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_printtable() {
+ ^
+hiscore.c:294:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_insertscore(int tno,char *name, char *detail, char *date, int score) {
+ ^
+hiscore.c:326:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ hs_cleartable(int tno) {
+ ^
+rm -f libhiscore.a
+ar cru libhiscore.a hiscore.o  
+ar: `u' modifier ignored since `D' is the default (see `U')
+ranlib libhiscore.a
+make[2]: Leaving directory '/local/src/x86_64/ww-1.2.1/hiscore'
+Making all in widget
+make[2]: Entering directory '/local/src/x86_64/ww-1.2.1/widget'
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro  -I/usr/include -DUSESDL -DCOMPFONT -DGFXLIB_ALLEGRO -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT font.o -MD -MP -MF ".deps/font.Tpo" -c -o font.o font.c; \
+then mv -f ".deps/font.Tpo" ".deps/font.Po"; else rm -f ".deps/font.Tpo"; exit 1; fi
+font.c:169:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ font_load(char *filen) {
+ ^
+font.c:210:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ fnt_display_char(BITMAP *b,int x, int y, unsigned char chr,int fcolor) {
+ ^
+font.c: In function ‘fnt_display_char’:
+font.c:225:6: warning: implicit declaration of function ‘putpixel’ [-Wimplicit-function-declaration]
+      putpixel(b, x+cx, y+t, fcolor);
+      ^
+font.c: At top level:
+font.c:233:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ display_char(int x, int y, unsigned char chr) {
+ ^
+font.c:237:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ shadow_char(int x, int y, unsigned char chr) {
+ ^
+font.c:242:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ solid_char(int x, int y, unsigned char chr) {
+ ^
+font.c: In function ‘solid_char’:
+font.c:243:4: warning: implicit declaration of function ‘rectfill’ [-Wimplicit-function-declaration]
+    rectfill(screen,x,y,x+7,y+15,fnbgcol);
+    ^
+font.c: At top level:
+font.c:250:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ fnt_print_string(BITMAP *b, int x, int y, char *str, int fg, int bg, int sd) {
+ ^
+font.c: In function ‘fnt_print_string’:
+font.c:260:33: warning: ‘return’ with no value, in function returning non-void
+      if(SDL_LockSurface(b) < 0) return;
+                                 ^
+font.c: At top level:
+font.c:289:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ set_font_fcolor(int r, int g, int b) {
+ ^
+font.c:294:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ set_font_bcolor(int r, int g, int b) {
+ ^
+font.c:299:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ set_font_scolor(int r, int g, int b) {
+ ^
+font.c:304:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ solid_string(int x, int y, char *stt) {
+ ^
+font.c:311:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ show_string(int x, int y, char *stt) {
+ ^
+font.c:323:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ calc_width(char *stt) {
+ ^
+font.c:341:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ calc_height(char *stt) {
+ ^
+rm -f libfont.a
+ar cru libfont.a font.o 
+ar: `u' modifier ignored since `D' is the default (see `U')
+ranlib libfont.a
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro  -I/usr/include -DUSESDL -DCOMPFONT -DGFXLIB_ALLEGRO -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT button.o -MD -MP -MF ".deps/button.Tpo" -c -o button.o button.c; \
+then mv -f ".deps/button.Tpo" ".deps/button.Po"; else rm -f ".deps/button.Tpo"; exit 1; fi
+button.c:29:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ up_bmp_button(Widget *b,int x,int y) /* called by mouse_depress */
+ ^
+button.c: In function ‘up_bmp_button’:
+button.c:32:6: warning: implicit declaration of function ‘scare_once’ [-Wimplicit-function-declaration]
+      scare_once();
+      ^
+button.c:41:21: warning: ‘return’ with no value, in function returning non-void
+     if(just_popped) return;
+                     ^
+button.c:46:9: warning: implicit declaration of function ‘masked_blit’ [-Wimplicit-function-declaration]
+         masked_blit(b->btbmp.btnupbmp,screen,b->btbmp.up_x1,b->btbmp.up_y1,b->x1,b->y1,b->btbmp.up_x2,b->btbmp.up_y2);
+         ^
+button.c:53:4: warning: implicit declaration of function ‘unscare_once’ [-Wimplicit-function-declaration]
+    unscare_once();
+    ^
+button.c:55:20: warning: ‘return’ with no value, in function returning non-void
+    if(just_popped) return;
+                    ^
+button.c: At top level:
+button.c:59:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ down_bmp_button(Widget *b,int x,int y,int m) /* called by mouse_press */
+ ^
+button.c:74:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ up_button(Widget *b,int x,int y) /* called by mouse_depress */
+ ^
+button.c: In function ‘up_button’:
+button.c:84:21: warning: ‘return’ with no value, in function returning non-void
+     if(just_popped) return;
+                     ^
+button.c:87:16: warning: implicit declaration of function ‘makecol’ [-Wimplicit-function-declaration]
+         mcolor=makecol(COLOR254);
+                ^
+button.c:88:2: warning: implicit declaration of function ‘rectfill’ [-Wimplicit-function-declaration]
+  rectfill(screen,b->x1,b->y1,b->x2-1,b->y2-1,mcolor);
+  ^
+button.c:90:2: warning: implicit declaration of function ‘line’ [-Wimplicit-function-declaration]
+  line(screen,b->x2,b->y1+1,b->x2,b->y2,mcolor);
+  ^
+button.c:93:2: warning: implicit declaration of function ‘fnt_print_string’ [-Wimplicit-function-declaration]
+  fnt_print_string(screen,b->x1+3,b->y1+1,b->text,makecol(255,255,255),-1,-1);
+  ^
+button.c:99:18: warning: ‘return’ with no value, in function returning non-void
+  if(just_popped) return;
+                  ^
+button.c: At top level:
+button.c:103:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ down_button(Widget *b,int x,int y,int m) /* called by mouse_press */
+ ^
+button.c:206:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ up_up_arrow_button(Widget *b,int x,int y) /* called by mouse_depress */
+ ^
+button.c:220:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ down_up_arrow_button(Widget *b,int x,int y,int m) /* called by mouse_press */
+ ^
+button.c:230:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ up_down_arrow_button(Widget *b,int x,int y) /* called by mouse_depress */
+ ^
+button.c:244:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ down_down_arrow_button(Widget *b,int x,int y,int m) /* called by mouse_press */
+ ^
+button.c:255:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ up_left_arrow_button(Widget *b,int x,int y) /* called by mouse_depress */
+ ^
+button.c:276:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ down_left_arrow_button(Widget *b,int x,int y,int m) /* called by mouse_press */
+ ^
+button.c:291:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ up_right_arrow_button(Widget *b,int x,int y) /* called by mouse_depress */
+ ^
+button.c:312:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ down_right_arrow_button(Widget *b,int x,int y,int m) /* called by mouse_press */
+ ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro  -I/usr/include -DUSESDL -DCOMPFONT -DGFXLIB_ALLEGRO -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT widget.o -MD -MP -MF ".deps/widget.Tpo" -c -o widget.o widget.c; \
+then mv -f ".deps/widget.Tpo" ".deps/widget.Po"; else rm -f ".deps/widget.Tpo"; exit 1; fi
+widget.c:91:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ scare_once() {
+ ^
+widget.c: In function ‘scare_once’:
+widget.c:95:7: warning: implicit declaration of function ‘scare_mouse’ [-Wimplicit-function-declaration]
+       scare_mouse();
+       ^
+widget.c: At top level:
+widget.c:100:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ unscare_once() {
+ ^
+widget.c: In function ‘unscare_once’:
+widget.c:102:7: warning: implicit declaration of function ‘unscare_mouse’ [-Wimplicit-function-declaration]
+       unscare_mouse();
+       ^
+widget.c: At top level:
+widget.c:107:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ rem_pointer(int x, int y) {
+ ^
+widget.c: In function ‘rem_pointer’:
+widget.c:111:4: warning: implicit declaration of function ‘wdg_unhilight’ [-Wimplicit-function-declaration]
+    wdg_unhilight();
+    ^
+widget.c: At top level:
+widget.c:115:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ draw_pointer(int x, int y) {
+ ^
+widget.c: In function ‘draw_pointer’:
+widget.c:118:4: warning: implicit declaration of function ‘wdg_hilight’ [-Wimplicit-function-declaration]
+    wdg_hilight(0);
+    ^
+widget.c: In function ‘widget_init’:
+widget.c:125:2: warning: implicit declaration of function ‘wdgst_default’ [-Wimplicit-function-declaration]
+  wdgst_default();
+  ^
+widget.c: In function ‘push_level’:
+widget.c:158:3: warning: implicit declaration of function ‘blit’ [-Wimplicit-function-declaration]
+   blit(screen,bmp,x1,y1,0,0,x2-x1+1,y2-y1+1);
+   ^
+widget.c: In function ‘kbd_loop’:
+widget.c:310:10: warning: implicit declaration of function ‘keypressed’ [-Wimplicit-function-declaration]
+       if(keypressed()) {   // Allegro
+          ^
+widget.c:311:7: warning: implicit declaration of function ‘readkey’ [-Wimplicit-function-declaration]
+   key=readkey();
+       ^
+widget.c:323:9: warning: implicit declaration of function ‘wdg_input_data’ [-Wimplicit-function-declaration]
+         wdg_input_data(level[curr_level].focus,&ksym,&kasc);
+         ^
+widget.c: In function ‘event_loop’:
+widget.c:372:10: warning: implicit declaration of function ‘mouse_needs_poll’ [-Wimplicit-function-declaration]
+       if(mouse_needs_poll()) {
+          ^
+widget.c:373:5: warning: implicit declaration of function ‘poll_mouse’ [-Wimplicit-function-declaration]
+  mw=poll_mouse();
+     ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro  -I/usr/include -DUSESDL -DCOMPFONT -DGFXLIB_ALLEGRO -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT window.o -MD -MP -MF ".deps/window.Tpo" -c -o window.o window.c; \
+then mv -f ".deps/window.Tpo" ".deps/window.Po"; else rm -f ".deps/window.Tpo"; exit 1; fi
+window.c: In function ‘new_window’:
+window.c:32:4: warning: implicit declaration of function ‘style_rectfill’ [-Wimplicit-function-declaration]
+    style_rectfill(screen,x1,y1,x2-1,y2-1,c252,al);
+    ^
+window.c:33:4: warning: implicit declaration of function ‘style_hline’ [-Wimplicit-function-declaration]
+    style_hline(screen,x1+1,y2,x2,c253,al);
+    ^
+window.c:34:4: warning: implicit declaration of function ‘style_vline’ [-Wimplicit-function-declaration]
+    style_vline(screen,x2,y1+1,y2,c253,al);
+    ^
+window.c: At top level:
+window.c:42:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ ab1(Widget* w,int x,int y,int m){
+ ^
+window.c:47:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ ab2(Widget* w,int x,int y,int m){
+ ^
+window.c:52:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ ab3(Widget* w,int x,int y,int m){
+ ^
+window.c: In function ‘wdg_alert’:
+window.c:62:6: warning: implicit declaration of function ‘calc_width’ [-Wimplicit-function-declaration]
+   bw=calc_width(b1);
+      ^
+window.c:75:9: warning: implicit declaration of function ‘calc_height’ [-Wimplicit-function-declaration]
+  height=calc_height(text);
+         ^
+window.c:84:5: warning: implicit declaration of function ‘add_button’ [-Wimplicit-function-declaration]
+     add_button(x+8,y+height-20,x+mbw,y+height-4,b1,&ab1);
+     ^
+window.c:89:2: warning: implicit declaration of function ‘show_string’ [-Wimplicit-function-declaration]
+  show_string(x+8,y+24,text);
+  ^
+window.c:91:54: warning: implicit declaration of function ‘makecol’ [-Wimplicit-function-declaration]
+         style_rectfill(screen,x+4,y+4,x+width-4,y+14,makecol(32,32,120),255);
+                                                      ^
+window.c: In function ‘progress’:
+window.c:137:9: warning: implicit declaration of function ‘style_rect’ [-Wimplicit-function-declaration]
+         style_rect(screen, x+4,y+32,x+width-8,y+height-4,makecol(224,224,224),255);
+         ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro  -I/usr/include -DUSESDL -DCOMPFONT -DGFXLIB_ALLEGRO -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT keyboard.o -MD -MP -MF ".deps/keyboard.Tpo" -c -o keyboard.o keyboard.c; \
+then mv -f ".deps/keyboard.Tpo" ".deps/keyboard.Po"; else rm -f ".deps/keyboard.Tpo"; exit 1; fi
+keyboard.c:23:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ wdg_unhilight() {
+ ^
+keyboard.c: In function ‘wdg_unhilight’:
+keyboard.c:34:2: warning: implicit declaration of function ‘blit’ [-Wimplicit-function-declaration]
+  blit(mbmp,screen,0,0,x1-2,y1-2,(x2-x1)+4,(y2-y1)+4);
+  ^
+keyboard.c: At top level:
+keyboard.c:39:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ wdg_hilight(int inew) {   
+ ^
+keyboard.c: In function ‘wdg_hilight’:
+keyboard.c:53:6: warning: implicit declaration of function ‘destroy_bitmap’ [-Wimplicit-function-declaration]
+      destroy_bitmap(mbmp);
+      ^
+keyboard.c:68:3: warning: implicit declaration of function ‘masked_blit’ [-Wimplicit-function-declaration]
+   masked_blit(kbdhl_curr.hilighted->btbmp.btnhlbmp,screen,hx,hy,x1,y1,(x2-x1),(y2-y1));
+   ^
+keyboard.c:73:3: warning: implicit declaration of function ‘rect’ [-Wimplicit-function-declaration]
+   rect(screen,x1,y1,x2,y2,c);
+   ^
+keyboard.c:74:6: warning: implicit declaration of function ‘getr’ [-Wimplicit-function-declaration]
+   r2=getr(c)*0.75;g2=getg(c)*0.75;b2=getb(c)*0.75;
+      ^
+keyboard.c:74:22: warning: implicit declaration of function ‘getg’ [-Wimplicit-function-declaration]
+   r2=getr(c)*0.75;g2=getg(c)*0.75;b2=getb(c)*0.75;
+                      ^
+keyboard.c:74:38: warning: implicit declaration of function ‘getb’ [-Wimplicit-function-declaration]
+   r2=getr(c)*0.75;g2=getg(c)*0.75;b2=getb(c)*0.75;
+                                      ^
+keyboard.c:75:6: warning: implicit declaration of function ‘makecol’ [-Wimplicit-function-declaration]
+   c2=makecol(r2,g2,b2);
+      ^
+keyboard.c: In function ‘hl_select’:
+keyboard.c:321:7: warning: implicit declaration of function ‘rem_pointer’ [-Wimplicit-function-declaration]
+       rem_pointer(x,y);
+       ^
+keyboard.c:327:7: warning: implicit declaration of function ‘draw_pointer’ [-Wimplicit-function-declaration]
+       draw_pointer(x,y);
+       ^
+keyboard.c: At top level:
+keyboard.c:331:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ wdg_bind_key(Widget *w, int ksym, int kasc, int hl) {
+ ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro  -I/usr/include -DUSESDL -DCOMPFONT -DGFXLIB_ALLEGRO -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT input.o -MD -MP -MF ".deps/input.Tpo" -c -o input.o input.c; \
+then mv -f ".deps/input.Tpo" ".deps/input.Po"; else rm -f ".deps/input.Tpo"; exit 1; fi
+input.c:33:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ unfocus_input(Widget *b,int x, int y, int m) {
+ ^
+input.c: In function ‘unfocus_input’:
+input.c:35:4: warning: implicit declaration of function ‘scare_once’ [-Wimplicit-function-declaration]
+    scare_once();
+    ^
+input.c:39:20: warning: ‘return’ with no value, in function returning non-void
+    if(just_popped) return;
+                    ^
+input.c:45:4: warning: implicit declaration of function ‘style_rectfill’ [-Wimplicit-function-declaration]
+    style_rectfill(screen,b->x1,b->y1,b->x2,b->y2,hlcol,al);
+    ^
+input.c:48:4: warning: implicit declaration of function ‘fnt_print_string’ [-Wimplicit-function-declaration]
+    fnt_print_string(screen, b->x1+2, b->y1+2, b->text, fncol, -1 , -1);
+    ^
+input.c:52:4: warning: implicit declaration of function ‘unscare_once’ [-Wimplicit-function-declaration]
+    unscare_once();
+    ^
+input.c: At top level:
+input.c:55:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ focus_input(Widget *b, int x, int y, int m) {
+ ^
+input.c: In function ‘focus_input’:
+input.c:82:4: warning: implicit declaration of function ‘style_rect’ [-Wimplicit-function-declaration]
+    style_rect(screen,b->x1,b->y1,b->x2,b->y2,white,al);
+    ^
+input.c:83:4: warning: implicit declaration of function ‘style_hline’ [-Wimplicit-function-declaration]
+    style_hline(screen,b->x1+1,b->y1,b->x2,dkcol,al);
+    ^
+input.c:84:4: warning: implicit declaration of function ‘style_vline’ [-Wimplicit-function-declaration]
+    style_vline(screen,b->x1+1,b->y1,b->y2,dkcol,al);
+    ^
+input.c: At top level:
+input.c:132:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ wdg_input_data(Widget* b, int *ksym, char *kasc) {
+ ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro  -I/usr/include -DUSESDL -DCOMPFONT -DGFXLIB_ALLEGRO -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT style.o -MD -MP -MF ".deps/style.Tpo" -c -o style.o style.c; \
+then mv -f ".deps/style.Tpo" ".deps/style.Po"; else rm -f ".deps/style.Tpo"; exit 1; fi
+style.c: In function ‘wdgst_default’:
+style.c:19:7: warning: implicit declaration of function ‘makecol’ [-Wimplicit-function-declaration]
+    bg=makecol(184,184,224);
+       ^
+style.c: At top level:
+style.c:50:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ style_rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color,int ba) {
+ ^
+style.c: In function ‘style_rectfill’:
+style.c:55:7: warning: implicit declaration of function ‘getr’ [-Wimplicit-function-declaration]
+    br=getr(color); bg=getg(color); bb=getb(color);
+       ^
+style.c:55:23: warning: implicit declaration of function ‘getg’ [-Wimplicit-function-declaration]
+    br=getr(color); bg=getg(color); bb=getb(color);
+                       ^
+style.c:55:39: warning: implicit declaration of function ‘getb’ [-Wimplicit-function-declaration]
+    br=getr(color); bg=getg(color); bb=getb(color);
+                                       ^
+style.c:59:7: warning: implicit declaration of function ‘rectfill’ [-Wimplicit-function-declaration]
+       rectfill(bmp, x1, y1, x2, y2, makecol(br,bg,bb));
+       ^
+style.c:62:39: warning: ‘return’ with no value, in function returning non-void
+       if(SDL_LockSurface(screen) < 0) return;
+                                       ^
+style.c:68:8: warning: implicit declaration of function ‘getpixel’ [-Wimplicit-function-declaration]
+      c=getpixel(screen,x,y);
+        ^
+style.c:75:6: warning: implicit declaration of function ‘putpixel’ [-Wimplicit-function-declaration]
+      putpixel(screen,x,y,makecol(nr,ng,nb));
+      ^
+style.c: In function ‘style_hline’:
+style.c:95:7: warning: implicit declaration of function ‘hline’ [-Wimplicit-function-declaration]
+       hline(bmp,x1,y,x2,makecol(br,bg,bb));
+       ^
+style.c: In function ‘style_vline’:
+style.c:128:7: warning: implicit declaration of function ‘vline’ [-Wimplicit-function-declaration]
+       vline(bmp,x,y1,y2,makecol(br,bg,bb));
+       ^
+rm -f libwidget.a
+ar cru libwidget.a button.o widget.o window.o keyboard.o input.o style.o 
+ar: `u' modifier ignored since `D' is the default (see `U')
+ranlib libwidget.a
+make[2]: Leaving directory '/local/src/x86_64/ww-1.2.1/widget'
+Making all in src
+make[2]: Entering directory '/local/src/x86_64/ww-1.2.1/src'
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro -I../widget  -I/usr/include -DUSESDL -DUSEGFX -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT main.o -MD -MP -MF ".deps/main.Tpo" -c -o main.o main.c; \
+then mv -f ".deps/main.Tpo" ".deps/main.Po"; else rm -f ".deps/main.Tpo"; exit 1; fi
+main.c: In function ‘d_random’:
+main.c:65:6: warning: implicit declaration of function ‘rand’ [-Wimplicit-function-declaration]
+    x=rand();
+      ^
+main.c: At top level:
+main.c:70:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ fill_bag() {
+ ^
+main.c: In function ‘reset_game’:
+main.c:118:4: warning: implicit declaration of function ‘srand’ [-Wimplicit-function-declaration]
+    srand(time(NULL));
+    ^
+main.c:125:4: warning: implicit declaration of function ‘gfx_reset_flags’ [-Wimplicit-function-declaration]
+    gfx_reset_flags();
+    ^
+main.c:127:6: warning: implicit declaration of function ‘gfx_set_widescreen’ [-Wimplicit-function-declaration]
+      gfx_set_widescreen();
+      ^
+main.c:130:4: warning: implicit declaration of function ‘gfx_setup_buttons’ [-Wimplicit-function-declaration]
+    gfx_setup_buttons();
+    ^
+main.c: In function ‘display_pile’:
+main.c:195:4: warning: implicit declaration of function ‘gfx_display_pile’ [-Wimplicit-function-declaration]
+    gfx_display_pile();
+    ^
+main.c: In function ‘display_curword’:
+main.c:212:4: warning: implicit declaration of function ‘gfx_display_curword’ [-Wimplicit-function-declaration]
+    gfx_display_curword();
+    ^
+main.c: In function ‘get_next_word’:
+main.c:248:4: warning: implicit declaration of function ‘hss_index’ [-Wimplicit-function-declaration]
+    hss_index(wordp,mywords,cwc,')');
+    ^
+main.c:251:7: warning: implicit declaration of function ‘atoi’ [-Wimplicit-function-declaration]
+    rv=atoi(cscore);
+       ^
+main.c: In function ‘display_scores’:
+main.c:293:4: warning: implicit declaration of function ‘gfx_display_scores’ [-Wimplicit-function-declaration]
+    gfx_display_scores();
+    ^
+main.c: At top level:
+main.c:300:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ get_input(char *s, char *prompt) {
+ ^
+main.c:307:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ get_input_str(char *s, char *prompt, int len) {
+ ^
+main.c: In function ‘game_loop’:
+main.c:327:12: warning: implicit declaration of function ‘check_word’ [-Wimplicit-function-declaration]
+  wordvalid=check_word(currword);
+            ^
+main.c:339:3: warning: implicit declaration of function ‘find_words’ [-Wimplicit-function-declaration]
+   find_words();
+   ^
+main.c: At top level:
+main.c:365:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ ww_nprogress(char *text,int cmd, int num, int max) {
+ ^
+main.c: In function ‘ww_nprogress’:
+main.c:367:4: warning: implicit declaration of function ‘gfx_progressbar’ [-Wimplicit-function-declaration]
+    gfx_progressbar(text,cmd,num,max);
+    ^
+main.c: At top level:
+main.c:375:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ reg_hi_scores() {
+ ^
+main.c: In function ‘reg_hi_scores’:
+main.c:384:4: warning: implicit declaration of function ‘gfx_hswindow’ [-Wimplicit-function-declaration]
+    gfx_hswindow(st);
+    ^
+main.c:390:4: warning: implicit declaration of function ‘hs_getdate’ [-Wimplicit-function-declaration]
+    hs_getdate(cdait);
+    ^
+main.c:391:4: warning: implicit declaration of function ‘hs_insertscore’ [-Wimplicit-function-declaration]
+    hs_insertscore(1,st,"",cdait,totscore);
+    ^
+main.c:426:4: warning: implicit declaration of function ‘hs_writetable’ [-Wimplicit-function-declaration]
+    hs_writetable(hsfile);
+    ^
+main.c: At top level:
+main.c:435:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ end_of_game(char lc) {
+ ^
+main.c: In function ‘end_of_game’:
+main.c:440:8: warning: implicit declaration of function ‘gfx_endgame’ [-Wimplicit-function-declaration]
+    hhs=gfx_endgame();
+        ^
+main.c:459:7: warning: implicit declaration of function ‘hs_ishiscore’ [-Wimplicit-function-declaration]
+    if(hs_ishiscore(1,totscore)==1 || hs_ishiscore(3,totscore)==1) {
+       ^
+main.c: At top level:
+main.c:469:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ display_hs(int tno) {
+ ^
+main.c: In function ‘display_hs’:
+main.c:471:4: warning: implicit declaration of function ‘gfx_display_hs’ [-Wimplicit-function-declaration]
+    gfx_display_hs(tno);
+    ^
+main.c: In function ‘title_screen’:
+main.c:496:7: warning: implicit declaration of function ‘gfx_title’ [-Wimplicit-function-declaration]
+    rv=gfx_title(hs_numtbls);
+       ^
+main.c: At top level:
+main.c:514:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ print_version() {
+ ^
+main.c: In function ‘print_version’:
+main.c:516:4: warning: implicit declaration of function ‘hs_version_info’ [-Wimplicit-function-declaration]
+    hs_version_info();
+    ^
+main.c:518:4: warning: implicit declaration of function ‘fnt_version_info’ [-Wimplicit-function-declaration]
+    fnt_version_info();
+    ^
+main.c:519:4: warning: implicit declaration of function ‘widget_version_info’ [-Wimplicit-function-declaration]
+    widget_version_info();
+    ^
+main.c:521:4: warning: implicit declaration of function ‘sa_version_info’ [-Wimplicit-function-declaration]
+    sa_version_info();
+    ^
+main.c: At top level:
+main.c:526:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ main(int argc, char **argv) {
+ ^
+main.c: In function ‘main’:
+main.c:543:4: warning: implicit declaration of function ‘find_datadir’ [-Wimplicit-function-declaration]
+    find_datadir(datadir,argv[0]);
+    ^
+main.c:552:54: warning: implicit declaration of function ‘exit’ [-Wimplicit-function-declaration]
+       if(strcmp("-v",argv[i])==0) { print_version(); exit(0); }
+                                                      ^
+main.c:552:54: warning: incompatible implicit declaration of built-in function ‘exit’
+main.c:552:54: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+main.c:561:6: warning: incompatible implicit declaration of built-in function ‘exit’
+      exit(0);
+      ^
+main.c:561:6: note: include ‘<stdlib.h>’ or provide a declaration of ‘exit’
+main.c:586:4: warning: implicit declaration of function ‘hs_loadtable’ [-Wimplicit-function-declaration]
+    hs_loadtable(hsfile);
+    ^
+main.c:589:7: warning: implicit declaration of function ‘hs_check’ [-Wimplicit-function-declaration]
+    if(hs_check(1,"High Score Table","WordWorx")!=1 || hs_check(2,"Highest Word Values","WordWorx")!=1 || hs_iscorrupt(2)==1) {
+       ^
+main.c:589:106: warning: implicit declaration of function ‘hs_iscorrupt’ [-Wimplicit-function-declaration]
+    if(hs_check(1,"High Score Table","WordWorx")!=1 || hs_check(2,"Highest Word Values","WordWorx")!=1 || hs_iscorrupt(2)==1) {
+                                                                                                          ^
+main.c:591:7: warning: implicit declaration of function ‘hs_deleteall’ [-Wimplicit-function-declaration]
+       hs_deleteall();
+       ^
+main.c:592:7: warning: implicit declaration of function ‘hs_newtable’ [-Wimplicit-function-declaration]
+       hs_newtable("High Score Table","WordWorx",10);
+       ^
+main.c:602:4: warning: implicit declaration of function ‘gfx_init’ [-Wimplicit-function-declaration]
+    gfx_init();
+    ^
+main.c:603:4: warning: implicit declaration of function ‘draw_bg’ [-Wimplicit-function-declaration]
+    draw_bg();
+    ^
+main.c:605:4: warning: implicit declaration of function ‘widget_init’ [-Wimplicit-function-declaration]
+    widget_init();
+    ^
+main.c:607:4: warning: implicit declaration of function ‘gfx_setstyle’ [-Wimplicit-function-declaration]
+    gfx_setstyle();
+    ^
+main.c:647:7: warning: implicit declaration of function ‘gfx_anim_pile’ [-Wimplicit-function-declaration]
+       gfx_anim_pile();
+       ^
+main.c:651:10: warning: implicit declaration of function ‘gfx_game_loop’ [-Wimplicit-function-declaration]
+       le=gfx_game_loop();
+          ^
+main.c:657:2: warning: implicit declaration of function ‘gfx_unset_widescreen’ [-Wimplicit-function-declaration]
+  gfx_unset_widescreen();
+  ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro -I../widget  -I/usr/include -DUSESDL -DUSEGFX -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT dict.o -MD -MP -MF ".deps/dict.Tpo" -c -o dict.o dict.c; \
+then mv -f ".deps/dict.Tpo" ".deps/dict.Po"; else rm -f ".deps/dict.Tpo"; exit 1; fi
+dict.c: In function ‘check_word’:
+dict.c:38:6: warning: assignment from incompatible pointer type [-Wincompatible-pointer-types]
+    fp=gzopen(dict,"rb");
+      ^
+dict.c:42:15: warning: passing argument 1 of ‘gzeof’ from incompatible pointer type [-Wincompatible-pointer-types]
+  while(!gzeof(fp)) 
+               ^
+In file included from dict.c:6:0:
+/usr/include/zlib.h:1475:21: note: expected ‘gzFile {aka struct gzFile_s *}’ but argument is of type ‘struct gzFile_s **’
+ ZEXTERN int ZEXPORT gzeof OF((gzFile file));
+                     ^
+dict.c:44:12: warning: passing argument 1 of ‘gzgets’ from incompatible pointer type [-Wincompatible-pointer-types]
+     gzgets(fp,lb,20);
+            ^
+In file included from dict.c:6:0:
+/usr/include/zlib.h:1372:24: note: expected ‘gzFile {aka struct gzFile_s *}’ but argument is of type ‘struct gzFile_s **’
+ ZEXTERN char * ZEXPORT gzgets OF((gzFile file, char *buf, int len));
+                        ^
+dict.c:62:12: warning: passing argument 1 of ‘gzclose’ from incompatible pointer type [-Wincompatible-pointer-types]
+    gzclose(fp);
+            ^
+In file included from dict.c:6:0:
+/usr/include/zlib.h:1511:24: note: expected ‘gzFile {aka struct gzFile_s *}’ but argument is of type ‘struct gzFile_s **’
+ ZEXTERN int ZEXPORT    gzclose OF((gzFile file));
+                        ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro -I../widget  -I/usr/include -DUSESDL -DUSEGFX -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT ai.o -MD -MP -MF ".deps/ai.Tpo" -c -o ai.o ai.c; \
+then mv -f ".deps/ai.Tpo" ".deps/ai.Po"; else rm -f ".deps/ai.Tpo"; exit 1; fi
+ai.c:6:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ backup_pile() {
+ ^
+ai.c:16:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ restore_pile() {
+ ^
+ai.c:38:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ reset_widx() {
+ ^
+ai.c:44:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ reset_colidx() {
+ ^
+ai.c:73:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ print_widx(int len) {
+ ^
+ai.c: In function ‘print_widx’:
+ai.c:76:6: warning: implicit declaration of function ‘printf’ [-Wimplicit-function-declaration]
+      printf("%d ",wordidx[i]);
+      ^
+ai.c:76:6: warning: incompatible implicit declaration of built-in function ‘printf’
+ai.c:76:6: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+ai.c:77:4: warning: incompatible implicit declaration of built-in function ‘printf’
+    printf("\n");
+    ^
+ai.c:77:4: note: include ‘<stdio.h>’ or provide a declaration of ‘printf’
+ai.c: In function ‘find_words’:
+ai.c:107:9: warning: implicit declaration of function ‘check_word’ [-Wimplicit-function-declaration]
+      vw=check_word(tword);
+         ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro -I../widget  -I/usr/include -DUSESDL -DUSEGFX -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT dfilepath.o -MD -MP -MF ".deps/dfilepath.Tpo" -c -o dfilepath.o dfilepath.c; \
+then mv -f ".deps/dfilepath.Tpo" ".deps/dfilepath.Po"; else rm -f ".deps/dfilepath.Tpo"; exit 1; fi
+dfilepath.c:15:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ abs_dirname(char *paath, char *bin) {
+ ^
+dfilepath.c: In function ‘abs_dirname’:
+dfilepath.c:40:5: warning: implicit declaration of function ‘getcwd’ [-Wimplicit-function-declaration]
+     getcwd(path,sizeof(path));
+     ^
+dfilepath.c: At top level:
+dfilepath.c:74:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ df_basename(char *paath, char *bin) {
+ ^
+dfilepath.c:91:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ find_datadir(char *ddir, char *bin) {
+ ^
+if gcc -DHAVE_CONFIG_H -I. -I. -I.. -I../sdlallegro -I../widget  -I/usr/include -DUSESDL -DUSEGFX -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT -MT gfx.o -MD -MP -MF ".deps/gfx.Tpo" -c -o gfx.o gfx.c; \
+then mv -f ".deps/gfx.Tpo" ".deps/gfx.Po"; else rm -f ".deps/gfx.Tpo"; exit 1; fi
+gfx.c: In function ‘gfx_shade_rect’:
+gfx.c:73:6: warning: implicit declaration of function ‘makecol’ [-Wimplicit-function-declaration]
+    c=makecol(128,128,128);
+      ^
+gfx.c:77:4: warning: implicit declaration of function ‘putpixel’ [-Wimplicit-function-declaration]
+    putpixel(screen,x,y,c);
+    ^
+gfx.c: In function ‘gfx_darken_rect’:
+gfx.c:95:5: warning: implicit declaration of function ‘getpixel’ [-Wimplicit-function-declaration]
+   c=getpixel(screen,x,y);
+     ^
+gfx.c:96:6: warning: implicit declaration of function ‘getr’ [-Wimplicit-function-declaration]
+   rr=getr(c)/2;
+      ^
+gfx.c:97:6: warning: implicit declaration of function ‘getg’ [-Wimplicit-function-declaration]
+   gg=getg(c)/2;
+      ^
+gfx.c:98:6: warning: implicit declaration of function ‘getb’ [-Wimplicit-function-declaration]
+   bb=getb(c)/2;
+      ^
+gfx.c: At top level:
+gfx.c:110:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_liftcol(int colno, int step) {
+ ^
+gfx.c: In function ‘gfx_liftcol’:
+gfx.c:112:7: warning: implicit declaration of function ‘num_letincol’ [-Wimplicit-function-declaration]
+    cl=num_letincol(colno);
+       ^
+gfx.c:115:4: warning: implicit declaration of function ‘scare_once’ [-Wimplicit-function-declaration]
+    scare_once();
+    ^
+gfx.c:119:7: warning: implicit declaration of function ‘blit’ [-Wimplicit-function-declaration]
+       blit(screen,screen,x+rx0,TILEPILE_Y+step+y+ry0,x+rx0,TILEPILE_Y+y+ry0,48,cpl);
+       ^
+gfx.c:127:7: warning: implicit declaration of function ‘ww_sleep’ [-Wimplicit-function-declaration]
+       ww_sleep(5);
+       ^
+gfx.c:129:4: warning: implicit declaration of function ‘unscare_once’ [-Wimplicit-function-declaration]
+    unscare_once();
+    ^
+gfx.c: At top level:
+gfx.c:132:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_dropcol(int colno, int step) {
+ ^
+gfx.c:155:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_movetile(int sx, int sy, int dx, int dy, int step) {
+ ^
+gfx.c: In function ‘gfx_movetile’:
+gfx.c:214:4: warning: implicit declaration of function ‘destroy_bitmap’ [-Wimplicit-function-declaration]
+    destroy_bitmap(tile_sp);
+    ^
+gfx.c: At top level:
+gfx.c:235:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_windecor(int x, int y, int width, int height,int base) {
+ ^
+gfx.c: In function ‘gfx_windecor’:
+gfx.c:244:4: warning: implicit declaration of function ‘rectfill’ [-Wimplicit-function-declaration]
+    rectfill(screen,x+4,y+4,x+width-4,y+14,makecol(32,32,120));
+    ^
+gfx.c:245:4: warning: implicit declaration of function ‘hline’ [-Wimplicit-function-declaration]
+    hline(screen,x,y,x+width,wh);
+    ^
+gfx.c:246:4: warning: implicit declaration of function ‘vline’ [-Wimplicit-function-declaration]
+    vline(screen,x,y,y+height,wh);
+    ^
+gfx.c: In function ‘gfx_alert’:
+gfx.c:318:7: warning: implicit declaration of function ‘wdg_bind_key’ [-Wimplicit-function-declaration]
+       wdg_bind_key(nw,k1,-1,0);
+       ^
+gfx.c:335:4: warning: implicit declaration of function ‘fnt_print_string’ [-Wimplicit-function-declaration]
+    fnt_print_string(screen,x+8+toff,y+24+tyoff,text,makecol(0,0,0),-1,-1);
+    ^
+gfx.c:337:4: warning: implicit declaration of function ‘masked_blit’ [-Wimplicit-function-declaration]
+    masked_blit(widgetbmp,screen,64,0,x+8,y+17+tyoff,32,32);
+    ^
+gfx.c:341:7: warning: implicit declaration of function ‘rest’ [-Wimplicit-function-declaration]
+       rest(0);
+       ^
+gfx.c:343:7: warning: implicit declaration of function ‘kbd_loop’ [-Wimplicit-function-declaration]
+       kbd_loop(JUST_ONCE);
+       ^
+gfx.c: At top level:
+gfx.c:361:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ wcb_hswindowcb(Widget* b,int x,int y, int m) {
+ ^
+gfx.c: In function ‘wcb_hswindowcb’:
+gfx.c:364:4: warning: implicit declaration of function ‘unfocus_input’ [-Wimplicit-function-declaration]
+    unfocus_input(b,x,y,m);
+    ^
+gfx.c: In function ‘gfx_hswindow’:
+gfx.c:384:4: warning: implicit declaration of function ‘wdgst_apply’ [-Wimplicit-function-declaration]
+    wdgst_apply(mystyle); // Replace org style
+    ^
+gfx.c:390:6: warning: implicit declaration of function ‘add_input’ [-Wimplicit-function-declaration]
+    b=add_input(x+36,y+91,30,username);
+      ^
+gfx.c:390:5: warning: assignment makes pointer from integer without a cast [-Wint-conversion]
+    b=add_input(x+36,y+91,30,username);
+     ^
+gfx.c:391:4: warning: implicit declaration of function ‘focus_input’ [-Wimplicit-function-declaration]
+    focus_input(b,1,-1,-1); // Probably should use a better way, maybe
+    ^
+gfx.c: In function ‘gfx_word_check’:
+gfx.c:448:4: warning: implicit declaration of function ‘calc_cwscore’ [-Wimplicit-function-declaration]
+    calc_cwscore();
+    ^
+gfx.c:449:4: warning: implicit declaration of function ‘display_scores’ [-Wimplicit-function-declaration]
+    display_scores();
+    ^
+gfx.c:456:16: warning: implicit declaration of function ‘check_word’ [-Wimplicit-function-declaration]
+      wordvalid=check_word(currword);
+                ^
+gfx.c: In function ‘wcb_clearhs’:
+gfx.c:477:7: warning: implicit declaration of function ‘hs_cleartable’ [-Wimplicit-function-declaration]
+       hs_cleartable(1);
+       ^
+gfx.c:479:7: warning: implicit declaration of function ‘hs_writetable’ [-Wimplicit-function-declaration]
+       hs_writetable(hsfile);
+       ^
+gfx.c: In function ‘wcb_accept_word’:
+gfx.c:488:2: warning: implicit declaration of function ‘play_sample’ [-Wimplicit-function-declaration]
+  play_sample(excl1_smp,96,0,1000,0);
+  ^
+gfx.c:509:7: warning: implicit declaration of function ‘accept_word’ [-Wimplicit-function-declaration]
+       accept_word();
+       ^
+gfx.c: In function ‘wcb_clear_word’:
+gfx.c:531:7: warning: implicit declaration of function ‘rm_letter’ [-Wimplicit-function-declaration]
+       rm_letter();
+       ^
+gfx.c:536:4: warning: implicit declaration of function ‘display_curword’ [-Wimplicit-function-declaration]
+    display_curword();
+    ^
+gfx.c:537:4: warning: implicit declaration of function ‘display_pile’ [-Wimplicit-function-declaration]
+    display_pile();
+    ^
+gfx.c:543:31: warning: comparison between pointer and integer
+    if(wdg_getlevel(W_HILIGHTED!=NULL)) {
+                               ^
+gfx.c:544:7: warning: implicit declaration of function ‘wdg_hilight’ [-Wimplicit-function-declaration]
+       wdg_hilight(1);
+       ^
+gfx.c:545:7: warning: implicit declaration of function ‘wdg_unhilight’ [-Wimplicit-function-declaration]
+       wdg_unhilight();
+       ^
+gfx.c: In function ‘wcb_click_word’:
+gfx.c:564:34: warning: comparison between pointer and integer
+       if(wdg_getlevel(W_HILIGHTED!=NULL)) {
+                                  ^
+gfx.c: In function ‘wcb_click_letter’:
+gfx.c:576:7: warning: implicit declaration of function ‘pick_letter’ [-Wimplicit-function-declaration]
+    gl=pick_letter(ltno);
+       ^
+gfx.c: At top level:
+gfx.c:617:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_display_scores() {
+ ^
+gfx.c:636:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ draw_bg() {
+ ^
+gfx.c:652:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_drawtile(BITMAP *mbmp, int x, int y, char l, int shade) {
+ ^
+gfx.c:709:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_anim_pile() {
+ ^
+gfx.c:767:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_setup_buttons() {
+ ^
+gfx.c: In function ‘gfx_setup_buttons’:
+gfx.c:776:4: warning: implicit declaration of function ‘widget_clear_level’ [-Wimplicit-function-declaration]
+    widget_clear_level();
+    ^
+gfx.c:777:4: warning: implicit declaration of function ‘wdg_install_hilight’ [-Wimplicit-function-declaration]
+    wdg_install_hilight(makecol(255,255,128),0,0,0,0,0,0);
+    ^
+gfx.c: At top level:
+gfx.c:830:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_load_samples() {
+ ^
+gfx.c: In function ‘gfx_load_bitmaps’:
+gfx.c:856:4: warning: implicit declaration of function ‘get_palette’ [-Wimplicit-function-declaration]
+    get_palette(p);
+    ^
+gfx.c: At top level:
+gfx.c:876:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_reset_flags() {
+ ^
+gfx.c:885:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_unset_widescreen() {
+ ^
+gfx.c:903:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_set_widescreen() {
+ ^
+gfx.c:924:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_findwords() {
+ ^
+gfx.c: In function ‘gfx_findwords’:
+gfx.c:935:11: warning: implicit declaration of function ‘find_words_chunk’ [-Wimplicit-function-declaration]
+      wrst=find_words_chunk(3,0); // start new search
+           ^
+gfx.c: At top level:
+gfx.c:950:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_display_hs(int tno) {
+ ^
+gfx.c: In function ‘gfx_display_hs’:
+gfx.c:955:4: warning: implicit declaration of function ‘hs_names’ [-Wimplicit-function-declaration]
+    hs_names(tno,sname,sdetail);
+    ^
+gfx.c:964:9: warning: implicit declaration of function ‘hs_numscores’ [-Wimplicit-function-declaration]
+    nscs=hs_numscores(tno);
+         ^
+gfx.c:983:7: warning: implicit declaration of function ‘hs_getfield’ [-Wimplicit-function-declaration]
+       hs_getfield(sname,tno,i,"name");
+       ^
+gfx.c: In function ‘gfx_title’:
+gfx.c:1061:10: warning: implicit declaration of function ‘time’ [-Wimplicit-function-declaration]
+       if(time(NULL)>(lt+dela-1)) {
+          ^
+gfx.c:1071:5: warning: implicit declaration of function ‘display_hs’ [-Wimplicit-function-declaration]
+     display_hs(di);
+     ^
+gfx.c: At top level:
+gfx.c:1091:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_setstyle() {
+ ^
+gfx.c: In function ‘gfx_setstyle’:
+gfx.c:1094:22: warning: implicit declaration of function ‘makeacol’ [-Wimplicit-function-declaration]
+    mystyle.window.bg=makeacol(182,170,170,200);
+                      ^
+gfx.c: At top level:
+gfx.c:1108:1: warning: return type defaults to ‘int’ [-Wimplicit-int]
+ gfx_init() {
+ ^
+gfx.c: In function ‘gfx_init’:
+gfx.c:1119:7: warning: implicit declaration of function ‘allegro_init’ [-Wimplicit-function-declaration]
+    if(allegro_init()!=0) {
+       ^
+gfx.c:1141:4: warning: implicit declaration of function ‘install_mouse’ [-Wimplicit-function-declaration]
+    install_mouse();
+    ^
+gfx.c:1142:4: warning: implicit declaration of function ‘install_keyboard’ [-Wimplicit-function-declaration]
+    install_keyboard();
+    ^
+gfx.c:1144:4: warning: implicit declaration of function ‘install_sound’ [-Wimplicit-function-declaration]
+    install_sound(DIGI_AUTODETECT, MIDI_NONE, NULL);
+    ^
+gfx.c:1147:4: warning: implicit declaration of function ‘set_color_depth’ [-Wimplicit-function-declaration]
+    set_color_depth(32);
+    ^
+gfx.c:1151:8: warning: implicit declaration of function ‘set_gfx_mode’ [-Wimplicit-function-declaration]
+      w=set_gfx_mode(GFX_AUTODETECT_WINDOWED,usex,usey,0,0);
+        ^
+gfx.c:1166:4: warning: implicit declaration of function ‘set_window_title’ [-Wimplicit-function-declaration]
+    set_window_title(gtitle);
+    ^
+gfx.c:1167:4: warning: implicit declaration of function ‘show_mouse’ [-Wimplicit-function-declaration]
+    show_mouse(screen);
+    ^
+gfx.c: In function ‘gfx_endgame’:
+gfx.c:1202:14: warning: implicit declaration of function ‘get_next_word’ [-Wimplicit-function-declaration]
+       wscore=get_next_word(nword,wc);
+              ^
+gfx.c:1209:6: warning: implicit declaration of function ‘hs_ishiscore’ [-Wimplicit-function-declaration]
+   if(hs_ishiscore(2,wscore)==1) {
+      ^
+gcc -DUSESDL -DUSEGFX -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  -L/usr/lib -o ww  main.o dict.o ai.o dfilepath.o gfx.o  ../hiscore/libhiscore.a ../sdlallegro/libsdlallegro.a ../widget/libfont.a ../widget/libwidget.a -lSDL_mixer -lSDL_image -lz  -lSDL -lpthread
+make[2]: Leaving directory '/local/src/x86_64/ww-1.2.1/src'
+make[2]: Entering directory '/local/src/x86_64/ww-1.2.1'
+make[2]: Leaving directory '/local/src/x86_64/ww-1.2.1'
+make[1]: Leaving directory '/local/src/x86_64/ww-1.2.1'

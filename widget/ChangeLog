@@ -1,0 +1,13 @@
+1.9.5 - 2007-05-04
+  * Fixed some things that could cause segfaults under certain conditions
+  * Left and Right widget searching fixed,  they were not breaking out of
+    a loop properly, causing only widgets on the bottom half of the screen
+    to be found
+  * Finished Text entry widget
+  * Fixed text entry widget to accept char instead of int, this caused
+    text to not display sometimes, creating a frustrating error to debug
+
+1.9.0 - 2007-05-03
+  * Added input.c for input widgets
+  * Fixed the just_popped issue that was causing problems for the buttons
+    (might not be completely fixed, but is better)

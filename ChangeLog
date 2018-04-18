@@ -1,0 +1,78 @@
+1.21
+  * bugfix: Don't call rest() if still checking words (or word checking 
+    could take a long time)
+
+1.20
+  * Changed -43 to -nows
+  * Fix ws display bugs
+  * Display score in wordlist instead of number
+1.19
+  * Added widescreen support for a wordlist
+  * Added --enable-widescreen to configure (to enable WS by default)
+  * added -43 flag, to enable non-widescreen on widescreen builds
+
+1.12
+  * Upgraded SDL/Allegro library to 0.6.4
+  * Added rest() to event loops to reduce CPU usage
+  * Removed comments
+  * Added Volume control to sdl/allegro play_sample (0.6.5)
+  * Lowered the volume of samples
+
+1.11
+  * Added retries to hsnet to hopefully improve stability
+  * Moved Quit Button on Zaurus so it doesn't overlap gears
+  * Changed Net table graphics to reflect 'monthy' scores
+  * Change to URL encode data, to prevent dropped characters in 
+    encryption due to escape issues.
+
+1.10
+  * Same as 1.09b
+
+1.09b
+  * Moved Gears to a new spot
+  * Added progress bars for submitting & retreving scores
+  * Moved score retreival to after graphics initialization to reduce startup
+    time
+  * Added gfx for Internet score tables
+
+1.09
+  * Added Spinning Gears
+  * Added Progress Bar for score submitting
+
+1.08
+  * Move hiscore to its own lib
+  * integrate hsnet
+  * Added -n flag to disable hsnet
+
+1.05
+  * Fixed crash in highscore
+
+1.04
+  * Added Hint
+
+1.02
+  * Fixes for Zaurus
+
+0.99
+  * Hilight last high score achieved in table
+  * Added Window icon in SDL version only
+  * Added mute option -m or M key in game
+  * Fixed widget library bugs that were causing various crashes (mostly
+    to do with not initializing some pointers to NULL
+  * Removed debug messages
+  * Fixed Allegro scare_mouse problems
+0.93
+  * Added Animation screen
+  * Zaurus optimizations
+0.90 - 2007-05-04
+  * Made Hi-score window functioning
+
+0.80 - 2007-05-03
+  * Added Hi Score Window
+  * Made decor a separate function
+
+2007-04-11 - 0.25 Added AI
+
+2007-04-10 - 0.2 Added Dictionary
+
+2007-04-09 - Initial Version 0.1

@@ -1,0 +1,5 @@
+if USESDL
+SUBDIRS=sdlallegro widget src
+else
+SUBDIRS=src
+endif

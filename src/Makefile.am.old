@@ -1,0 +1,12 @@
+wwprgdir=../
+
+wwprg_PROGRAMS=ww
+
+if USESDL
+ww_SOURCES=main.c dict.c ai.c gfx.c dfilepath.c hiscore.c
+AM_CFLAGS=-DUSESDL -DUSEGFX
+ww_LDADD=../sdlallegro/libsdlallegro.a ../widget/libfont.a ../widget/libwidget.a
+INCLUDES = -I../sdlallegro -I../widget
+else
+ww_SOURCES=main.c dict.c ai.c dfilepath.c hiscore.c
+endif
