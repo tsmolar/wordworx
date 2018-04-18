@@ -68,7 +68,7 @@ else
 fi
 
 dnl Want Allegro or SDL, but not both!  Allegro takes precidence
-AM_PATH_ALLEGRO(4.1.0)
+AM_PATH_ALLEGRO(5.1.0)
 if test "$allegro_CFLAGS"
 then
 AM_CONDITIONAL(USESDL,false)

@@ -299,12 +299,131 @@ configure:4868: result: ok
 configure:5344: checking for allegro-config
 configure:5362: found /usr/bin/allegro-config
 configure:5375: result: /usr/bin/allegro-config
-configure:5384: checking for Allegro - version >= 4.1.0
+configure:5384: checking for Allegro - version >= 5.1.0
 configure:5488: gcc -o conftest -g -O2 -I/usr/include  -I/usr/include  -L/usr/lib conftest.c -L/usr/lib64 -lalleg -lz  >&5
 configure:5488: $? = 0
 configure:5488: ./conftest
-configure:5488: $? = 0
-configure:5503: result: yes (version 4.4.2)
+configure:5488: $? = 1
+configure: program exited with status 1
+configure: failed program was:
+| /* confdefs.h */
+| #define PACKAGE_NAME "ww"
+| #define PACKAGE_TARNAME "ww"
+| #define PACKAGE_VERSION "1.9.0"
+| #define PACKAGE_STRING "ww 1.9.0"
+| #define PACKAGE_BUGREPORT "asmolar@sf.net"
+| #define PACKAGE_URL ""
+| #define PACKAGE "ww"
+| #define VERSION "1.9.0"
+| #define INSTPREFIX "/usr/local"
+| #define STDC_HEADERS 1
+| #define HAVE_SYS_TYPES_H 1
+| #define HAVE_SYS_STAT_H 1
+| #define HAVE_STDLIB_H 1
+| #define HAVE_STRING_H 1
+| #define HAVE_MEMORY_H 1
+| #define HAVE_STRINGS_H 1
+| #define HAVE_INTTYPES_H 1
+| #define HAVE_STDINT_H 1
+| #define HAVE_UNISTD_H 1
+| #define HAVE_LIBZ 1
+| /* end confdefs.h.  */
+| 
+| #include <stdlib.h>
+| #include <stdio.h>
+| #include <string.h>
+| #include <allegro.h>
+| 
+| int
+| main()
+| {
+|   int allegro_major_version, allegro_minor_version, allegro_micro_version;
+|   int major, minor, micro;
+|   char *tmp_version;
+|   int tmp_int_version;
+| 
+|   system("touch conf.allegrotest");
+| 
+|   /* Capture allegro-config output via autoconf/configure variables */
+|   /* HP/UX 9 (%@#!) writes to sscanf strings */
+|   tmp_version = (char *)strdup("5.1.0");
+|   if (sscanf(tmp_version, "%d.%d.%d", &major, &minor, &micro) != 3) {
+|      printf("%s, bad version string from allegro-config\n", "5.1.0");
+|      free(tmp_version);
+|      exit(1);
+|    }
+|    free(tmp_version);
+| 
+|    /* Capture the version information from the header files */
+|    allegro_major_version = ALLEGRO_VERSION;
+|    allegro_minor_version = ALLEGRO_SUB_VERSION;
+|    allegro_micro_version = ALLEGRO_WIP_VERSION;
+| 
+|  /* Compare allegro-config output to the Allegro headers */
+|   if ((allegro_major_version != 4) ||
+|       (allegro_minor_version != 4))
+| 
+|     {
+|       printf("*** Allegro header files (version %d.%d.%d) do not match\n",
+|          allegro_major_version, allegro_minor_version, allegro_micro_version);
+|       printf("*** allegro-config (version %d.%d.%d)\n",
+|          4, 4, 2);
+|       return 1;
+|     }
+| /* Compare the headers to the library to make sure we match */
+|   /* Less than ideal -- doesn't provide us with return value feedback,
+|    * only exits if there's a serious mismatch between header and library.
+|    */
+|    	/* TODO:
+| 	 * This doesnt work!
+| 	 */
+|     /* ALLEGRO_TEST_VERSION; */
+| 
+|     /* Test that the library is greater than our minimum version */
+|     if ((4 > major) ||
+|         ((4 == major) && (4 > minor)) ||
+|         ((4 == major) && (4 == minor) &&
+|         (2 >= micro)))
+|       {
+|         return 0;
+|        }
+|      else
+|       {
+|         printf("\n*** An old version of Allegro (%d.%d.%d) was found.\n",
+|                allegro_major_version, allegro_minor_version, allegro_micro_version);
+|         printf("*** You need a version of Allegro newer than %d.%d.%d. The latest version of\n",
+|            major, minor, micro);
+|         printf("*** Allegro is always available from http://alleg.sf.net.\n");
+|         printf("***\n");
+|         printf("*** If you have already installed a sufficiently new version, this error\n");
+|         printf("*** probably means that the wrong copy of the allegro-config shell script is\n");
+|         printf("*** being found. The easiest way to fix this is to remove the old version\n");
+|         printf("*** of Allegro, but you can also set the ALLEGRO_CONFIG environment to point to the\n");
+|         printf("*** correct copy of allegro-config. (In this case, you will have to\n");
+|         printf("*** modify your LD_LIBRARY_PATH enviroment variable, or edit /etc/ld.so.conf\n");
+|         printf("*** so that the correct libraries are found at run-time))\n");
+|     }
+|   return 1;
+| } END_OF_MAIN()
+| 
+configure:5507: result: no
+configure:5639: checking for sdl-config
+configure:5657: found /usr/bin/sdl-config
+configure:5670: result: /usr/bin/sdl-config
+configure:5679: checking for SDL - version >= 1.2.5
+configure:5766: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  -I/usr/include  -L/usr/lib conftest.c -lz  -lSDL -lpthread >&5
+configure:5766: $? = 0
+configure:5766: ./conftest
+configure:5766: $? = 0
+configure:5780: result: yes
+configure:5867: checking for IMG_Load in -lSDL_image
+configure:5892: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  -I/usr/include  -L/usr/lib conftest.c -lSDL_image  -lz  -lSDL -lpthread >&5
+configure:5892: $? = 0
+configure:5901: result: yes
+configure:5912: checking for Mix_Linked_Version in -lSDL_mixer
+configure:5937: gcc -o conftest -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  -I/usr/include  -L/usr/lib conftest.c -lSDL_mixer  -lSDL_image -lz  -lSDL -lpthread >&5
+configure:5937: $? = 0
+configure:5946: result: yes
 configure:6074: checking that generated files are newer than configure
 configure:6080: result: done
 configure:6143: creating ./config.status
@@ -324,13 +443,13 @@ generated by GNU Autoconf 2.69.  Invocation command line was
 
 on mallard
 
-config.status:888: creating Makefile
-config.status:888: creating src/Makefile
-config.status:888: creating widget/Makefile
-config.status:888: creating hiscore/Makefile
-config.status:888: creating sdlallegro/Makefile
-config.status:888: creating config.h
-config.status:1117: executing depfiles commands
+config.status:890: creating Makefile
+config.status:890: creating src/Makefile
+config.status:890: creating widget/Makefile
+config.status:890: creating hiscore/Makefile
+config.status:890: creating sdlallegro/Makefile
+config.status:890: creating config.h
+config.status:1119: executing depfiles commands
 
 ## ---------------- ##
 ## Cache variables. ##
@@ -368,12 +487,15 @@ ac_cv_header_sys_types_h=yes
 ac_cv_header_unistd_h=yes
 ac_cv_header_zlib_h=yes
 ac_cv_host=x86_64-unknown-linux-gnu
+ac_cv_lib_SDL_image_IMG_Load=yes
+ac_cv_lib_SDL_mixer_Mix_Linked_Version=yes
 ac_cv_lib_z_inflateEnd=yes
 ac_cv_lib_zdll_inflateEnd=no
 ac_cv_objext=o
 ac_cv_path_ALLEGRO_CONFIG=/usr/bin/allegro-config
 ac_cv_path_EGREP='/usr/bin/grep -E'
 ac_cv_path_GREP=/usr/bin/grep
+ac_cv_path_SDL_CONFIG=/usr/bin/sdl-config
 ac_cv_path_install='/usr/bin/install -c'
 ac_cv_path_mkdir=/usr/bin/mkdir
 ac_cv_prog_AWK=gawk
@@ -412,7 +534,7 @@ AUTOMAKE='automake-1.15'
 AWK='gawk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
-CFLAGS='-g -O2'
+CFLAGS='-g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT'
 CPP='gcc -E'
 CPPFLAGS=' -I/usr/include'
 CYGPATH_W='echo'
@@ -434,7 +556,7 @@ LDFLAGS=' -L/usr/lib'
 LIBCURL=''
 LIBCURL_CPPFLAGS=''
 LIBOBJS=''
-LIBS='-lz '
+LIBS='-lSDL_mixer -lSDL_image -lz  -lSDL -lpthread'
 LTLIBOBJS=''
 MAKEINFO='makeinfo'
 MKDIR_P='/usr/bin/mkdir -p'
@@ -448,23 +570,23 @@ PACKAGE_URL=''
 PACKAGE_VERSION='1.9.0'
 PATH_SEPARATOR=':'
 RANLIB='ranlib'
-SDL_CFLAGS=''
-SDL_CONFIG=''
-SDL_LIBS=''
+SDL_CFLAGS='-I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT'
+SDL_CONFIG='/usr/bin/sdl-config'
+SDL_LIBS='-lSDL -lpthread'
 SET_MAKE=''
 SHELL='/bin/sh'
 STRIP=''
-USEALLEGRO_FALSE='#'
-USEALLEGRO_TRUE=''
-USESDL_FALSE=''
-USESDL_TRUE='#'
+USEALLEGRO_FALSE=''
+USEALLEGRO_TRUE='#'
+USESDL_FALSE='#'
+USESDL_TRUE=''
 USEZ_FALSE='#'
 USEZ_TRUE=''
 VERSION='1.9.0'
 _libcurl_config=''
 ac_ct_CC='gcc'
-allegro_CFLAGS='-I/usr/include'
-allegro_LIBS='-L/usr/lib64 -lalleg'
+allegro_CFLAGS=''
+allegro_LIBS=''
 am__EXEEXT_FALSE=''
 am__EXEEXT_TRUE='#'
 am__fastdepCC_FALSE='#'
@@ -495,7 +617,7 @@ host_vendor='unknown'
 htmldir='${docdir}'
 includedir='${prefix}/include'
 infodir='${datarootdir}/info'
-install_sh='${SHELL} /local/src/x86_64/games/ww-1.2.1/install-sh'
+install_sh='${SHELL} /local/src/x86_64/games/wordworx/wordworx.git/trunk/install-sh'
 libdir='${exec_prefix}/lib'
 libexecdir='${exec_prefix}/libexec'
 localedir='${datarootdir}/locale'
@@ -541,6 +663,8 @@ target_vendor='unknown'
 #define HAVE_STDINT_H 1
 #define HAVE_UNISTD_H 1
 #define HAVE_LIBZ 1
+#define HAVE_LIBSDL_IMAGE 1
+#define HAVE_LIBSDL_MIXER 1
 
 configure: exit 0
 
@@ -559,5 +683,5 @@ generated by GNU Autoconf 2.69.  Invocation command line was
 
 on mallard
 
-config.status:888: creating config.h
-config.status:1069: config.h is unchanged
+config.status:890: creating config.h
+config.status:1071: config.h is unchanged

@@ -1718,7 +1718,7 @@ m4trace:configure.ac:67: -1- m4_pattern_allow([^HSNET_TRUE$])
 m4trace:configure.ac:67: -1- m4_pattern_allow([^HSNET_FALSE$])
 m4trace:configure.ac:67: -1- _AM_SUBST_NOTMAKE([HSNET_TRUE])
 m4trace:configure.ac:67: -1- _AM_SUBST_NOTMAKE([HSNET_FALSE])
-m4trace:configure.ac:71: -1- AM_PATH_ALLEGRO([4.1.0])
+m4trace:configure.ac:71: -1- AM_PATH_ALLEGRO([5.1.0])
 m4trace:configure.ac:71: -1- m4_pattern_allow([^ALLEGRO_CONFIG$])
 m4trace:configure.ac:71: -1- _m4_warn([obsolete], [The macro `AC_TRY_RUN' is obsolete.
 You should run autoupdate.], [../../lib/autoconf/general.m4:2764: AC_TRY_RUN is expanded from...

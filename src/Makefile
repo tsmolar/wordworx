@@ -91,8 +91,8 @@ build_triplet = x86_64-unknown-linux-gnu
 host_triplet = x86_64-unknown-linux-gnu
 target_triplet = x86_64-unknown-linux-gnu
 bin_PROGRAMS = ww$(EXEEXT)
-#am__append_1 = gfx.c
-am__append_2 = gfx.c
+am__append_1 = gfx.c
+#am__append_2 = gfx.c
 subdir = src
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/allegro.m4 \
@@ -111,20 +111,20 @@ am__installdirs = "$(DESTDIR)$(bindir)" "$(DESTDIR)$(dictdir)" \
 	"$(DESTDIR)$(icondir)" "$(DESTDIR)$(snddir)"
 PROGRAMS = $(bin_PROGRAMS)
 am__ww_SOURCES_DIST = main.c dict.c ai.c dfilepath.c gfx.c
-#am__objects_1 = gfx.$(OBJEXT)
-am__objects_2 = gfx.$(OBJEXT)
+am__objects_1 = gfx.$(OBJEXT)
+#am__objects_2 = gfx.$(OBJEXT)
 am_ww_OBJECTS = main.$(OBJEXT) dict.$(OBJEXT) ai.$(OBJEXT) \
 	dfilepath.$(OBJEXT) $(am__objects_1) $(am__objects_2)
 ww_OBJECTS = $(am_ww_OBJECTS)
 am__DEPENDENCIES_1 =
-##ww_DEPENDENCIES =  \
-##	../hiscore/libhiscore.a \
-##	../sdlallegro/libsdlallegro.a \
-##	../widget/libfont.a \
-##	../widget/libwidget.a
-ww_DEPENDENCIES = ../hiscore/libhiscore.a \
-	../widget/libfont.a ../widget/libwidget.a \
-	$(am__DEPENDENCIES_1)
+ww_DEPENDENCIES =  \
+	../hiscore/libhiscore.a \
+	../sdlallegro/libsdlallegro.a \
+	../widget/libfont.a \
+	../widget/libwidget.a
+#ww_DEPENDENCIES = ../hiscore/libhiscore.a \
+#	../widget/libfont.a ../widget/libwidget.a \
+#	$(am__DEPENDENCIES_1)
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
 am__v_P_0 = false
@@ -219,7 +219,7 @@ AUTOMAKE = automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2
+CFLAGS = -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
 CPP = gcc -E
 CPPFLAGS =  -I/usr/include
 CYGPATH_W = echo
@@ -240,7 +240,7 @@ LDFLAGS =  -L/usr/lib
 LIBCURL = 
 LIBCURL_CPPFLAGS = 
 LIBOBJS = 
-LIBS = -lz 
+LIBS = -lSDL_mixer -lSDL_image -lz  -lSDL -lpthread
 LTLIBOBJS = 
 MAKEINFO = makeinfo
 MKDIR_P = /usr/bin/mkdir -p
@@ -254,21 +254,21 @@ PACKAGE_URL =
 PACKAGE_VERSION = 1.9.0
 PATH_SEPARATOR = :
 RANLIB = ranlib
-SDL_CFLAGS = 
-SDL_CONFIG = 
-SDL_LIBS = 
+SDL_CFLAGS = -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
+SDL_CONFIG = /usr/bin/sdl-config
+SDL_LIBS = -lSDL -lpthread
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
 VERSION = 1.9.0
 _libcurl_config = 
-abs_builddir = /local/src/x86_64/games/ww-1.2.1/src
-abs_srcdir = /local/src/x86_64/games/ww-1.2.1/src
-abs_top_builddir = /local/src/x86_64/games/ww-1.2.1
-abs_top_srcdir = /local/src/x86_64/games/ww-1.2.1
+abs_builddir = /local/src/x86_64/games/wordworx/wordworx.git/trunk/src
+abs_srcdir = /local/src/x86_64/games/wordworx/wordworx.git/trunk/src
+abs_top_builddir = /local/src/x86_64/games/wordworx/wordworx.git/trunk
+abs_top_srcdir = /local/src/x86_64/games/wordworx/wordworx.git/trunk
 ac_ct_CC = gcc
-allegro_CFLAGS = -I/usr/include
-allegro_LIBS = -L/usr/lib64 -lalleg
+allegro_CFLAGS = 
+allegro_LIBS = 
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -294,7 +294,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /local/src/x86_64/games/ww-1.2.1/install-sh
+install_sh = ${SHELL} /local/src/x86_64/games/wordworx/wordworx.git/trunk/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -332,13 +332,13 @@ ww_SOURCES = main.c dict.c ai.c dfilepath.c $(am__append_1) \
 dictdir = $(datadir)/wordworx/zdict
 #dict_DATA = share/wordworx/dict/*
 dict_DATA = share/wordworx/zdict/*
-AM_CFLAGS = -DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)
-#AM_CFLAGS = -DUSESDL -DUSEGFX
-ww_LDADD = ../hiscore/libhiscore.a ../widget/libfont.a ../widget/libwidget.a $(allegro_LIBS)
-#ww_LDADD = ../hiscore/libhiscore.a ../sdlallegro/libsdlallegro.a ../widget/libfont.a ../widget/libwidget.a
-INCLUDES = -I../widget
-#INCLUDES = -I../sdlallegro -I../widget
-AM_CXXFLAGS = -DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)
+#AM_CFLAGS = -DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)
+AM_CFLAGS = -DUSESDL -DUSEGFX
+#ww_LDADD = ../hiscore/libhiscore.a ../widget/libfont.a ../widget/libwidget.a $(allegro_LIBS)
+ww_LDADD = ../hiscore/libhiscore.a ../sdlallegro/libsdlallegro.a ../widget/libfont.a ../widget/libwidget.a
+#INCLUDES = -I../widget
+INCLUDES = -I../sdlallegro -I../widget
+#AM_CXXFLAGS = -DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)
 all: all-am
 
 .SUFFIXES:
