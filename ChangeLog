@@ -1,3 +1,11 @@
+1.90
+  * Created new HD tileset
+  * bumped up resolution to 1920x1080
+
+1.25
+  * Final release of 1.2 series
+  * fixes to prevent core dumps
+
 1.21
   * bugfix: Don't call rest() if still checking words (or word checking 
     could take a long time)

@@ -21,7 +21,9 @@
 char fsmode='y', dqmode='n', gmute='n', hsnmode='n';
 #ifdef USEGFX
 char restr[20];
-int minx=640, miny=480, usex=640, usey=480;
+int minx=640, miny=480;
+//int usex=640, usey=480;
+int usex=1920, usey=1080;
 int rx0, ry0, wordcount, WSmode; // Where screen starts
 #endif
 extern int hs_numtbls;
@@ -257,26 +259,6 @@ int get_next_word(char *nextword,int cwc) {
       strcpy(nextword,cword);
    return(rv);
 }
-
-//int get_next_word0(char *nextword,int cwc) {
-//   char *cword;
-//   int rv;
-//   // return words and scores,  uses strtok
-//   if(cwc==0) {
-//      cword=strtok(mywords,"(");
-//   } else {
-//      cword=strtok(NULL,"(");
-//   }
-//   if(cword==NULL) {
-//      rv=0;
-//      strcpy(nextword,"0");
-//   } else {
-//      strcpy(nextword,cword);
-//      cword=strtok(NULL,")");
-//      rv=atoi(cword);
-//   }
-//   return(rv);
-//}
 
 void accept_word() {
    char ent[20];
