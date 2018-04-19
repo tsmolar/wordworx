@@ -48,11 +48,14 @@
 
 #define TILEPILE_X 8
 #define TILEPILE_Y 80
+#define TILEPILE_HD_X 40
+#define TILEPILE_HD_Y 120
 #define CURRWORD_X 8
 #define CURRWORD_Y 20
 
 // Globals
 BITMAP *bgbmp, *ywbmp;
+BITMAP *bghdbmp, *tileshdbmp;
 #ifdef GFXBITMAP
 BITMAP *tilesbmp, *widgetbmp, *banrbmp, *wibmp, *gearbmp, *wlbmp;
 int gearturn=0, gheight=354;
@@ -637,6 +640,7 @@ draw_bg() {
    #ifdef GFXBITMAP
    scare_once();
    blit(bgbmp,screen,0,0,rx0,ry0,639,479);
+   blit(bghdbmp,screen,0,0,0,0,1920,1080);
    blit(gearbmp,screen,gearturn*56,0,584+rx0,gheight+ry0,55,90);
    unscare_once();
    #else
@@ -651,9 +655,10 @@ draw_bg() {
 
 gfx_drawtile(BITMAP *mbmp, int x, int y, char l, int shade) {
 #ifdef GFXBITMAP
-   int ic=l-65,sx,sy;
+   int ic=l-65,sx,sy,hdsx,hdsy;
    sy=(ic/7)*56;
    sx=(ic%7)*48;
+   
    blit(tilesbmp,mbmp,sx,sy,x,y,48,56);
 #else
    char ls[4];
@@ -673,6 +678,31 @@ gfx_drawtile(BITMAP *mbmp, int x, int y, char l, int shade) {
      gfx_shade_rect(mbmp,x,y,x+47,y+55);
 }
 
+gfx_drawtile_hd(BITMAP *mbmp, int x, int y, char l, int shade) {
+#ifdef GFXBITMAP
+   int ic=l-65, sx, sy;
+   sx=(ic%7)*108;
+   sy=(ic/7)*126;
+   
+   blit(tileshdbmp,mbmp,sx,sy,x,y,108,126);
+#else
+   char ls[4];
+   int ils;
+   if(l != ' ') {
+      rectfill(mbmp,x,y,x+107,y+125,makecol(224,216,192));
+      fnt_display_char(mbmp,x+40,y+40,l,makecol(64,64,32));
+      ils=get_letter_score(l);
+      sprintf(ls,"%d",ils);
+      fnt_print_string(mbmp, x+52, y+60, ls, makecol(32,32,32), -1, -1);
+      rect(mbmp,x,y,x+107,y+125,makecol(16,16,16));
+      rect(mbmp,x,y,x+106,y,makecol(250,250,240));
+      rect(mbmp,x,y,x,y+124,makecol(250,250,240));
+   }
+#endif
+   if(shade==1 && l != ' ')
+     gfx_shade_rect(mbmp,x,y,x+107,y+125);
+}
+
 void gfx_display_pile() {
    int x,y,c;
    
@@ -683,10 +713,13 @@ void gfx_display_pile() {
 //   set_font_fcolor(64,64,0);
    for(y=1;y<=numrows;y++)
      for(x=1;x<=12;x++) {
-	if(y>1)
+	if(y>1) {
 	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],1);
-	else
+	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108),TILEPILE_HD_Y+((y-1)*126),ltrpile[x][y],1);
+	} else {
 	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],0);
+	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108),TILEPILE_HD_Y+((y-1)*126),ltrpile[x][y],1);
+	}
      }
 
 #ifdef USESDL
@@ -856,10 +889,14 @@ void gfx_load_bitmaps() {
    get_palette(p);
    sprintf(bmpf,"%s%cgfx%cscrabble.pcx",datadir,mysep,mysep);
    tilesbmp=load_bitmap(bmpf,p);
+   sprintf(bmpf,"%s%cgfx%cscrabblehd.pcx",datadir,mysep,mysep);
+   tileshdbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cvicons.pcx",datadir,mysep,mysep);
    widgetbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cwwbg.pcx",datadir,mysep,mysep);
    bgbmp=load_bitmap(bmpf,p);
+   sprintf(bmpf,"%s%cgfx%cwwbghd.pcx",datadir,mysep,mysep);
+   bghdbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cbanner.pcx",datadir,mysep,mysep);
    banrbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cgears.pcx",datadir,mysep,mysep);
@@ -1166,6 +1203,7 @@ gfx_init() {
    set_window_title(gtitle);
    show_mouse(screen);
    bgbmp=create_bitmap(640,480);
+   bghdbmp=create_bitmap(1920,1080);
    // Bitmaps
 #ifdef GFXBITMAP
    gfx_load_bitmaps();
