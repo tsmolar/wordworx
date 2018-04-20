@@ -11,5 +11,5 @@ char hsfile[255]; /* Hi Score file */
 char vword[14]; /* Last Valid Word Found */
 extern char fsmode, dqmode, gmute;
 #ifdef USEGFX
-extern int usex, usey, rx0, ry0, wordcount, WSmode;  // for alt screen params
+extern int usex, usey, rx0, ry0, hx0, hy0, wordcount, WSmode;  // for alt screen params
 #endif

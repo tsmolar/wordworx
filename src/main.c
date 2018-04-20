@@ -24,7 +24,7 @@ char restr[20];
 int minx=640, miny=480;
 //int usex=640, usey=480;
 int usex=1920, usey=1080;
-int rx0, ry0, wordcount, WSmode; // Where screen starts
+int rx0, ry0, hx0, hy0, wordcount, WSmode; // Where screen starts
 #endif
 extern int hs_numtbls;
 #ifdef HAVE_LIBCURL
@@ -546,6 +546,8 @@ main(int argc, char **argv) {
 	 }
 	 rx0=(usex-minx)/2;
 	 ry0=(usey-miny)/2;
+	 hx0=0;
+	 hy0=0;
       }
       if(strcmp("-W",argv[i])==0) {
 	 // set widescreen 800x480

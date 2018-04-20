@@ -48,8 +48,10 @@
 
 #define TILEPILE_X 8
 #define TILEPILE_Y 80
-#define TILEPILE_HD_X 40
-#define TILEPILE_HD_Y 120
+#define TILEPILE_HD_X 374
+#define TILEPILE_HD_Y 184
+#define CURRWORD_HD_X 374
+#define CURRWORD_HD_Y 41
 #define CURRWORD_X 8
 #define CURRWORD_Y 20
 
@@ -715,16 +717,17 @@ void gfx_display_pile() {
      for(x=1;x<=12;x++) {
 	if(y>1) {
 	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],1);
-	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108),TILEPILE_HD_Y+((y-1)*126),ltrpile[x][y],1);
+	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108)+hx0,TILEPILE_HD_Y+((y-1)*126)+hy0,ltrpile[x][y],1);
 	} else {
 	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],0);
-	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108),TILEPILE_HD_Y+((y-1)*126),ltrpile[x][y],1);
+	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108)+hx0,TILEPILE_HD_Y+((y-1)*126)+hy0,ltrpile[x][y],1);
 	}
      }
 
 #ifdef USESDL
    SA_AUTOUPDATE=1;
    SDL_UpdateRect(screen,TILEPILE_X+rx0,TILEPILE_Y+ry0,576,392);
+   SDL_UpdateRect(screen,TILEPILE_HD_X+hx0,TILEPILE_HD_Y+hy0,1296,882);
 #endif
    if(TILESTEP2==2)
      blit(bgbmp,screen,0,TILEPILE_Y-1,rx0,TILEPILE_Y+ry0-1,640,1); // fix visual bug?
@@ -736,6 +739,7 @@ void gfx_display_curword() {
    for(i=0;i<12;i++) {
       if(currword[i]==0) break;
       gfx_drawtile(screen,CURRWORD_X+(i*48)+rx0,CURRWORD_Y+ry0,currword[i],0);
+      gfx_drawtile_hd(screen,CURRWORD_HD_X+(i*108)+hx0,CURRWORD_HD_Y+hy0,currword[i],0);      
    }
 }
 
@@ -818,21 +822,26 @@ gfx_setup_buttons() {
 # ifdef ZAURUS
    mb=add_bmp_button(596,324,636,342,mybutton,&wcb_quit);
 # else
-   mb=add_bmp_button(596+rx0,452+ry0,636+rx0,470+ry0,mybutton,&wcb_quit);
+//   mb=add_bmp_button(596+rx0,452+ry0,636+rx0,470+ry0,mybutton,&wcb_quit);
+   mb=add_bmp_button(1796+hx0,452+hy0,1836+hx0,470+hy0,mybutton,&wcb_quit);
 # endif
    wdg_bind_key(mb,KEY_Q,-1,1);
    mybutton.up_x1=82;mybutton.up_y1=32;mybutton.up_x2=41;mybutton.up_y2=19;
    mybutton.dn_x1=123;mybutton.dn_y1=32;mybutton.dn_x2=41;mybutton.dn_y2=19;
-   mb=add_bmp_button(596+rx0,CURRWORD_Y+90+ry0,636+rx0,CURRWORD_Y+108+ry0,mybutton,&wcb_clear_word);
+//   mb=add_bmp_button(596+rx0,CURRWORD_Y+90+ry0,636+rx0,CURRWORD_Y+108+ry0,mybutton,&wcb_clear_word);
+   mb=add_bmp_button(1796+hx0,CURRWORD_Y+90+hy0,1836+hx0,CURRWORD_Y+108+hy0,mybutton,&wcb_clear_word);
    wdg_bind_key(mb,KEY_ESC,-1,1);
    mybutton.up_x1=164;mybutton.up_y1=32;mybutton.up_x2=41;mybutton.up_y2=19;
    mybutton.dn_x1=205;mybutton.dn_y1=32;mybutton.dn_x2=41;mybutton.dn_y2=19;
-   mb=add_bmp_button(596+rx0,CURRWORD_Y+70+ry0,636+rx0,CURRWORD_Y+88+ry0,mybutton,&wcb_accept_word);
+//   mb=add_bmp_button(596+rx0,CURRWORD_Y+70+ry0,636+rx0,CURRWORD_Y+88+ry0,mybutton,&wcb_accept_word);
+   mb=add_bmp_button(1796+hx0,CURRWORD_Y+70+hy0,1836+hx0,CURRWORD_Y+88+hy0,mybutton,&wcb_accept_word);
    wdg_bind_key(mb,KEY_SPACE,-1,1);
 //   mb=add_button(596,CURRWORD_Y+130,636,CURRWORD_Y+148," SND",&wcb_sound);
-   mb=add_invisible_button(596+rx0,CURRWORD_Y+130+ry0,636+rx0,CURRWORD_Y+148+ry0,&wcb_sound);
+//   mb=add_invisible_button(596+rx0,CURRWORD_Y+130+ry0,636+rx0,CURRWORD_Y+148+ry0,&wcb_sound);
+   mb=add_invisible_button(1796+hx0,CURRWORD_Y+130+hy0,1836+hx0,CURRWORD_Y+148+hy0,&wcb_sound);
    wdg_bind_key(mb,KEY_M,-1,0);
-   mb=add_invisible_button(596+rx0,CURRWORD_Y+150+ry0,636+rx0,CURRWORD_Y+168+ry0,&wcb_hint);
+//   mb=add_invisible_button(596+rx0,CURRWORD_Y+150+ry0,636+rx0,CURRWORD_Y+168+ry0,&wcb_hint);
+   mb=add_invisible_button(1796+hx0,CURRWORD_Y+150+hy0,1836+hx0,CURRWORD_Y+168+hy0,&wcb_hint);
    wdg_bind_key(mb,KEY_H,-1,0);
 #else
    mb=add_button(592+rx0,452+ry0,632+rx0,470+ry0,"Quit",&wcb_quit);
