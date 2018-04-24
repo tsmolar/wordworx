@@ -631,6 +631,7 @@ main(int argc, char **argv) {
 #ifdef USEGFX
 #ifndef ZAURUS
       gfx_anim_pile();
+      gfx_anim_pile_hd();
 #endif
       display_pile();
       gfx_display_scores();
