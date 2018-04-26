@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
@@ -71,7 +72,7 @@ int d_random(int min, int max) {
    return(c);
 }
 
-fill_bag() {
+void fill_bag() {
    int i;
    
    for(i=0;i<98;i++) 
@@ -281,14 +282,14 @@ void display_scores() {
 #endif
 }
 
-get_input(char *s, char *prompt) {
+void get_input(char *s, char *prompt) {
    char w;
    printf("%s",prompt);
    scanf("%2s",s);
    scanf("%c",&w);
 }
 
-get_input_str(char *s, char *prompt, int len) {
+void get_input_str(char *s, char *prompt, int len) {
    char w;
    char pict[5];
    
@@ -346,7 +347,7 @@ char game_loop() {
    return(st[0]);
 }
 
-ww_nprogress(char *text,int cmd, int num, int max) {
+void ww_nprogress(char *text,int cmd, int num, int max) {
 #ifdef USEGFX
    gfx_progressbar(text,cmd,num,max);
 #else
@@ -356,7 +357,7 @@ ww_nprogress(char *text,int cmd, int num, int max) {
 #endif
 }
 
-reg_hi_scores() {
+void reg_hi_scores() {
    char st[40],nword[15],cdait[30];
    int wscore,wc=0;
 #ifdef HAVE_LIBCURL
@@ -416,7 +417,7 @@ reg_hi_scores() {
 #endif
 }
 
-end_of_game(char lc) {
+void end_of_game(char lc) {
    int wc=0, wscore, hhs=0;
    char nword[20], hsca;
    // Do hi score here
@@ -450,7 +451,7 @@ end_of_game(char lc) {
    }
 }
 
-display_hs(int tno) {
+void display_hs(int tno) {
 #ifdef USEGFX
    gfx_display_hs(tno);
 #else
@@ -495,7 +496,7 @@ char title_screen() {
    return(rv);
 }
 
-print_version() {
+void print_version() {
    printf("WordWorx Version %s\n",VERSION);
    hs_version_info();
 #ifdef USEGFX
@@ -507,7 +508,7 @@ print_version() {
 #endif
 }
 
-main(int argc, char **argv) {
+void main(int argc, char **argv) {
 
    char le;
    int i;
@@ -630,7 +631,7 @@ main(int argc, char **argv) {
       
 #ifdef USEGFX
 #ifndef ZAURUS
-      gfx_anim_pile();
+//      gfx_anim_pile();
       gfx_anim_pile_hd();
 #endif
       display_pile();

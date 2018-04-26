@@ -31,6 +31,9 @@
 #endif
 */
 
+#define TILESTEP_HD1 2
+#define TILESTEP_HD2 4
+
 #if defined(ZAURUS)
 #define TILESTEP 4
 #define TILESTEP2 4
@@ -112,6 +115,8 @@ void gfx_darken_rect(BITMAP *bmp,int x1, int y1, int x2, int y2) {
 
 // Animations
 
+/* DEPRECATED
+
 gfx_liftcol(int colno, int step) {
    int x,y,cl,cpl;
    cl=num_letincol(colno);
@@ -135,7 +140,8 @@ gfx_liftcol(int colno, int step) {
    unscare_once();
    
 }
-
+*/
+ 
 gfx_liftcol_hd(int colno, int step) {
    int x,y,cl,cpl;
    cl=num_letincol(colno);
@@ -160,6 +166,7 @@ gfx_liftcol_hd(int colno, int step) {
    
 }
 
+/* Deprecated
 gfx_dropcol(int colno, int step) {
    int x,y,cl,cpl;
    cl=num_letincol(colno);
@@ -183,7 +190,8 @@ gfx_dropcol(int colno, int step) {
    }
    unscare_once();
 }
-
+*/
+ 
 gfx_dropcol_hd(int colno, int step) {
    int x,y,cl,cpl;
    cl=num_letincol(colno);
@@ -208,6 +216,7 @@ gfx_dropcol_hd(int colno, int step) {
    unscare_once();
 }
 
+/* -- Deprecated
 gfx_movetile(int sx, int sy, int dx, int dy, int step) {
 
    // Something wrong here, slow down?
@@ -270,6 +279,7 @@ gfx_movetile(int sx, int sy, int dx, int dy, int step) {
    destroy_bitmap(tile_sp);
    destroy_bitmap(tile_bg);
 }
+*/
 
 gfx_movetile_hd(int sx, int sy, int dx, int dy, int step) {
 
@@ -285,12 +295,13 @@ gfx_movetile_hd(int sx, int sy, int dx, int dy, int step) {
    tile_bg=create_bitmap(108,126);
    
    scare_once();
-   blit(screen,tile_sp,sx+hx0,sy+hy0,0,0,108,126);
+   rectfill(screen,sx+hx0+2,sy+hy0+2,sx+hx0+104,sy+hy0+122,makecol(224,224,224));
+   blit(screen,tile_sp,sx+hx0,sy+hy0,0,0,107,125);
 //   blit(tile_sp,screen,0,0,0,0,48,56);
 //   ww_sleep(2000);
-   blit(bghdbmp,screen,sx,sy,sx+hx0,sy+hy0,108,126);
-   blit(screen,tile_bg,sx+hx0,sy+hy0,0,0,108,126);
-   blit(tile_sp,screen,0,0,sx+hx0,sy+hy0,108,126);
+   blit(bghdbmp,screen,sx,sy,sx+hx0,sy+hy0,107,125);
+   blit(screen,tile_bg,sx+hx0,sy+hy0,0,0,107,125);
+   blit(tile_sp,screen,0,0,sx+hx0,sy+hy0,107,125);
    lx=sx;ly=sy;
    if(sy>dy) {
 //      printf("sx:%d  sy:%d  dx:%d  dy:%d\n",sx,sy,dx,dy);
@@ -301,10 +312,10 @@ gfx_movetile_hd(int sx, int sy, int dx, int dy, int step) {
 //      printf("x factor is %d  step:%d  (%d-%d)/(%d-%d)\n",xfac,step,dx,sx,sy,dy);
       for(cy=sy;cy>=dy;cy=cy-step) {
 	 cx=cfx/10;
-	 blit(tile_bg,screen,0,0,lx+hx0,ly+hy0,108,126);
-	 blit(screen,tile_bg,cx+hx0,cy+hy0,0,0,108,126);
+	 blit(tile_bg,screen,0,0,lx+hx0,ly+hy0,107,125);
+	 blit(screen,tile_bg,cx+hx0,cy+hy0,0,0,107,125);
 	 //	  printf("IAM ER %d,%d\n",sx,cy);
-	 blit(tile_sp,screen,0,0,cx+hx0,cy+hy0,108,126);
+	 blit(tile_sp,screen,0,0,cx+hx0,cy+hy0,107,125);
 //	 rect(screen,cx,cy,cx+48,cy+56,makecol(0,0,0));
 //	 printf("at %d,%d   %d=>%d  step:%d\n",cx,cy,sy,dy,step);
 //   SDL_Flip(screen);
@@ -319,10 +330,10 @@ gfx_movetile_hd(int sx, int sy, int dx, int dy, int step) {
 //      printf("x factor is %d   (%d-%d)/(%d-%d)\n",xfac,dx,sx,sy,dy);
       for(cy=sy;cy<=dy;cy=cy+step) {
 	 cx=cfx/10;
-	 blit(tile_bg,screen,0,0,lx+hx0,ly+hy0,108,126);
-	 blit(screen,tile_bg,cx+hx0,cy+hy0,0,0,108,126);
+	 blit(tile_bg,screen,0,0,lx+hx0,ly+hy0,107,125);
+	 blit(screen,tile_bg,cx+hx0,cy+hy0,0,0,107,125);
 	 //	  printf("IAM ER %d,%d\n",sx,cy);
-	 blit(tile_sp,screen,0,0,cx+hx0,cy+hy0,108,126);
+	 blit(tile_sp,screen,0,0,cx+hx0,cy+hy0,107,125);
 	 ly=cy; lx=cx;
 	 cfx=cfx+xfac;
 	 ww_sleep(5);
@@ -636,7 +647,8 @@ int wcb_accept_word(Widget *w, int x, int y, int m) {
       }
       accept_word();
       scare_once();
-      blit(bgbmp,screen,CURRWORD_X,CURRWORD_Y,CURRWORD_X+rx0,CURRWORD_Y+ry0,576,56);
+//      blit(bgbmp,screen,CURRWORD_X,CURRWORD_Y,CURRWORD_X+rx0,CURRWORD_Y+ry0,576,56);
+      blit(bghdbmp,screen,CURRWORD_HD_X,CURRWORD_HD_Y,CURRWORD_HD_X+hx0,CURRWORD_HD_Y+hy0,1296,126);
       display_scores();
       gfx_validicon(3);
       unscare_once();
@@ -658,10 +670,10 @@ int wcb_clear_word(Widget *w, int x, int y, int m) {
    while (cwidx >0) {
       rm_letter();
       colno=cwreturn[cwidx];
-      gfx_dropcol_hd(colno,TILESTEP2);
-      gfx_dropcol(colno,TILESTEP2);
-      gfx_movetile_hd(CURRWORD_HD_X+(cwidx*108),CURRWORD_HD_Y,TILEPILE_HD_X+((colno-1)*108),TILEPILE_HD_Y,TILESTEP2);
-      gfx_movetile(CURRWORD_X+(cwidx*48),CURRWORD_Y,TILEPILE_X+((colno-1)*48),TILEPILE_Y,TILESTEP2);
+      gfx_dropcol_hd(colno,TILESTEP_HD2);
+//      gfx_dropcol(colno,TILESTEP2);
+      gfx_movetile_hd(CURRWORD_HD_X+(cwidx*108),CURRWORD_HD_Y,TILEPILE_HD_X+((colno-1)*108),TILEPILE_HD_Y,TILESTEP_HD2);
+//      gfx_movetile(CURRWORD_X+(cwidx*48),CURRWORD_Y,TILEPILE_X+((colno-1)*48),TILEPILE_Y,TILESTEP2);
    } 
    display_curword();
    display_pile();
@@ -686,9 +698,9 @@ int wcb_click_word(Widget *w, int x, int y, int m) {
 	play_sample(drop_smp,96,0,1000,0);
 #endif
       gfx_dropcol_hd(colno,1);
-      gfx_dropcol(colno,1);
-      gfx_movetile_hd(CURRWORD_HD_X+(cwidx*108),CURRWORD_HD_Y,TILEPILE_HD_X+((colno-1)*108),TILEPILE_HD_Y,TILESTEP);
-      gfx_movetile(CURRWORD_X+(cwidx*48),CURRWORD_Y,TILEPILE_X+((colno-1)*48),TILEPILE_Y,TILESTEP);
+//      gfx_dropcol(colno,1);
+      gfx_movetile_hd(CURRWORD_HD_X+(cwidx*108),CURRWORD_HD_Y,TILEPILE_HD_X+((colno-1)*108),TILEPILE_HD_Y,TILESTEP_HD1);
+//      gfx_movetile(CURRWORD_X+(cwidx*48),CURRWORD_Y,TILEPILE_X+((colno-1)*48),TILEPILE_Y,TILESTEP);
       display_curword();
       display_pile();
       gfx_word_check();
@@ -703,7 +715,7 @@ int wcb_click_word(Widget *w, int x, int y, int m) {
 }
 
 int wcb_click_letter(Widget *w, int x, int y, int m) {
-   int ltno=((x-(TILEPILE_X+rx0))/48)+1,gl;
+   int ltno=((x-(TILEPILE_HD_X+hx0))/108)+1,gl;
 //   printf("clicked letter:  %d\n",ltno);
    gl=pick_letter(ltno);
    //   gfx_movetile(CURRWORD_X+(cwidx*12),CURRWORD_Y,TILEPILE_X+((colno-1)*48),TILEPILE_Y);
@@ -712,10 +724,10 @@ int wcb_click_letter(Widget *w, int x, int y, int m) {
       if(gmute=='n')
 	play_sample(bubble_smp,96,0,1000,0);
 #endif
-      gfx_movetile(TILEPILE_X+((ltno-1)*48),TILEPILE_Y,CURRWORD_X+((cwidx-1)*48),CURRWORD_Y,TILESTEP);
-      gfx_movetile_hd(TILEPILE_HD_X+((ltno-1)*108),TILEPILE_HD_Y,CURRWORD_HD_X+((cwidx-1)*108),CURRWORD_HD_Y,TILESTEP);
+//      gfx_movetile(TILEPILE_X+((ltno-1)*48),TILEPILE_Y,CURRWORD_X+((cwidx-1)*48),CURRWORD_Y,TILESTEP);
+      gfx_movetile_hd(TILEPILE_HD_X+((ltno-1)*108),TILEPILE_HD_Y,CURRWORD_HD_X+((cwidx-1)*108),CURRWORD_HD_Y,TILESTEP_HD1);
       display_curword();
-      gfx_liftcol(ltno,TILESTEP);
+//      gfx_liftcol(ltno,TILESTEP);
       gfx_liftcol_hd(ltno,TILESTEP);
 //      gfx_liftcol(ltno,1);
       display_pile();
@@ -753,7 +765,8 @@ gfx_display_scores() {
 #ifdef USESDL
    SA_AUTOUPDATE=1;
 #endif
-   blit(bgbmp,screen,0,0,0+rx0,0+ry0,639,19);
+//   blit(bgbmp,screen,0,0,0+rx0,0+ry0,639,19);
+   blit(bghdbmp,screen,0,0,0+hx0,0+hy0,1919,39);
 #ifdef GFXBITMAP
    sprintf(cwscore_s,"              %3d",currscore);
    sprintf(totscore_s,"             %4d",totscore);
@@ -770,8 +783,9 @@ gfx_display_scores() {
 draw_bg() {
    #ifdef GFXBITMAP
    scare_once();
-   blit(bgbmp,screen,0,0,rx0,ry0,639,479);
-   blit(bghdbmp,screen,0,0,0,0,1920,1080);
+//   blit(bgbmp,screen,0,0,rx0,ry0,639,479);
+//   rectfill(screen,0,0,1919,1079,makecol(0,0,0));
+   blit(bghdbmp,screen,0,0,0+hx0,0+hy0,1919+hx0,1079+hy0);
 //   blit(gearbmp,screen,gearturn*56,0,584+rx0,gheight+ry0,55,90);
    blit(gearbmp,screen,gearturn*56,0,1784+hx0,gheight+hy0,55,90);
    unscare_once();
@@ -846,10 +860,10 @@ void gfx_display_pile() {
    for(y=1;y<=numrows;y++)
      for(x=1;x<=12;x++) {
 	if(y>1) {
-	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],1);
+//	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],1);
 	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108)+hx0,TILEPILE_HD_Y+((y-1)*126)+hy0,ltrpile[x][y],1);
 	} else {
-	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],0);
+//	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],0);
 	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108)+hx0,TILEPILE_HD_Y+((y-1)*126)+hy0,ltrpile[x][y],0);
 	}
      }
@@ -868,7 +882,7 @@ void gfx_display_curword() {
    int i;
    for(i=0;i<12;i++) {
       if(currword[i]==0) break;
-      gfx_drawtile(screen,CURRWORD_X+(i*48)+rx0,CURRWORD_Y+ry0,currword[i],0);
+//      gfx_drawtile(screen,CURRWORD_X+(i*48)+rx0,CURRWORD_Y+ry0,currword[i],0);
       gfx_drawtile_hd(screen,CURRWORD_HD_X+(i*108)+hx0,CURRWORD_HD_Y+hy0,currword[i],0);      
    }
 }
@@ -943,20 +957,21 @@ gfx_anim_pile_hd() {
 
 #ifndef USESDL
    // One Chunk
-  for(y=-371;y<=TILEPILE_HD_Y;y=y+TILESTEP) {
+  for(y=-861;y<=TILEPILE_HD_Y;y=y+TILESTEP_HD1) {
       if(y>20) {
 	 blit(bmp,screen,0,0,TILEPILE_HD_X+hx0,y+hy0,1296,882);
 	 blit(bghdbmp,screen,TILEPILE_HD_X,y-2,TILEPILE_HD_X+hx0,y+hy0-2,1296,2);
       }
       else {
-	 x=y+372;
+//	 x=y+372;
+	 x=y+862;
 	 blit(bmp,screen,0,392-x,TILEPILE_HD_X+hx0,CURRWORD_HD_Y+hy0,1296,x);
       }
    }
 #else
    // 7 Chunks
    for(x=6;x>=0;x--) {
-      for(y=-371;y<=TILEPILE_HD_Y;y=y+TILESTEP2) {
+      for(y=-861;y<=TILEPILE_HD_Y;y=y+TILESTEP_HD2) {
 	 if(y>(20-(x*126))) {
 	    blit(screen,bmp2,TILEPILE_HD_X+hx0,y+(x*126)+hy0,0,0,1296,126);
 	    blit(bmp,screen,0,(x*126),TILEPILE_HD_X+hx0,y+(x*126)+hy0,1296,126);
@@ -965,7 +980,7 @@ gfx_anim_pile_hd() {
 	    if(y<TILEPILE_HD_Y-1) {
 	       SA_AUTOUPDATE=0;
 	       blit(bmp2,screen,0,0,TILEPILE_HD_X+hx0,y+(x*126)+hy0,1296,126);
-	       SDL_UpdateRect(screen,TILEPILE_HD_X+hx0,y+(x*126)+hy0,1296,TILESTEP2);
+	       SDL_UpdateRect(screen,TILEPILE_HD_X+hx0,y+(x*126)+hy0,1296,TILESTEP_HD2);
 //	       SDL_UpdateRect(screen,TILEPILE_X+rx0,y+(x*56)+ry0,576,1);
 	       SA_AUTOUPDATE=1;
 	    }
@@ -981,7 +996,7 @@ gfx_anim_pile_hd() {
 	    }
 	 }
       }
-      if(TILESTEP2==4)
+      if(TILESTEP_HD2==4)
 	blit(bmp,screen,0,(x*126),TILEPILE_HD_X+hx0,TILEPILE_HD_Y+(x*126)+hy0,1296,126);
    }
 #endif
@@ -998,6 +1013,8 @@ gfx_setup_buttons() {
    
 //   widget_init();
 //   printf("about to fail\n");
+   
+   draw_bg();
    widget_clear_level();
    wdg_install_hilight(makecol(255,255,128),0,0,0,0,0,0);
 //printf("failed\n");
@@ -1047,14 +1064,17 @@ gfx_setup_buttons() {
 //   mb=add_invisible_button(CURRWORD_X+590+rx0,CURRWORD_Y+12+ry0,CURRWORD_X+621+rx0,CURRWORD_Y+43+ry0,&wcb_accept_word);
    mb=add_invisible_button(CURRWORD_X+1790+hx0,CURRWORD_Y+12+hy0,CURRWORD_X+1821+hx0,CURRWORD_Y+43+hy0,&wcb_accept_word);
 //   wdg_bind_key(mb,-1,-1,1);
-   mb=add_invisible_button(CURRWORD_X+rx0,CURRWORD_Y+ry0,CURRWORD_X+575+rx0,CURRWORD_Y+55+ry0,&wcb_click_word);
+//   mb=add_invisible_button(CURRWORD_X+rx0,CURRWORD_Y+ry0,CURRWORD_X+575+rx0,CURRWORD_Y+55+ry0,&wcb_click_word);
+   mb=add_invisible_button(CURRWORD_HD_X+hx0,CURRWORD_HD_Y+hy0,CURRWORD_HD_X+1295+hx0,CURRWORD_HD_Y+125+hy0,&wcb_click_word);
    wdg_bind_key(mb,KEY_BACKSPACE,-1,1);
    for(x=1;x<=12;x++) {
-      mb=add_invisible_button(TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+ry0,TILEPILE_X+((x-1)*48)+47+rx0,TILEPILE_Y+55+ry0,&wcb_click_letter);
+//      mb=add_invisible_button(TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+ry0,TILEPILE_X+((x-1)*48)+47+rx0,TILEPILE_Y+55+ry0,&wcb_click_letter);
+      mb=add_invisible_button(TILEPILE_HD_X+((x-1)*108)+hx0,TILEPILE_HD_Y+hy0,TILEPILE_HD_X+((x-1)*108)+107+hx0,TILEPILE_HD_Y+125+hy0,&wcb_click_letter);
       wdg_bind_key(mb,-1,-1,1);
    }   
    // Might not be the best place for this
-   blit(bgbmp,screen,CURRWORD_X,CURRWORD_Y,CURRWORD_X+rx0,CURRWORD_Y+ry0,576,56);
+//   blit(bgbmp,screen,CURRWORD_X,CURRWORD_Y,CURRWORD_X+rx0,CURRWORD_Y+ry0,576,56);
+   blit(bghdbmp,screen,CURRWORD_HD_X,CURRWORD_HD_Y,CURRWORD_HD_X+hx0,CURRWORD_HD_Y+hy0,1296,126);
 }
 
 #ifdef USESOUND
