@@ -76,6 +76,11 @@ sa_getmodes() {
    }
 }
 
+// backport from next version
+int s2a_flip(SDL_Surface* mysurface) {
+   SDL_Flip(mysurface);
+}
+
 void sa_surface_info(SDL_Surface *asurf, char *name) {
    SDL_PixelFormat *fmt;
    fmt=asurf->format;

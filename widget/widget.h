@@ -45,6 +45,9 @@ typedef struct style_t {
 
 typedef struct widget{
 	int x1,y1,x2,y2;
+        int active,refresh;
+        int indx;   /* numeric index */
+        char id[12];  /* id of widget type 4 chars with padding */ 
         int ksym;  /* keysym of bound keypress or -1 */
 	char kascii; /* ascii code of bound keypress or -1 */
 	char draggable; /* if set to TRUE, the 'press' function will be
@@ -57,7 +60,7 @@ typedef struct widget{
 	int (*depress)(struct widget*,int,int);
 	void (*destroy)(struct widget*);
 	
-	struct widget *prev,*next; /* for a double-linked list */
+	struct widget *parent,*prev,*next; /* for a double-linked list */
 
 	char* text; /* maybe this should be part of 'extra' */
 	int (*handler)(struct widget*,int,int,int);
@@ -82,6 +85,7 @@ Widget* new_widget();
 /* Save and restore the background under a widget */
 void restore_under(Widget *w);
 void save_under(Widget *w);
+void wdg_destroy(Widget *w);
 
 /* Interogating level[] (which should be global btw) */
 Widget* wdg_getlevel(int);
@@ -89,5 +93,7 @@ void wdg_setlevel(int,Widget *w);
 
 /* Globals */
 extern int just_popped;
-extern style_t activestyle;   
+extern style_t activestyle;
+extern int wflag_clickprocessed;
+extern BITMAP *drawbmp;
 #endif /* widget.h */

@@ -14,7 +14,7 @@
 #include <sys/types.h>
 #include "widget.h"
 
-#define WIDGETVER "2.0.0"
+#define WIDGETVER "2.1.9"
 
 #define in_box(x1,y1,x2,y2,mx,my) ((mx)>(x1) && (mx)<(x2) && (my)>(y1) && (my)<(y2))
 
@@ -40,6 +40,9 @@ int mx,my,mk;
 int is_scared=0;
 int curr_level=-1;
 int just_popped=0;
+int wflag_clickprocessed=0;
+
+BITMAP* drawbmp;
 
 void widget_version_info() {
    printf("Widget library version %s\n",WIDGETVER);
@@ -88,7 +91,7 @@ void wdg_setlevel(int v,Widget* w) {
 //   printf("TAB NEXT WIDGET!!!!\n");
 //}
 
-scare_once() {
+void scare_once() {
    // For allegro, scares that come from different parts of the program 
    // Can make unscaring difficult, so we will only scare the mouse once
    if(is_scared==0) {
@@ -97,14 +100,14 @@ scare_once() {
    }
 }
 
-unscare_once() {
+void unscare_once() {
    if(is_scared) {
       unscare_mouse();
       is_scared=0;
    }
 }
 
-rem_pointer(int x, int y) {
+void rem_pointer(int x, int y) {
 //   printf("BEE: rem scare mouse:  BWAAAA!\n");
    scare_once();
 //   printf("wu1\n");
@@ -112,29 +115,71 @@ rem_pointer(int x, int y) {
 //   printf("wu2\n");
 }
 
-draw_pointer(int x, int y) {
+void draw_pointer(int x, int y) {
 //   printf("BEE: restore mouse:\n");
    unscare_once();
    wdg_hilight(0);
 }
 
+void widget_setbmp(BITMAP *newbmp) {
+   drawbmp=newbmp;
+}
 
 void widget_init() /* Initializes the widget library */
 {
-//	printf("Initializing Widget library v. %s...\n",WIDGETVER);
-	wdgst_default();
-//   printf("about to push\n");
-	push_level(0,0,0,0);
-//   printf("curr level: %d\n",curr_level);
+   printf("Initializing Widget library v. %s...\n",WIDGETVER);
+   wdgst_default();
+   drawbmp=screen;
+   // only init once
+   if(curr_level<0) {
+      printf("about to push, curr level=%d\n",curr_level);
+      push_level(0,0,0,0);
+      printf("widget_init(): curr level: %d\n",curr_level);
+   }
 }
 
 int widget_clear_level() {
-//   printf("about to pop \n");
+   printf("widget_clear_level: about to pop \n");
    pop_level();
-//   printf("pop ok\n");
+   printf("pop ok\n");
    push_level(0,0,0,0);
-//   printf("push ok\n");
+   printf("push ok\n");
 }
+
+void wdg_adjust(int id, int ax, int ay) {
+/*  This is for when the screen gets resized, and buttons need to
+ * be moved.   Can accept an ID for special processing */
+   
+      Widget *w1,*w2;
+   
+      w1=level[curr_level].first; /* Get first widget in this level */
+      while(w1) {
+	 /* Delete all widgets in this level */
+	 w2=w1;
+	 printf("WMOV: type: %s\n",w2->id);
+	 if(strcmp(w2->id,"BUTL")==0 && (id==-1 || w2->id==id)) {
+	    w2->x1+=ax;
+	    w2->x2+=ax;
+	    w2->y1+=ay;
+	    w2->y2+=ay;
+	 }
+	 w1=w2->next;
+      }
+}
+
+int wdg_refresh() {
+   // If widgets need to be redrawn, call this!
+   Widget *w1,*w2;
+   
+   w1=level[curr_level].first; /* Get first widget in this level */
+   while(w1) {		/* Delete all widgets in this level */
+      w2=w1;		
+      printf("WREF: type: %s\n",w2->id);
+      if(strcmp(w2->id,"BUTL")==0) { save_under(w2); up_button(w2,-1,-1); }
+      w1=w2->next;
+   }
+}
+
 
 int push_level(int x1,int y1,int x2,int y2) /* Makes current level temporary inactive and creates a
 		    new one */
@@ -145,7 +190,7 @@ int push_level(int x1,int y1,int x2,int y2) /* Makes current level temporary ina
 #ifdef GFXLIB_SDL
    SDL_Surface *bmp;
 #endif
-//   printf("pl 1\n");
+//   printf("pushlevel: curr_level:%d\n",curr_level);
    rem_pointer(mx,my);
 //   printf("pl 2 (removed pointer)\n");
 	if (curr_level > -1){
@@ -172,11 +217,12 @@ int push_level(int x1,int y1,int x2,int y2) /* Makes current level temporary ina
 	level[curr_level].pressed=NULL;
         level[curr_level].focus=NULL;
         level[curr_level].hilighted=NULL; // Safer?
+   
         just_popped=0;
 //   printf("pl 5\n");
 /* Will this screw up SVGA?   added for SDL */
    draw_pointer(mx,my);
-//   printf("pl 6 (displayed pointer)\n");
+//   printf("pl 6 (displayed pointer) cl:%d\n",curr_level);
    return curr_level;
 }
 
@@ -207,7 +253,7 @@ int pop_level() /* Deletes all widgets in the current level (from memory)
 	while(w1) {		/* Delete all widgets in this level */
 		w2=w1;		
 		w1=w2->next;
-//	   printf("xxx:\n");
+//	   printf("xxx: %d\n",w2->destroy);
 		if(w2->destroy) (*(w2->destroy))(w2);
 //	   printf("free:\n");
 		free(w2);
@@ -242,27 +288,115 @@ int pop_level() /* Deletes all widgets in the current level (from memory)
 	return (curr_level);
 }
 
-void restore_under(Widget *w)
-{
+void wdg_destroy(Widget *w) {
+   printf("wdgd1\n");
+   // could this be a generic destory function that overrides others?
+   if(w->extra!=NULL && strcmp(w->id,"WINF"))
+     destroy_bitmap(w->extra);
+   printf("wdgd2\n");
+   if(w->under!=NULL)
+     free(w->under); // do we need to restore?
+   printf("wdgd3\n");
+   if(w->text!=NULL) free(w->text);
+   printf("wdgd4\n");
+   free(w);
+}
+
+
+void wdg_scanlist() {
+   // for debugging widget linked list
+   Widget *w1;
+   
+   printf("LIST SCAN\n------------\n");
+   w1=level[curr_level].first;
+   while(w1) {
+      printf("widget indx:%d  id:%s\n",w1->indx,w1->id);
+      w1=w1->next;
+   }
+   printf("------------\n");
+}
+
+void wdg_tree_close(Widget *win) {
+   Widget *w1,*w2;
+   
+   wdg_scanlist();
+   w1=level[curr_level].first;
+   // what about the children?
+   printf("tree close\n");
+   while(w1) {
+      w2=w1;
+      w1=w1->next;
+      if(w2->parent==win) {
+	 printf("recurse on: index:%d,  id:%s\n",w2->indx,w2->id);
+	 // recurse here
+	 w1=level[curr_level].first; // get out of the way!
+	 wdg_window_close(w2);
+      }
+   }
+   printf("parent: idx:%d  id%s\n",win->indx,win->id);
+   if(level[curr_level].pressed==win) level[curr_level].pressed=NULL;
+   if(level[curr_level].focus==win) level[curr_level].focus=NULL;
+   if(level[curr_level].hilighted==win) level[curr_level].hilighted=NULL;
+
+   if(win->prev!=NULL) win->prev->next=win->next; // remove from list
+   if(win->next!=NULL) win->next->prev=win->prev; // remove from list
+   if(level[curr_level].last==win) { 
+      printf("LAST :%d\n",win->indx);
+      level[curr_level].last=win->prev;
+      printf("NEW LAST is %d\n",win->prev->indx);
+      win->prev->next=NULL;
+   }
+   if(win->destroy) {
+      printf("calling destroy callback\n");
+      (*(win->destroy))(win);
+   } else  {
+     printf("destroy\n");
+     wdg_destroy(win);
+   }
+   
+
+//   free(w2);
+   wdg_scanlist();
+} // wdg_tree_close 
+
+BITMAP* getwdgbmp(Widget *b) {
+   BITMAP* useb;
+   
+   useb=screen;
+   if(b->parent!=NULL) {
+      if(b->parent->extra!=NULL) {
+	 useb=b->parent->extra;
+	 printf("got bmp from indx:%d  %s\n", b->parent->indx,b->parent->id);
+      }
+   }
+   return useb;
+}
+
+void restore_under(Widget *w) {
 #ifdef GFXLIB_ALLEGRO
    BITMAP *bmp;
+   BITMAP *useb;
 #endif
 #ifdef GFXLIB_SDL
    SDL_Surface *bmp;
+   SDL_Surface *useb;
 #endif
+   useb=getwdgbmp(w);
    bmp=w->under;
    if(bmp)
-     blit(bmp,screen,0,0,w->x1,w->y1,(w->x2-w->x1)+1,(w->y2-w->y1)+1);
+     blit(bmp,useb,0,0,w->x1,w->y1,(w->x2-w->x1)+1,(w->y2-w->y1)+1);
 //        printf("restore_under()\n");
 }
 
 void save_under(Widget *w) {
 #ifdef GFXLIB_ALLEGRO
-        BITMAP *bmp;
+   BITMAP *bmp;
+   BITMAP *useb;
 //        printf("save_under()\n");
-	bmp=create_bitmap((w->x2-w->x1)+1,(w->y2-w->y1)+1);
-        blit(screen,bmp,w->x1,w->y1,0,0,(w->x2-w->x1)+1,(w->y2-w->y1)+1);
-	w->under=bmp;
+   useb=getwdgbmp(w);
+   bmp=create_bitmap((w->x2-w->x1)+1,(w->y2-w->y1)+1);
+   blit(useb,bmp,w->x1,w->y1,0,0,(w->x2-w->x1)+1,(w->y2-w->y1)+1);
+   w->under=bmp;
 #endif
 #ifdef GFXLIB_SDL
    // This is wrong!
@@ -283,9 +417,11 @@ Widget* new_widget() /* Creates a new widget in the current level */
 	if(level[curr_level].first==NULL) {
 		level[curr_level].first=w;
 		w->prev=NULL;
+	        w->indx=1;
 	} else {
 		level[curr_level].last->next=w;
 		w->prev=level[curr_level].last;
+	        w->indx=level[curr_level].last->indx+1;
 	}
         w->ksym=-1;
         w->kascii=-1;
@@ -293,6 +429,9 @@ Widget* new_widget() /* Creates a new widget in the current level */
 	w->under=NULL;
 	w->next=NULL;
 	w->destroy=NULL;
+        w->parent=NULL;
+        w->text=NULL;
+        strcpy(w->id,"UNKN");
 	level[curr_level].last=w;
 	return w;
 }
@@ -302,19 +441,20 @@ void kbd_loop(int halt_on_pop) {
    int mw, key,ksym,fx,fy;
    char kasc;
    
+//   printf("in kbd_loop\n");
 //   level[curr_level].pressed=NULL;
    while(!(halt_on_pop && just_popped)) {
-      /*      printf("in event loop:  %d\n", mk);  */
-      //      printf("mid event loop:  %d\n", mk); 
+//            printf("in event loop:  %d\n", mk);  
+//            printf("mid event loop:  %d\n", mk); 
       // 
       if(keypressed()) {   // Allegro
 	 key=readkey();
 	 kasc=key & 0xff;
 	 ksym=key>>8;
-//	 printf("got key press: ksym: %d  asc: %c  level:%d\n",ksym,kasc,curr_level);
+	 // printf("got key press: ksym: %d  asc: %c  level:%d\n",ksym,kasc,curr_level);
 	 w=level[curr_level].first;
 	 while(w) {
-//	    printf("1: ksym:%d kasc:%d\n",ksym,kasc);
+	    // printf("1: ksym:%d kasc:%d\n",ksym,kasc);
 	    // It might be better to have a callback to handle input data
 	    // to support different input types
 //	    printf("Is there focus? %d\n",level[curr_level].focus);
@@ -344,7 +484,7 @@ void kbd_loop(int halt_on_pop) {
 	    w=w->next;
 	 }
       
- //     level[curr_level].pressed=NULL;
+//      level[curr_level].pressed=NULL;
    }
    
    
@@ -399,35 +539,67 @@ void event_loop(int halt_on_pop)
       if(mk) {
 	 w=level[curr_level].first;
 	 while(w) {
-	    if(in_box(w->x1,w->y1,w->x2,w->y2,mx,my) 
+	   // if(in_box(w->x1,w->y1,w->x2,w->y2,mx,my)) 
+	   //   printf("DEBUG: widget id:%s   indx:%d\n",w->id,w->indx);
+	    // This will help prevent clicks on windows from clicking through
+      
+	    if(w->parent==NULL && in_box(w->x1,w->y1,w->x2,w->y2,mx,my)) 
+	      {
+	      wflag_clickprocessed=1;
+//		 printf("ooh, I got this one!\n");
+	      }
+	    
+	      
+	    if(w->parent==NULL && in_box(w->x1,w->y1,w->x2,w->y2,mx,my) 
 	       && (level[curr_level].pressed==NULL
 		   || (level[curr_level].pressed==w && w->draggable))
 	       && w->press)
 	    {
-//	       rem_pointer(mx,my);
+	       printf("went hwer1\n");
+//	       wflag_clickprocessed=1;
 	       (*(w->press))(w,mx,my,mk);
-//	       draw_pointer(mx,my);
-        //       unscare_mouse();
 	       level[curr_level].pressed=w;
+	       break;
+	    }
+	    // for windows with parent, since coordinates are relative and
+	    // can be withdrawn
+	    if(w->parent!=NULL && in_box(w->x1+w->parent->x1,w->y1+w->parent->y1,w->x2+w->parent->x1,w->y2+w->parent->y1,mx,my) 
+	       && (level[curr_level].pressed==NULL
+		   || (level[curr_level].pressed==w && w->draggable))
+	       && w->press && w->parent->active)
+	    {
+	       printf("went here2  %d=%d+%d\n",w->y1+w->parent->y1,w->y1,w->parent->y1);
+	       wflag_clickprocessed=1;
+	       printf("myclick:  %d\n",my);
+	       (*(w->press))(w,mx-w->parent->x1,my-w->parent->y1,mk);
+	       level[curr_level].pressed=w;
+	       w->parent->refresh=1;
+	       wdg_window_refresh(w->parent);
 	       break;
 	    }
 	    w=w->next;
 	 }
       } else {
 //	 printf("unclick button\n");
+	 wflag_clickprocessed=0;
 	 w=level[curr_level].pressed;
 	 if(w != NULL) {
 	    if(w->depress) {
 //	       rem_pointer(mx,my);
 //	       scare_mouse();
-	       (*(w->depress))(w,mx,my);
+	       if(w->parent!=NULL) { 
+		  wdg_window_refresh(w->parent);
+		  (*(w->depress))(w,mx-w->parent->x1,my-w->parent->y1);
+	       } else
+		  (*(w->depress))(w,mx,my);
+		    
 //	       draw_pointer(mx,my);
 	    }
 
 	 }
 	 level[curr_level].pressed=NULL;
       }
-    //  printf("out event loop:  %d\n", mk);  
+      //  printf("out event loop:  %d\n", mk);  
       if(halt_on_pop == JUST_ONCE ) 
 	just_popped=1;
    }  

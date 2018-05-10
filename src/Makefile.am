@@ -20,8 +20,8 @@ endif
 
 if USESDL
 ww_SOURCES+=gfx.c
-AM_CFLAGS=-DUSESDL -DUSEGFX
-ww_LDADD=../hiscore/libhiscore.a ../sdlallegro/libsdlallegro.a ../widget/libfont.a ../widget/libwidget.a
+AM_CFLAGS=-DUSESDL -DUSEGFX -g
+ww_LDADD=../widget/libwidget.a ../widget/libfont.a ../sdlallegro/libsdlallegro.a ../hiscore/libhiscore.a 
 INCLUDES = -I../sdlallegro -I../widget
 endif
 
@@ -32,4 +32,9 @@ AM_CXXFLAGS=-DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)
 ww_LDADD=../hiscore/libhiscore.a ../widget/libfont.a ../widget/libwidget.a $(allegro_LIBS)
 INCLUDES = -I../widget
 endif
+
+
+
+
+
 

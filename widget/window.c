@@ -9,6 +9,7 @@
 #define HEIGHT VIRTUAL_H
 //#include "graphics.h"
 #include "window.h"
+#include "font_legacy.h"
 //#include "platform.h"
 //#include "colordefs.h"
 
@@ -19,23 +20,92 @@
 /* Modified on 1-5-2006 Tony Smolar */
 /* Modified on 4-30-2007 Tony Smolar 
     - Alert Decor */
+/* Modified on 3-20-2009 Tony Smolar
+ *  - Draw windows to bitmaps */
 
 int mx,my,mk;
 
-void new_window(int x1, int y1, int x2, int y2) {
+void style_newwindow(BITMAP *wn,int x1, int y1, int x2, int y2) {
    int c252,c253,al;
    
    c252=activestyle.window.bg;
    c253=activestyle.window.hl;
    al=activestyle.window.al;
-   push_level(x1,y1,x2,y2); /* disable the widgets underneath */
-   style_rectfill(screen,x1,y1,x2-1,y2-1,c252,al);
-   style_hline(screen,x1+1,y2,x2,c253,al);
-   style_vline(screen,x2,y1+1,y2,c253,al);
-//   arps_pbox32(x1,y1,x2-1,y2-1,COLOR252);
-//   arps_line32(x1+1,y2,x2,y2,COLOR253);
-//   arps_line32(x2,y1+1,x2,y2,COLOR253);
+   
+//   if(wn==screen) printf("AAAAACLK\n");
+   style_rectfill(wn,x1,y1,x2-1,y2-1,c252,al);
+//   printf("style_rectfill(wn,%d,%d,%d,%d,c252,al);\n",x1,y1,x2-1,y2-1);
+   style_hline(wn,x1+1,y2,x2,c253,al);
+   style_vline(wn,x2,y1+1,y2,c253,al);
 }
+
+wdg_window_move(Widget *win,int x, int y) {
+   win->x2=(win->x2-win->x1)+x;
+   win->y2=(win->y2-win->y1)+y;
+   win->x1=x; win->y1=y;
+//   printf("Window moved to %d,%d\n",win->x1,win->y1);
+}
+
+wdg_window_refresh(Widget *win) {
+   printf("REFRESH CALLED   0,0,%d,%d,%d,%d\n",win->x1,win->y1,win->x2-win->x1,win->y2-win->y1);
+   if(win->extra!=NULL  && win->active==1)
+     blit(win->extra,screen,0,0,win->x1,win->y1,win->x2-win->x1,win->y2-win->y1);
+   win->refresh=0;
+}
+
+wdg_window_activate(Widget *win) {
+   win->active=1;
+   // not sure if we want this here
+   wdg_window_refresh(win);
+}
+
+wdg_window_deactivate(Widget *win) {
+   win->active=0;
+//   restore_under(win);
+}
+
+wdg_window_close(Widget *win) {
+   wdg_tree_close(win);
+} // wdg_window_close
+
+Widget* widget_newwindow(int x1, int y1, int x2, int y2) {
+   BITMAP* wn;
+   Widget* w;
+   
+   wn=create_bitmap(x2,y2);
+   style_newwindow(wn,0,0,x2,y2);
+   w=new_widget();
+   printf("Opened Window %d\n",w->indx);
+   w->x1=x1;w->x2=x2+x1;w->y1=y1;w->y2=y1+y2;
+   printf("At %d,%d\n",w->x1,w->y1);
+   w->active=0;
+   w->refresh=1;
+   w->press=NULL;
+   w->extra=wn;
+//   printf("why crash?\n");
+   strcpy(w->id,"WINF"); // id for floating window
+//   c252=activestyle.window.bg;
+//   c253=activestyle.window.hl;
+//   al=activestyle.window.al;
+//   style_rectfill(drawbmp,x1,y1,x2-1,y2-1,c252,al);
+//   style_hline(drawbmp,x1+1,y2,x2,c253,al);
+//   style_vline(drawbmp,x2,y1+1,y2,c253,al);
+   return w;
+}
+
+void new_window(int x1, int y1, int x2, int y2) {
+   int c252,c253,al;
+   
+   push_level(x1,y1,x2,y2); /* disable the widgets underneath */
+   style_newwindow(screen,x1,y1,x2,y2);
+//   c252=activestyle.window.bg;
+//   c253=activestyle.window.hl;
+//   al=activestyle.window.al;
+//   style_rectfill(screen,x1,y1,x2-1,y2-1,c252,al);
+//   style_hline(screen,x1+1,y2,x2,c253,al);
+//   style_vline(screen,x2,y1+1,y2,c253,al);
+}
+
 
 int alert_button;
 
@@ -94,7 +164,9 @@ int wdg_alert(char *text,char *b1,char *b2,char *b3) {
         style_hline(screen,x,y+height,x+width,makecol(24,24,24),255);
         style_vline(screen,x+width,y,y+height,makecol(24,24,24),255);
    // End Decor
+        s2a_flip(screen); // update screen
 	event_loop(HALT_ON_POP);
+        s2a_flip(screen); // update screen
 	return alert_button;
 }
 

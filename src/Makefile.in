@@ -118,10 +118,10 @@ am_ww_OBJECTS = main.$(OBJEXT) dict.$(OBJEXT) ai.$(OBJEXT) \
 ww_OBJECTS = $(am_ww_OBJECTS)
 am__DEPENDENCIES_1 =
 @USEALLEGRO_FALSE@@USESDL_TRUE@ww_DEPENDENCIES =  \
-@USEALLEGRO_FALSE@@USESDL_TRUE@	../hiscore/libhiscore.a \
-@USEALLEGRO_FALSE@@USESDL_TRUE@	../sdlallegro/libsdlallegro.a \
+@USEALLEGRO_FALSE@@USESDL_TRUE@	../widget/libwidget.a \
 @USEALLEGRO_FALSE@@USESDL_TRUE@	../widget/libfont.a \
-@USEALLEGRO_FALSE@@USESDL_TRUE@	../widget/libwidget.a
+@USEALLEGRO_FALSE@@USESDL_TRUE@	../sdlallegro/libsdlallegro.a \
+@USEALLEGRO_FALSE@@USESDL_TRUE@	../hiscore/libhiscore.a
 @USEALLEGRO_TRUE@ww_DEPENDENCIES = ../hiscore/libhiscore.a \
 @USEALLEGRO_TRUE@	../widget/libfont.a ../widget/libwidget.a \
 @USEALLEGRO_TRUE@	$(am__DEPENDENCIES_1)
@@ -230,6 +230,9 @@ ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
 EGREP = @EGREP@
 EXEEXT = @EXEEXT@
+FT2_CFLAGS = @FT2_CFLAGS@
+FT2_CONFIG = @FT2_CONFIG@
+FT2_LIBS = @FT2_LIBS@
 GREP = @GREP@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
@@ -333,9 +336,9 @@ ww_SOURCES = main.c dict.c ai.c dfilepath.c $(am__append_1) \
 @USEZ_FALSE@dict_DATA = share/wordworx/dict/*
 @USEZ_TRUE@dict_DATA = share/wordworx/zdict/*
 @USEALLEGRO_TRUE@AM_CFLAGS = -DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)
-@USESDL_TRUE@AM_CFLAGS = -DUSESDL -DUSEGFX
+@USESDL_TRUE@AM_CFLAGS = -DUSESDL -DUSEGFX -g
 @USEALLEGRO_TRUE@ww_LDADD = ../hiscore/libhiscore.a ../widget/libfont.a ../widget/libwidget.a $(allegro_LIBS)
-@USESDL_TRUE@ww_LDADD = ../hiscore/libhiscore.a ../sdlallegro/libsdlallegro.a ../widget/libfont.a ../widget/libwidget.a
+@USESDL_TRUE@ww_LDADD = ../widget/libwidget.a ../widget/libfont.a ../sdlallegro/libsdlallegro.a ../hiscore/libhiscore.a 
 @USEALLEGRO_TRUE@INCLUDES = -I../widget
 @USESDL_TRUE@INCLUDES = -I../sdlallegro -I../widget
 @USEALLEGRO_TRUE@AM_CXXFLAGS = -DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)

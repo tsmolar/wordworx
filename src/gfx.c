@@ -2,10 +2,6 @@
 #ifdef HAVE_CONFIG_H
 #include <config.h>
 #endif
-#include "wwtypes.h"
-#include "window.h"
-#include "font.h"
-#include <button.h>
 
 #ifdef USEALLEGRO
 #include <allegro.h>
@@ -20,6 +16,13 @@
 #if defined(HAVE_LIBSDL_MIXER) || defined(USEALLEGRO)
 #define USESOUND
 #endif
+
+#include "wwtypes.h"
+#include "font_legacy.h"
+#include "window.h"
+#include "font.h"
+#include <button.h>
+
 
 /* 
 #ifdef ZAURUS
@@ -62,13 +65,17 @@
 BITMAP *bgbmp, *ywbmp;
 BITMAP *bghdbmp, *tileshdbmp;
 #ifdef GFXBITMAP
-BITMAP *tilesbmp, *widgetbmp, *banrbmp, *wibmp, *gearbmp, *wlbmp;
+BITMAP *tilesbmp, *widgetbmp, *widgethdbmp, *banrbmp, *wibmp, *gearbmp, *wlbmp;
 int gearturn=0, gheight=354;
 #endif
 #ifdef USESOUND
 SAMPLE *bubble_smp, *drop_smp, *music_smp, *chaching_smp, *non_smp;
 SAMPLE *crash_smp, *excl1_smp, *excl2_smp, *excl3_smp, *excl4_smp; 
 #endif
+
+fnt_t* TTfont;
+fnt_t* compfont;
+
 int currcmd;
 style_t mystyle;
 // Global Flags
@@ -641,8 +648,12 @@ int wcb_accept_word(Widget *w, int x, int y, int m) {
 //	    fnt_print_string(screen,22+(rx0-160),24+ry0+(16*wordcount),currword,makecol(240,230,200),-1,-1);
 //	    fnt_print_string(screen,130+(rx0-160),24+ry0+(16*wordcount),wcn,makecol(250,240,120),-1,-1);
 	    //	display word list
-	    fnt_print_string(screen,40+hx0,66+hy0+(16*wordcount),currword,makecol(240,230,200),-1,-1);
-	    fnt_print_string(screen,164+hx0,66+hy0+(16*wordcount),wcn,makecol(250,240,120),-1,-1);
+	    ActiveFont = TTfont;
+	    ActiveFont->scale_w=22;
+	    ActiveFont->scale_h=22;
+	    fnt_print_string(screen,48+hx0,76+hy0+(24*wordcount),currword,makecol(240,230,200),-1,-1);
+	    fnt_print_string(screen,290+hx0,76+hy0+(24*wordcount),wcn,makecol(250,240,120),-1,-1);
+	    ActiveFont = compfont;
 	 }
       }
       accept_word();
@@ -776,8 +787,14 @@ gfx_display_scores() {
    gfx_shade_rect(screen,(1*8)+rx0,0+ry0,(21*8)+rx0,17+ry0); // May be superflous
    gfx_shade_rect(screen,440+rx0,0+ry0,584+rx0,17+ry0); // May be superflous
 #endif
+   ActiveFont = TTfont;
+   ActiveFont->scale_w=16;
+   ActiveFont->scale_h=16;
+
    fnt_print_string(screen,CURRWORD_X+5+rx0,1+ry0,cwscore_s,makecol(255,255,224),-1,makecol(0,0,0));
    fnt_print_string(screen,CURRWORD_X+436+rx0,1+ry0,totscore_s,makecol(255,255,224),-1,makecol(0,0,0));
+   
+   ActiveFont = compfont;
 }
 
 draw_bg() {
@@ -1019,34 +1036,43 @@ gfx_setup_buttons() {
    wdg_install_hilight(makecol(255,255,128),0,0,0,0,0,0);
 //printf("failed\n");
 #ifdef GFXBITMAP
-   mybutton.btnupbmp=widgetbmp;
-   mybutton.btndnbmp=widgetbmp;
+
+   // Quit Button
+   mybutton.btnupbmp=widgethdbmp;
+   mybutton.btndnbmp=widgethdbmp;
    mybutton.btnhlbmp=NULL;
-   mybutton.up_x1=0;mybutton.up_y1=32;mybutton.up_x2=41;mybutton.up_y2=19;
-   mybutton.dn_x1=41;mybutton.dn_y1=32;mybutton.dn_x2=41;mybutton.dn_y2=19;
+   mybutton.up_x1=0;mybutton.up_y1=0;mybutton.up_x2=199;mybutton.up_y2=67;
+   mybutton.dn_x1=200;mybutton.dn_y1=0;mybutton.dn_x2=199;mybutton.dn_y2=67;
 # ifdef ZAURUS
    mb=add_bmp_button(596,324,636,342,mybutton,&wcb_quit);
 # else
 //   mb=add_bmp_button(596+rx0,452+ry0,636+rx0,470+ry0,mybutton,&wcb_quit);
-   mb=add_bmp_button(1796+hx0,452+hy0,1836+hx0,470+hy0,mybutton,&wcb_quit);
+   mb=add_bmp_button(1708+hx0,984+hy0,1907+hx0,1051+hy0,mybutton,&wcb_quit);
 # endif
    wdg_bind_key(mb,KEY_Q,-1,1);
-   mybutton.up_x1=82;mybutton.up_y1=32;mybutton.up_x2=41;mybutton.up_y2=19;
-   mybutton.dn_x1=123;mybutton.dn_y1=32;mybutton.dn_x2=41;mybutton.dn_y2=19;
-//   mb=add_bmp_button(596+rx0,CURRWORD_Y+90+ry0,636+rx0,CURRWORD_Y+108+ry0,mybutton,&wcb_clear_word);
-   mb=add_bmp_button(1796+hx0,CURRWORD_Y+90+hy0,1836+hx0,CURRWORD_Y+108+hy0,mybutton,&wcb_clear_word);
+
+   // Clear Button
+   mybutton.up_x1=400;mybutton.up_y1=0;mybutton.up_x2=199;mybutton.up_y2=67;
+   mybutton.dn_x1=600;mybutton.dn_y1=0;mybutton.dn_x2=199;mybutton.dn_y2=67;
+   mb=add_bmp_button(1708+hx0,TILEPILE_HD_Y+70+hy0,1907+hx0,TILEPILE_HD_Y+137+hy0,mybutton,&wcb_clear_word);
    wdg_bind_key(mb,KEY_ESC,-1,1);
-   mybutton.up_x1=164;mybutton.up_y1=32;mybutton.up_x2=41;mybutton.up_y2=19;
-   mybutton.dn_x1=205;mybutton.dn_y1=32;mybutton.dn_x2=41;mybutton.dn_y2=19;
-//   mb=add_bmp_button(596+rx0,CURRWORD_Y+70+ry0,636+rx0,CURRWORD_Y+88+ry0,mybutton,&wcb_accept_word);
-   mb=add_bmp_button(1796+hx0,CURRWORD_Y+70+hy0,1836+hx0,CURRWORD_Y+88+hy0,mybutton,&wcb_accept_word);
+   
+   // Accept Button
+   mybutton.up_x1=800;mybutton.up_y1=0;mybutton.up_x2=199;mybutton.up_y2=67;
+   mybutton.dn_x1=1000;mybutton.dn_y1=0;mybutton.dn_x2=199;mybutton.dn_y2=67;
+   mb=add_bmp_button(1708+hx0,TILEPILE_HD_Y+0+hy0,1907+hx0,TILEPILE_HD_Y+67+hy0,mybutton,&wcb_accept_word);
    wdg_bind_key(mb,KEY_SPACE,-1,1);
 //   mb=add_button(596,CURRWORD_Y+130,636,CURRWORD_Y+148," SND",&wcb_sound);
 //   mb=add_invisible_button(596+rx0,CURRWORD_Y+130+ry0,636+rx0,CURRWORD_Y+148+ry0,&wcb_sound);
    mb=add_invisible_button(1796+hx0,CURRWORD_Y+130+hy0,1836+hx0,CURRWORD_Y+148+hy0,&wcb_sound);
    wdg_bind_key(mb,KEY_M,-1,0);
 //   mb=add_invisible_button(596+rx0,CURRWORD_Y+150+ry0,636+rx0,CURRWORD_Y+168+ry0,&wcb_hint);
-   mb=add_invisible_button(1796+hx0,CURRWORD_Y+150+hy0,1836+hx0,CURRWORD_Y+168+hy0,&wcb_hint);
+
+   // Hint Button
+   mybutton.up_x1=1200;mybutton.up_y1=0;mybutton.up_x2=199;mybutton.up_y2=67;
+   mybutton.dn_x1=1400;mybutton.dn_y1=0;mybutton.dn_x2=199;mybutton.dn_y2=67;
+   mb=add_bmp_button(1708+hx0,TILEPILE_HD_Y+730+hy0,1907+hx0,TILEPILE_HD_Y+797+hy0,mybutton,&wcb_hint);
+//   mb=add_invisible_button(1796+hx0,CURRWORD_Y+150+hy0,1836+hx0,CURRWORD_Y+168+hy0,&wcb_hint);
    wdg_bind_key(mb,KEY_H,-1,0);
 #else
    mb=add_button(592+rx0,452+ry0,632+rx0,470+ry0,"Quit",&wcb_quit);
@@ -1111,6 +1137,8 @@ void gfx_load_bitmaps() {
    tileshdbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cvicons.pcx",datadir,mysep,mysep);
    widgetbmp=load_bitmap(bmpf,p);
+   sprintf(bmpf,"%s%cgfx%cviconshd.png",datadir,mysep,mysep);
+   widgethdbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cwwbg.pcx",datadir,mysep,mysep);
    bgbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cwwbghd.pcx",datadir,mysep,mysep);
@@ -1393,6 +1421,16 @@ gfx_init() {
 #endif
 //   printf("c 5\n");
 
+   fnt_init();
+   compfont=ActiveFont;
+   
+   fnt_destroy(TTfont);
+   sprintf(ifn,"%s%cfont%cmontserrat.ttf",datadir,mysep,mysep);
+   printf("font path: %s\n",ifn);
+   TTfont = fnt_loadfont(ifn, TTF);
+printf("font loaded!!!\n");
+   ActiveFont = compfont;
+   
    install_mouse();
    install_keyboard();
 #ifdef USESOUND

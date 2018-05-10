@@ -1,8 +1,5 @@
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
-/* Define if using Asus EEE */
-#undef ASUSEEE
-
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
@@ -123,14 +120,14 @@
 /* Define to 1 if you have the ANSI C header files. */
 #undef STDC_HEADERS
 
+/* Define if using FreeType */
+#undef USE_FREETYPE
+
 /* Version number of package */
 #undef VERSION
 
 /* Define if using Widescreen (by default) */
 #undef WIDESCREEN
-
-/* Define if using Zaurus */
-#undef ZAURUS
 
 /* Define curl_free() as free() if our version of curl lacks curl_free. */
 #undef curl_free

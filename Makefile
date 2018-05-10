@@ -216,7 +216,7 @@ AUTOMAKE = automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
+CFLAGS = -g -O2 -I/usr/include/freetype2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
 CPP = gcc -E
 CPPFLAGS =  -I/usr/include
 CYGPATH_W = echo
@@ -227,6 +227,9 @@ ECHO_N = -n
 ECHO_T = 
 EGREP = /usr/bin/grep -E
 EXEEXT = 
+FT2_CFLAGS = -I/usr/include/freetype2
+FT2_CONFIG = /usr/bin/freetype-config
+FT2_LIBS = -lfreetype
 GREP = /usr/bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
@@ -237,7 +240,7 @@ LDFLAGS =  -L/usr/lib
 LIBCURL = 
 LIBCURL_CPPFLAGS = 
 LIBOBJS = 
-LIBS = -lSDL_mixer -lSDL_image -lz  -lSDL -lpthread
+LIBS = -lSDL_mixer -lSDL_image -lz  -lfreetype -lSDL -lpthread
 LTLIBOBJS = 
 MAKEINFO = makeinfo
 MKDIR_P = /usr/bin/mkdir -p

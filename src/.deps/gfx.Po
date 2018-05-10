@@ -7,23 +7,21 @@ gfx.o: gfx.c /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/libio.h /usr/include/_G_config.h /usr/include/wchar.h \
  /usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stdarg.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
- /usr/include/bits/stdio.h ../config.h wwtypes.h ../widget/window.h \
- ../widget/widget.h ../widget/font.h ../widget/button.h \
- /usr/include/SDL/SDL.h /usr/include/SDL/SDL_main.h \
- /usr/include/SDL/SDL_stdinc.h /usr/include/SDL/SDL_config.h \
- /usr/include/SDL/SDL_config-x86_64.h /usr/include/SDL/SDL_platform.h \
- /usr/include/sys/types.h /usr/include/time.h /usr/include/endian.h \
- /usr/include/bits/endian.h /usr/include/bits/byteswap.h \
- /usr/include/bits/byteswap-16.h /usr/include/sys/select.h \
- /usr/include/bits/select.h /usr/include/bits/sigset.h \
- /usr/include/bits/time.h /usr/include/sys/sysmacros.h \
- /usr/include/bits/pthreadtypes.h /usr/include/stdlib.h \
- /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
- /usr/include/xlocale.h /usr/include/alloca.h \
- /usr/include/bits/stdlib-bsearch.h /usr/include/bits/stdlib-float.h \
- /usr/include/string.h /usr/include/bits/string.h \
- /usr/include/bits/string2.h /usr/include/strings.h \
- /usr/include/inttypes.h \
+ /usr/include/bits/stdio.h ../config.h /usr/include/SDL/SDL.h \
+ /usr/include/SDL/SDL_main.h /usr/include/SDL/SDL_stdinc.h \
+ /usr/include/SDL/SDL_config.h /usr/include/SDL/SDL_config-x86_64.h \
+ /usr/include/SDL/SDL_platform.h /usr/include/sys/types.h \
+ /usr/include/time.h /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/byteswap.h /usr/include/bits/byteswap-16.h \
+ /usr/include/sys/select.h /usr/include/bits/select.h \
+ /usr/include/bits/sigset.h /usr/include/bits/time.h \
+ /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+ /usr/include/stdlib.h /usr/include/bits/waitflags.h \
+ /usr/include/bits/waitstatus.h /usr/include/xlocale.h \
+ /usr/include/alloca.h /usr/include/bits/stdlib-bsearch.h \
+ /usr/include/bits/stdlib-float.h /usr/include/string.h \
+ /usr/include/bits/string.h /usr/include/bits/string2.h \
+ /usr/include/strings.h /usr/include/inttypes.h \
  /usr/lib/gcc/x86_64-redhat-linux/5.3.1/include/stdint.h \
  /usr/include/stdint.h /usr/include/bits/wchar.h /usr/include/ctype.h \
  /usr/include/iconv.h /usr/include/SDL/begin_code.h \
@@ -38,7 +36,9 @@ gfx.o: gfx.c /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/SDL/SDL_quit.h /usr/include/SDL/SDL_loadso.h \
  /usr/include/SDL/SDL_timer.h /usr/include/SDL/SDL_version.h \
  ../sdlallegro/sdl_allegro.h /usr/include/SDL/SDL_mixer.h \
- /usr/include/SDL/SDL_types.h
+ /usr/include/SDL/SDL_types.h wwtypes.h ../widget/font_legacy.h \
+ ../widget/font.h ../widget/window.h ../widget/widget.h ../widget/font.h \
+ ../widget/button.h
 
 /usr/include/stdc-predef.h:
 
@@ -75,16 +75,6 @@ gfx.o: gfx.c /usr/include/stdc-predef.h /usr/include/stdio.h \
 /usr/include/bits/stdio.h:
 
 ../config.h:
-
-wwtypes.h:
-
-../widget/window.h:
-
-../widget/widget.h:
-
-../widget/font.h:
-
-../widget/button.h:
 
 /usr/include/SDL/SDL.h:
 
@@ -203,3 +193,17 @@ wwtypes.h:
 /usr/include/SDL/SDL_mixer.h:
 
 /usr/include/SDL/SDL_types.h:
+
+wwtypes.h:
+
+../widget/font_legacy.h:
+
+../widget/font.h:
+
+../widget/window.h:
+
+../widget/widget.h:
+
+../widget/font.h:
+
+../widget/button.h:

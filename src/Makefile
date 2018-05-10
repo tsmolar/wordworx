@@ -118,10 +118,10 @@ am_ww_OBJECTS = main.$(OBJEXT) dict.$(OBJEXT) ai.$(OBJEXT) \
 ww_OBJECTS = $(am_ww_OBJECTS)
 am__DEPENDENCIES_1 =
 ww_DEPENDENCIES =  \
-	../hiscore/libhiscore.a \
-	../sdlallegro/libsdlallegro.a \
+	../widget/libwidget.a \
 	../widget/libfont.a \
-	../widget/libwidget.a
+	../sdlallegro/libsdlallegro.a \
+	../hiscore/libhiscore.a
 #ww_DEPENDENCIES = ../hiscore/libhiscore.a \
 #	../widget/libfont.a ../widget/libwidget.a \
 #	$(am__DEPENDENCIES_1)
@@ -219,7 +219,7 @@ AUTOMAKE = automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
+CFLAGS = -g -O2 -I/usr/include/freetype2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
 CPP = gcc -E
 CPPFLAGS =  -I/usr/include
 CYGPATH_W = echo
@@ -230,6 +230,9 @@ ECHO_N = -n
 ECHO_T = 
 EGREP = /usr/bin/grep -E
 EXEEXT = 
+FT2_CFLAGS = -I/usr/include/freetype2
+FT2_CONFIG = /usr/bin/freetype-config
+FT2_LIBS = -lfreetype
 GREP = /usr/bin/grep
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
@@ -240,7 +243,7 @@ LDFLAGS =  -L/usr/lib
 LIBCURL = 
 LIBCURL_CPPFLAGS = 
 LIBOBJS = 
-LIBS = -lSDL_mixer -lSDL_image -lz  -lSDL -lpthread
+LIBS = -lSDL_mixer -lSDL_image -lz  -lfreetype -lSDL -lpthread
 LTLIBOBJS = 
 MAKEINFO = makeinfo
 MKDIR_P = /usr/bin/mkdir -p
@@ -333,9 +336,9 @@ dictdir = $(datadir)/wordworx/zdict
 #dict_DATA = share/wordworx/dict/*
 dict_DATA = share/wordworx/zdict/*
 #AM_CFLAGS = -DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)
-AM_CFLAGS = -DUSESDL -DUSEGFX
+AM_CFLAGS = -DUSESDL -DUSEGFX -g
 #ww_LDADD = ../hiscore/libhiscore.a ../widget/libfont.a ../widget/libwidget.a $(allegro_LIBS)
-ww_LDADD = ../hiscore/libhiscore.a ../sdlallegro/libsdlallegro.a ../widget/libfont.a ../widget/libwidget.a
+ww_LDADD = ../widget/libwidget.a ../widget/libfont.a ../sdlallegro/libsdlallegro.a ../hiscore/libhiscore.a 
 #INCLUDES = -I../widget
 INCLUDES = -I../sdlallegro -I../widget
 #AM_CXXFLAGS = -DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)

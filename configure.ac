@@ -14,14 +14,6 @@ AC_PROG_RANLIB
 AC_CANONICAL_HOST
 AC_CANONICAL_TARGET
 
-AC_ARG_ENABLE(zaurus,
-[  --enable-zaurus  Enable Optimizations for Zaurus and other small devices
-],[AC_DEFINE([ZAURUS],[1],[Define if using Zaurus])
-   use_zaurus=yes])
-AC_ARG_ENABLE(asuseee,
-[  --enable-asuseee  Enable Optimizations for EEE and other small widescreen  devices
-],[AC_DEFINE([ASUSEEE],[1],[Define if using Asus EEE])
-   use_asuseee=yes])
 AC_ARG_ENABLE(widescreen,
 [  --enable-widescreen  use widescreen mode by default (needs at least 800x480 display)
 ],[AC_DEFINE([WIDESCREEN],[1],[Define if using Widescreen (by default)])
@@ -67,6 +59,18 @@ else
   AM_CONDITIONAL(HSNET,false)
 fi
 
+# Freetype
+AC_CHECK_FT2([2.1.0], [haveFT=yes], [haveFT=no])
+if test "$haveFT" = "yes"
+then
+  AM_CONDITIONAL(FREETYPE,true)
+  AC_DEFINE([USE_FREETYPE],[1],[Define if using FreeType])
+  CFLAGS="$CFLAGS $FT2_CFLAGS"
+  LIBS="$LIBS $FT2_LIBS"
+else
+  AM_CONDITIONAL(FREETYPE,false)
+fi
+	  	  
 dnl Want Allegro or SDL, but not both!  Allegro takes precidence
 AM_PATH_ALLEGRO(5.1.0)
 if test "$allegro_CFLAGS"

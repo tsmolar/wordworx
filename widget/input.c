@@ -31,7 +31,16 @@ int has_focus(Widget* b) {
 }
 
 unfocus_input(Widget *b,int x, int y, int m) {
-   int hlcol,fncol,al;
+   int hlcol,fncol,al,wdt,i;
+   char limittxt[190];
+   BITMAP* useb;
+   
+   useb=screen;
+   if(b->parent!=NULL) {
+      if(b->parent->extra!=NULL)
+	useb=b->parent->extra;
+   }
+   
    scare_once();
    if(b==wdg_getlevel(W_FOCUS)) // remove focus if it belongs to me
      wdg_setlevel(W_FOCUS,NULL);
@@ -45,7 +54,11 @@ unfocus_input(Widget *b,int x, int y, int m) {
    style_rectfill(screen,b->x1,b->y1,b->x2,b->y2,hlcol,al);
 //   rectfill(screen,b->x1,b->y1,b->x2,b->y2,makecol(128,0,0));
 //   fnt_print_string(screen, b->x1+2, b->y1+2, "FUNK", fncol, -1 , -1);
-   fnt_print_string(screen, b->x1+2, b->y1+2, b->text, fncol, -1 , -1);
+   wdt=(b->x2-b->x1)/8;
+   for(i=0;i<wdt;i++)
+     limittxt[i]=b->text[i];
+   limittxt[wdt]=0;
+   fnt_print_string(screen, b->x1+2, b->y1+2, limittxt, fncol, -1 , -1);
    
    // End Draw
 //printf("Unfocused widget with %s at %d,%d %d,%d\n",b->text,b->x1,b->y1,b->x2,b->y2);
@@ -95,7 +108,7 @@ focus_input(Widget *b, int x, int y, int m) {
    unscare_once();
 }
 
-Widget* add_input (int x1,int y1,int wc,char* text) {
+Widget* wdg_input_add (Widget *parent,int x1,int y1,int wc,char* text) {
    Widget *w=new_widget();
    int x2=x1+(wc*8)+4;
    int y2=y1+20;
@@ -112,6 +125,7 @@ Widget* add_input (int x1,int y1,int wc,char* text) {
    w->x2=x2;
    w->y1=y1;
    w->y2=y2;
+   w->parent=parent;
    // Note, a persistant problem might be that the widget gets destroyed
    // before the text data can be copied out.  Perhaps this should be a 
    // pointer to another string the user provides (like it was originally)
@@ -126,6 +140,11 @@ Widget* add_input (int x1,int y1,int wc,char* text) {
    w->under = w->extra=NULL;
    save_under(w);
    unfocus_input(w,-1,-1,-1);
+   return w;
+}
+
+Widget* add_input (int x1,int y1,int wc,char* text) { // legacy
+   Widget *w=wdg_input_add(NULL,x1,y1,wc,text);
    return w;
 }
 

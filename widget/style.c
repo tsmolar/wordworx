@@ -33,7 +33,6 @@ void wdgst_default() {
    activestyle.window.bg=makecol(128,128,128);
    activestyle.window.sh=makecol(64,64,64);
    activestyle.window.al=230;
-//   printf("DEFAULT APPLIED\n");
 }
 
 void wdgst_apply(style_t newstyle) {
@@ -52,16 +51,25 @@ style_rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color,int ba) {
    int sr,sg,sb,sa;   // src
    int br,bg,bb;
    int nr,ng,nb;
+#ifdef SDL2
+   SDL_Rect srect;
+#endif
+
    br=getr(color); bg=getg(color); bb=getb(color);
-//   printf("I am called with trans:%d  red:%d\n",ba,br);
-   if(ba==255) {
-//      printf("Do it the old way!\n");
+   printf("NEW: I am called with trans:%d  red:%d\n",ba,br);
+   if(ba==255 || bmp!=screen) {
+      printf("NEW: Do it the old way!\n");
       rectfill(bmp, x1, y1, x2, y2, makecol(br,bg,bb));
    } else {
+      printf("NEW: Do it the new way!\n");
 #ifdef USESDL
+# ifdef SDL1
       if(SDL_LockSurface(screen) < 0) return;
+# endif
 #endif
       sa=255-ba;
+
+      rectfill(screen, x1, y1, x2, y2, makecol(br,bg,bb));
       
       for(y=y1;y<=y2;y++) {
 	 for(x=x1;x<=x2;x++) {
@@ -74,13 +82,24 @@ style_rectfill(BITMAP *bmp, int x1, int y1, int x2, int y2, int color,int ba) {
 	    nb=(((sb*sa)+(bb*ba))/255);
 	    putpixel(screen,x,y,makecol(nr,ng,nb));
 //	    if(nr>255)
-//	      printf("uhoh!  %d + %d\n",sr,br);
+//	      printf("NEW uhoh!  %d + %d\n",sr,br);
 	 }
       }
       
 #ifdef USESDL
+# ifdef SDL1
       SDL_UnlockSurface(screen);
       SDL_UpdateRect(screen,x1,y1,(x2-x1),(y2-y1));
+# endif
+# ifdef SDL2
+      srect.x = x1;
+      srect.y = y1;
+      srect.w = x2-x1;
+      srect.h = y2-y1;
+      printf("NEW RECT:  %d,%d - %d,%d\n",srect.x, srect.y, srect.w, srect.h);
+      SDL_RenderCopy(sdlRenderer,screen,&srect,&srect);
+      SDL_RenderPresent(sdlRenderer);
+# endif
 #endif   
    }
 }
@@ -90,12 +109,18 @@ void style_hline(BITMAP *bmp, int x1, int y, int x2, int color,int ba) {
    int sr,sg,sb,sa;   // src
    int br,bg,bb;
    int nr,ng,nb;
+#ifdef SDL2
+   SDL_Rect srect;
+#endif
+
    br=getr(color); bg=getg(color); bb=getb(color);
-   if(ba==255) {
+   if(ba==255 || bmp != screen) {
       hline(bmp,x1,y,x2,makecol(br,bg,bb));
    } else {
 #ifdef USESDL
+# ifdef SDL1
       if(SDL_LockSurface(screen) < 0) return;
+# endif
 #endif
       
    sa=255-ba;
@@ -112,8 +137,18 @@ void style_hline(BITMAP *bmp, int x1, int y, int x2, int color,int ba) {
    }
      
 #ifdef USESDL
+# ifdef SDL1
    SDL_UnlockSurface(screen);
    SDL_UpdateRect(screen,x1,y,(x2-x1),y);
+# endif
+# ifdef SDL2
+      srect.x = x1;
+      srect.y = y;
+      srect.w = x2-x1;
+      srect.h = y;
+      SDL_RenderCopy(sdlRenderer,screen,&srect,&srect);
+      SDL_RenderPresent(sdlRenderer);
+# endif
 #endif   
    }
 }
@@ -123,12 +158,18 @@ void style_vline(BITMAP *bmp, int x, int y1, int y2, int color,int ba) {
    int sr,sg,sb,sa;   // src
    int br,bg,bb;
    int nr,ng,nb;
+#ifdef SDL2
+   SDL_Rect srect;
+#endif
+
    br=getr(color); bg=getg(color); bb=getb(color);
-   if(ba==255) {
+   if(ba==255 || bmp != screen) {
       vline(bmp,x,y1,y2,makecol(br,bg,bb));
    } else {
 #ifdef USESDL
+# ifdef SDL1
    if(SDL_LockSurface(screen) < 0) return;
+# endif
 #endif
 
    sa=255-ba;
@@ -145,8 +186,18 @@ void style_vline(BITMAP *bmp, int x, int y1, int y2, int color,int ba) {
    }
    
 #ifdef USESDL
+# ifdef SDL1
    SDL_UnlockSurface(screen);
    SDL_UpdateRect(screen,x,y1,x,(y2-y1));
+# endif
+# ifdef SDL2
+      srect.x = x;
+      srect.y = y1;
+      srect.w = x;
+      srect.h = y2-y1;
+      SDL_RenderCopy(sdlRenderer,screen,&srect,&srect);
+      SDL_RenderPresent(sdlRenderer);
+# endif
 #endif   
    }
 }

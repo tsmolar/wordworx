@@ -36,7 +36,7 @@ window.o: window.c /usr/include/stdc-predef.h /usr/include/stdio.h \
  /usr/include/SDL/SDL_quit.h /usr/include/SDL/SDL_loadso.h \
  /usr/include/SDL/SDL_timer.h /usr/include/SDL/SDL_version.h \
  ../sdlallegro/sdl_allegro.h ../config.h /usr/include/SDL/SDL_mixer.h \
- /usr/include/SDL/SDL_types.h window.h widget.h
+ /usr/include/SDL/SDL_types.h window.h widget.h font_legacy.h font.h
 
 /usr/include/stdc-predef.h:
 
@@ -195,3 +195,7 @@ window.o: window.c /usr/include/stdc-predef.h /usr/include/stdio.h \
 window.h:
 
 widget.h:
+
+font_legacy.h:
+
+font.h:

@@ -89,11 +89,12 @@ POST_UNINSTALL = :
 build_triplet = x86_64-unknown-linux-gnu
 host_triplet = x86_64-unknown-linux-gnu
 target_triplet = x86_64-unknown-linux-gnu
+am__append_1 = font-ttf.c
 subdir = widget
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/allegro.m4 \
-	$(top_srcdir)/m4/check_zlib.m4 $(top_srcdir)/m4/libcurl.m4 \
-	$(top_srcdir)/m4/sdl.m4 $(top_srcdir)/m4/zdll.m4 \
+	$(top_srcdir)/m4/freetype2.m4 $(top_srcdir)/m4/libcurl.m4 \
+	$(top_srcdir)/m4/sdl.m4 $(top_srcdir)/m4/sdl2.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -137,9 +138,16 @@ AM_V_AR = $(am__v_AR_$(V))
 am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))
 am__v_AR_0 = @echo "  AR      " $@;
 am__v_AR_1 = 
+libdialog_a_AR = $(AR) $(ARFLAGS)
+libdialog_a_LIBADD =
+am_libdialog_a_OBJECTS = dialog.$(OBJEXT) dialog-str.$(OBJEXT)
+libdialog_a_OBJECTS = $(am_libdialog_a_OBJECTS)
 libfont_a_AR = $(AR) $(ARFLAGS)
 libfont_a_LIBADD =
-am_libfont_a_OBJECTS = font.$(OBJEXT)
+am__libfont_a_SOURCES_DIST = font.c font_legacy.c font-ttf.c
+am__objects_1 = font-ttf.$(OBJEXT)
+am_libfont_a_OBJECTS = font.$(OBJEXT) font_legacy.$(OBJEXT) \
+	$(am__objects_1)
 libfont_a_OBJECTS = $(am_libfont_a_OBJECTS)
 libwidget_a_AR = $(AR) $(ARFLAGS)
 libwidget_a_LIBADD =
@@ -175,8 +183,10 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(libfont_a_SOURCES) $(libwidget_a_SOURCES)
-DIST_SOURCES = $(libfont_a_SOURCES) $(libwidget_a_SOURCES)
+SOURCES = $(libdialog_a_SOURCES) $(libfont_a_SOURCES) \
+	$(libwidget_a_SOURCES)
+DIST_SOURCES = $(libdialog_a_SOURCES) $(am__libfont_a_SOURCES_DIST) \
+	$(libwidget_a_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -214,8 +224,7 @@ AUTOMAKE = automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
-CPP = gcc -E
+CFLAGS = -g -O2 -I/usr/include/freetype2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
 CPPFLAGS =  -I/usr/include
 CYGPATH_W = echo
 DEFS = -DHAVE_CONFIG_H
@@ -223,9 +232,10 @@ DEPDIR = .deps
 ECHO_C = 
 ECHO_N = -n
 ECHO_T = 
-EGREP = /usr/bin/grep -E
 EXEEXT = 
-GREP = /usr/bin/grep
+FT2_CFLAGS = -I/usr/include/freetype2
+FT2_CONFIG = /usr/bin/freetype-config
+FT2_LIBS = -lfreetype
 INSTALL = /usr/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 INSTALL_PROGRAM = ${INSTALL}
@@ -235,7 +245,7 @@ LDFLAGS =  -L/usr/lib
 LIBCURL = 
 LIBCURL_CPPFLAGS = 
 LIBOBJS = 
-LIBS = -lSDL_mixer -lSDL_image -lz  -lSDL -lpthread
+LIBS = -lSDL_mixer -lSDL_image -lz  -lfreetype -lSDL -lpthread
 LTLIBOBJS = 
 MAKEINFO = makeinfo
 MKDIR_P = /usr/bin/mkdir -p
@@ -248,7 +258,11 @@ PACKAGE_TARNAME = ww
 PACKAGE_URL = 
 PACKAGE_VERSION = 1.9.0
 PATH_SEPARATOR = :
+PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 RANLIB = ranlib
+SDL2_CONFIG = @SDL2_CONFIG@
 SDL_CFLAGS = -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
 SDL_CONFIG = /usr/bin/sdl-config
 SDL_LIBS = -lSDL -lpthread
@@ -313,11 +327,14 @@ target_vendor = unknown
 top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
-lib_LIBRARIES = libfont.a libwidget.a
-libfont_a_SOURCES = font.c
+lib_LIBRARIES = libfont.a libwidget.a libdialog.a
+libfont_a_SOURCES = font.c font_legacy.c $(am__append_1)
+libdialog_a_SOURCES = dialog.c dialog-str.c
 libwidget_a_SOURCES = button.c widget.c window.c keyboard.c input.c style.c
 #AM_CFLAGS = -DCOMPFONT -DGFXLIB_ALLEGRO
-AM_CFLAGS = -DUSESDL -DCOMPFONT -DGFXLIB_ALLEGRO
+@USESDL2_TRUE@AM_CFLAGS = -DUSESDL -DSDL2 -DCOMPFONT -DGFXLIB_ALLEGRO
+AM_CFLAGS = -DUSESDL -DSDL1 -DCOMPFONT -DGFXLIB_ALLEGRO
+@USESDL2_TRUE@INCLUDES = -I../sdlallegro
 INCLUDES = -I../sdlallegro
 all: all-am
 
@@ -384,6 +401,11 @@ uninstall-libLIBRARIES:
 clean-libLIBRARIES:
 	-test -z "$(lib_LIBRARIES)" || rm -f $(lib_LIBRARIES)
 
+libdialog.a: $(libdialog_a_OBJECTS) $(libdialog_a_DEPENDENCIES) $(EXTRA_libdialog_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libdialog.a
+	$(AM_V_AR)$(libdialog_a_AR) libdialog.a $(libdialog_a_OBJECTS) $(libdialog_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libdialog.a
+
 libfont.a: $(libfont_a_OBJECTS) $(libfont_a_DEPENDENCIES) $(EXTRA_libfont_a_DEPENDENCIES) 
 	$(AM_V_at)-rm -f libfont.a
 	$(AM_V_AR)$(libfont_a_AR) libfont.a $(libfont_a_OBJECTS) $(libfont_a_LIBADD)
@@ -401,7 +423,11 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/button.Po
+include ./$(DEPDIR)/dialog-str.Po
+include ./$(DEPDIR)/dialog.Po
+include ./$(DEPDIR)/font-ttf.Po
 include ./$(DEPDIR)/font.Po
+include ./$(DEPDIR)/font_legacy.Po
 include ./$(DEPDIR)/input.Po
 include ./$(DEPDIR)/keyboard.Po
 include ./$(DEPDIR)/style.Po

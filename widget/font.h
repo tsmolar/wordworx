@@ -1,33 +1,44 @@
 #ifndef FONT_H
 #define FONT_H
 
+// Font Types
+#define BIOS_8X8 0
+#define BIOS_8X16 1
+#define BLIT_8X8 2
+#define BLIT_8X16 3
+#define TTF 4
 
-int fnfgcol;
-int fnbgcol;
-int shdcol;
-int fshadow;
-int cachefont;
-char fontdir[90];
-char tfont[30];
-char currfont[30];
-int textbgr, textbgg, textbgb;
-int textfgr, textfgg, textfgb;
-int textsdr, textsdg, textsdb;
-int texthlr, texthlg, texthlb;
-int textier, textieg, textieb;
-int descbgr, descbgg, descbgb;
-int banrbgr, banrbgg, banrbgb;
-int banrfgr, banrfgg, banrfgb;
-int shadowr, shadowg, shadowb;
+#define FNT_DATA 0
+#define FNT_BLIT 1
+
+typedef struct fnt_t {
+   char name[240];
+   int width,height,type;
+   int scale_w,scale_h;  // for TTF fonts now, other later
+   int size;
+   int color[8]; // Array of colors, only used for blitfonts
+   int lru; // least recently created color (round robin currently)
+   void* data;  // Pointer to font data
+} fnt_t;
+
+// #ifdef COMPFONT
+extern fnt_t* cf8x16;
+// #endif
+
+extern char fontdir[90];
+extern char tfont[30];
+extern char currfont[30];
+extern fnt_t* ActiveFont;
 
 /* This is for displaying text in graphics modes */
+//extern fnt_t fnt_loadfont(char, int);
+//void fnt_print_string(BITMAP *b, int x, int y, char *str, long fg, long bg, long sd);
 
-void font_load(char *filen);
-void set_font_fcolor(int r, int g, int b); // depricated
-void set_font_bcolor(int r, int g, int b); // depricated
-void show_string(int x, int y, char *stt); // depricated
-void solid_string(int x, int y, char *stt); // depricated
-int calc_width(char *stt);
-int calc_height(char *stt);
+#ifdef USE_FREETYPE
+#define RENDER_SIMPLE 0  /* No Antialiasing */
+#define RENDER_BLEND 1   /* Use Internal Blending */
+#define RENDER_NATIVE 2  /* Use SDL or Allegro to Blend */
+#endif
+
 
 #endif /* font.h */
