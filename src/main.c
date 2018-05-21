@@ -128,8 +128,8 @@ void reset_game() {
    mywords[0]=0;
 #ifdef USEGFX
    gfx_reset_flags();
-   if(WSmode==1) 
-     gfx_set_widescreen();
+//   if(WSmode==1) 
+//     gfx_set_widescreen();
    // This will be called everytime the game is restarted, check for 
    // memory leak!
    gfx_setup_buttons();
@@ -641,8 +641,8 @@ void main(int argc, char **argv) {
 #else
       le=game_loop();  
 #endif
-      if(WSmode==1) 
-	gfx_unset_widescreen();
+//      if(WSmode==1) 
+//	gfx_unset_widescreen();
       end_of_game(le);
 //      if(le=='Q' || le=='q') break;
    }

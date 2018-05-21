@@ -163,9 +163,14 @@ gfx_liftcol_hd(int colno, int step) {
       blit(bghdbmp,screen,x,TILEPILE_HD_Y+cpl+y-(step),x+hx0,TILEPILE_HD_Y+cpl+y-(step)+hy0,108,step);
 #ifdef GFXBITMAP
       gearturn++;
-      if(gearturn>29) gearturn=0;
+      if(gearturn>23) gearturn=0;
       //      blit(gearbmp,screen,gearturn*56,0,584+rx0,gheight+ry0,55,90);
-      blit(gearbmp,screen,gearturn*56,0,1784+hx0,gheight+hy0,55,90);
+//      blit(gearbmp,screen,gearturn*56,0,1784+hx0,gheight+hy0,55,90);
+//      
+      SA_AUTOUPDATE=0;
+      blit(bghdbmp,screen,1670+hx0,gheight+hy0,1670+hx0,gheight+hy0,250,500);
+      SA_AUTOUPDATE=1;
+      blit(gearbmp,screen,gearturn*250,0,1660+hx0,gheight+hy0,250,500);
 #endif
       ww_sleep(5);
    }
@@ -214,9 +219,12 @@ gfx_dropcol_hd(int colno, int step) {
       blit(bghdbmp,screen,x,TILEPILE_HD_Y+y,x+hx0,TILEPILE_HD_Y+y+hy0,108,step);
 #ifdef GFXBITMAP
       gearturn--;
-      if(gearturn<0) gearturn=29;
+      if(gearturn<0) gearturn=23;
 //      blit(gearbmp,screen,gearturn*56,0,584+rx0,gheight+ry0,55,90);
-      blit(gearbmp,screen,gearturn*56,0,1784+hx0,gheight+hy0,55,90);
+      SA_AUTOUPDATE=0;
+      blit(bghdbmp,screen,1670+hx0,gheight+hy0,1670+hx0,gheight+hy0,250,500);
+      SA_AUTOUPDATE=1;
+      blit(gearbmp,screen,gearturn*250,0,1660+hx0,gheight+hy0,250,500);
 #endif
       ww_sleep(5);
    }
@@ -804,7 +812,8 @@ draw_bg() {
 //   rectfill(screen,0,0,1919,1079,makecol(0,0,0));
    blit(bghdbmp,screen,0,0,0+hx0,0+hy0,1919+hx0,1079+hy0);
 //   blit(gearbmp,screen,gearturn*56,0,584+rx0,gheight+ry0,55,90);
-   blit(gearbmp,screen,gearturn*56,0,1784+hx0,gheight+hy0,55,90);
+//   blit(gearbmp,screen,gearturn*56,0,1784+hx0,gheight+hy0,55,90);
+   blit(gearbmp,screen,gearturn*250,0,1660+hx0,gheight+hy0,250,500);
    unscare_once();
    #else
    rectfill(screen,rx0,ry0,639+rx0,479+ry0,makecol(176,0,192));
@@ -887,7 +896,7 @@ void gfx_display_pile() {
 
 #ifdef USESDL
    SA_AUTOUPDATE=1;
-   SDL_UpdateRect(screen,TILEPILE_X+rx0,TILEPILE_Y+ry0,576,392);
+//   SDL_UpdateRect(screen,TILEPILE_X+rx0,TILEPILE_Y+ry0,576,392);
    SDL_UpdateRect(screen,TILEPILE_HD_X+hx0,TILEPILE_HD_Y+hy0,1296,882);
 #endif
    if(TILESTEP2==2)
@@ -904,7 +913,7 @@ void gfx_display_curword() {
    }
 }
 
-gfx_anim_pile() {
+gfx_anim_pile0() {
    // Completely superflous animation
    BITMAP *bmp, *bmp2;
    int x,y,y2;
@@ -1099,7 +1108,6 @@ gfx_setup_buttons() {
       wdg_bind_key(mb,-1,-1,1);
    }   
    // Might not be the best place for this
-//   blit(bgbmp,screen,CURRWORD_X,CURRWORD_Y,CURRWORD_X+rx0,CURRWORD_Y+ry0,576,56);
    blit(bghdbmp,screen,CURRWORD_HD_X,CURRWORD_HD_Y,CURRWORD_HD_X+hx0,CURRWORD_HD_Y+hy0,1296,126);
 }
 
@@ -1145,7 +1153,9 @@ void gfx_load_bitmaps() {
    bghdbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cbanner.pcx",datadir,mysep,mysep);
    banrbmp=load_bitmap(bmpf,p);
-   sprintf(bmpf,"%s%cgfx%cgears.pcx",datadir,mysep,mysep);
+//   sprintf(bmpf,"%s%cgfx%cgears.pcx",datadir,mysep,mysep);
+//   gearbmp=load_bitmap(bmpf,p);
+   sprintf(bmpf,"%s%cgfx%cgearsHD.png",datadir,mysep,mysep);
    gearbmp=load_bitmap(bmpf,p);
    if(!gearbmp) printf("no load %s\n",bmpf);
    if(WSmode==1) {
@@ -1173,7 +1183,6 @@ gfx_unset_widescreen() {
 #else
    step=10;
 #endif
-//   printf("NOW1 %d\n",rx0);
    rectfill(screen,rx0-160,ry0,rx0-1,ry0+480,makecol(0,0,0));
    for(i=0;i<(80/step);i++) {
       blit(screen,screen,rx0,ry0,rx0-step,ry0,640,480);
@@ -1183,7 +1192,7 @@ gfx_unset_widescreen() {
 //   printf("NOW2 %d\n",rx0);
 }
 
-gfx_set_widescreen() {
+gfx_set_widescreen0() {
    int i, step;
    
 #if defined(ASUSEEE) || defined(ZAURUS)
