@@ -591,8 +591,8 @@ void gfx_validicon(int wv) {
     case 3: col=makecol(240,224,32);
       break;
    }
-   rectfill(screen,CURRWORD_X+590+rx0,CURRWORD_Y+12+ry0,CURRWORD_X+621+rx0,CURRWORD_Y+43+ry0,col);
-   rect(screen,CURRWORD_X+590+rx0,CURRWORD_Y+12+ry0,CURRWORD_X+621+rx0,CURRWORD_Y+43+ry0,makecol(0,0,0));
+//   rectfill(screen,CURRWORD_X+590+rx0,CURRWORD_Y+12+ry0,CURRWORD_X+621+rx0,CURRWORD_Y+43+ry0,col);
+//   rect(screen,CURRWORD_X+590+rx0,CURRWORD_Y+12+ry0,CURRWORD_X+621+rx0,CURRWORD_Y+43+ry0,makecol(0,0,0));
    #endif
 }
 
@@ -792,8 +792,8 @@ gfx_display_scores() {
 #else
    sprintf(cwscore_s,"Current Word: %3d",currscore);
    sprintf(totscore_s,"Total Score: %4d",totscore);
-   gfx_shade_rect(screen,(1*8)+rx0,0+ry0,(21*8)+rx0,17+ry0); // May be superflous
-   gfx_shade_rect(screen,440+rx0,0+ry0,584+rx0,17+ry0); // May be superflous
+ //  gfx_shade_rect(screen,(1*8)+rx0,0+ry0,(21*8)+rx0,17+ry0); // May be superflous
+ //  gfx_shade_rect(screen,440+rx0,0+ry0,584+rx0,17+ry0); // May be superflous
 #endif
    ActiveFont = TTfont;
    ActiveFont->scale_w=16;
@@ -899,8 +899,11 @@ void gfx_display_pile() {
 //   SDL_UpdateRect(screen,TILEPILE_X+rx0,TILEPILE_Y+ry0,576,392);
    SDL_UpdateRect(screen,TILEPILE_HD_X+hx0,TILEPILE_HD_Y+hy0,1296,882);
 #endif
-   if(TILESTEP2==2)
-     blit(bgbmp,screen,0,TILEPILE_Y-1,rx0,TILEPILE_Y+ry0-1,640,1); // fix visual bug?
+   
+// This causes the purple line.   Replace it with other visual fixes   
+   
+//   if(TILESTEP2==2)
+//     blit(bgbmp,screen,0,TILEPILE_Y-1,rx0,TILEPILE_Y+ry0-1,640,1); // fix visual bug?
    unscare_once();
 }
 
@@ -1220,8 +1223,8 @@ gfx_findwords() {
 //      printf("Invoked yellow banner---  %d\n",flg_wc);
 //      sprintf(wst,"Checking Words...(%d) %d",flg_numlet,flg_wc);
       sprintf(wst,"Checking Words.......%d",flg_wc);
-      blit(bgbmp,screen,CURRWORD_X+200,0,CURRWORD_X+200+rx0,0+ry0,224,16);
-      fnt_print_string(screen,CURRWORD_X+200+rx0,0+ry0,wst,makecol(240,240,0),-1,-1);
+      blit(bghdbmp,screen,CURRWORD_HD_X+500,0,CURRWORD_HD_X+500+hx0,0+hy0,224,16);
+      fnt_print_string(screen,CURRWORD_HD_X+200+hx0,16+hy0,wst,makecol(240,240,0),-1,-1);
    }
    if(flg_wc==0)
      wrst=find_words_chunk(3,0); // start new search
@@ -1233,7 +1236,7 @@ gfx_findwords() {
    }
    if(wrst==1) {
       flg_morewords=1;
-      blit(bgbmp,screen,CURRWORD_X+200,0,CURRWORD_X+200+rx0,0+ry0,224,16);
+      blit(bghdbmp,screen,CURRWORD_HD_X+500,0,CURRWORD_HD_X+500+hx0,0+hy0,224,16);
    }   
    if(wrst==2)
      flg_morewords=0;
@@ -1241,35 +1244,35 @@ gfx_findwords() {
 
 gfx_display_hs(int tno) {
    int nscs,i,txtcolor,bidx;
-   int hx=TILEPILE_X+32,hy=TILEPILE_Y+32,hc;
+   int hx=TILEPILE_HD_X+32,hy=TILEPILE_HD_Y+32,hc;
    char sname[30],sdetail[30],sdate[30],sscore[8],outln[82];
    scare_once();
    hs_names(tno,sname,sdetail);
 //   printf("displaying score table %d\n",tno);
 //   printf("\n%s\n--------------------------\n",sname);
-   blit(bgbmp,screen,hx,hy,hx+rx0,hy+ry0,512,304);
+   blit(bghdbmp,screen,hx,hy,hx+hx0,hy+hy0,512,304);
 //   ww_sleep(2222);
-   gfx_darken_rect(screen,hx+rx0,hy+ry0,hx+512+rx0,hy+304+ry0);
+   gfx_darken_rect(screen,hx+hx0,hy+hy0,hx+512+hx0,hy+304+hy0);
 #ifdef USESDL
-   SDL_UpdateRect(screen,hx+rx0,hy+ry0,512,304);
+   SDL_UpdateRect(screen,hx+hx0,hy+hy0,512,304);
 #endif
    nscs=hs_numscores(tno);
    //header
 #ifdef GFXBITMAP
    bidx=tno-1;
    if(bidx==2 || bidx==3) bidx=bidx+2;
-   masked_blit(banrbmp,screen,0,bidx*41,hx+rx0,hy+ry0,513,41);
+   masked_blit(banrbmp,screen,0,bidx*41,hx+hx0,hy+hy0,513,41);
 //   masked_blit(banrbmp,screen,0,(tno-1)*41,hx,hy,513,41);
 #else
    hc=(512-(strlen(sname)*8))/2;
-   fnt_print_string(screen,hx+hc+rx0,hy+2+ry0,sname,makecol(240,230,0),-1,makecol(200,0,0));
+   fnt_print_string(screen,hx+hc+hx0,hy+2+hy0,sname,makecol(240,230,0),-1,makecol(200,0,0));
    if(tno==2 || tno==4)
      sprintf(outln,"  %2s  %-18s%-12s%-18s%4s\n","#","Name","Word","Date","Score");
    else
      sprintf(outln,"  %2s  %-20s %-20s %10s\n","#","Name","Date","Score");
-   fnt_print_string(screen,hx+rx0,hy+20+ry0,outln,makecol(250,230,64),-1,-1);
-   hline(screen,hx+20+rx0,hy+39+ry0,hx+480+rx0,makecol(250,230,64));
-   hline(screen,hx+20+rx0,hy+40+ry0,hx+480+rx0,makecol(180,30,32));
+   fnt_print_string(screen,hx+hx0,hy+20+hy0,outln,makecol(250,230,64),-1,-1);
+   hline(screen,hx+20+hx0,hy+39+hy0,hx+480+hx0,makecol(250,230,64));
+   hline(screen,hx+20+hx0,hy+40+hy0,hx+480+hx0,makecol(180,30,32));
 #endif
    for(i=1;i<=nscs;i++) {
       hs_getfield(sname,tno,i,"name");
@@ -1284,7 +1287,7 @@ gfx_display_hs(int tno) {
 	   txtcolor=makecol(255,255,100);
 	 sprintf(outln,"  %2d) %-20s %-20s %10s\n",i,sname,sdate,sscore);
       }
-      fnt_print_string(screen,hx+rx0,hy+32+(i*16)+ry0,outln,txtcolor,-1,-1);
+      fnt_print_string(screen,hx+hx0,hy+32+(i*16)+hy0,outln,txtcolor,-1,-1);
    }   
    unscare_once();
 }
@@ -1303,7 +1306,7 @@ char gfx_title(int numtbl) {
    draw_bg();
 //   printf("title 2\n");
    for(i=0;i<12;i++) {
-      gfx_drawtile(screen,CURRWORD_X+(i*48)+rx0,CURRWORD_Y+ry0,title[i],0);
+      gfx_drawtile_hd(screen,CURRWORD_HD_X+(i*108)+hx0,CURRWORD_HD_Y+hy0,title[i],0);
    }
 //   printf("title 3\n");
    widget_clear_level();
@@ -1311,7 +1314,7 @@ char gfx_title(int numtbl) {
    wdg_install_hilight(makecol(255,255,255),KEY_TAB,KEY_ENTER,0,KEY_DOWN,KEY_LEFT,KEY_RIGHT);
 //   printf("title 5\n");
    sprintf(vers,"Version %s   (C)2007-2018 Tony Smolar",VERSION);
-   fnt_print_string(screen,CURRWORD_X+140+rx0,CURRWORD_Y+60+ry0,vers,makecol(240,128,250),-1,makecol(80,32,90));
+   fnt_print_string(screen,CURRWORD_HD_X+140+hx0,CURRWORD_HD_Y+140+hy0,vers,makecol(240,128,250),-1,makecol(80,32,90));
 #ifdef GFXBITMAP
    mybutton.btnupbmp=widgetbmp;
    mybutton.btndnbmp=widgetbmp;
@@ -1320,19 +1323,22 @@ char gfx_title(int numtbl) {
    mybutton.up_x1=0;mybutton.up_y1=51;mybutton.up_x2=58;mybutton.up_y2=23;
    mybutton.dn_x1=0;mybutton.dn_y1=74;mybutton.dn_x2=58;mybutton.dn_y2=23;
    mybutton.hl_x1=0;mybutton.hl_y1=97;mybutton.hl_x2=58;mybutton.hl_y2=23;
-   mb=add_bmp_button(50+rx0,432+ry0,108+rx0,455+ry0,mybutton,&wcb_start);
+//   mb=add_bmp_button(50+rx0,432+ry0,108+rx0,455+ry0,mybutton,&wcb_start);
+   mb=add_bmp_button(450+hx0,972+hy0,508+hx0,995+hy0,mybutton,&wcb_start);
    wdg_bind_key(mb,KEY_S,-1,1);
    // Exit
    mybutton.up_x1=58;mybutton.up_y1=51;mybutton.up_x2=58;mybutton.up_y2=23;
    mybutton.dn_x1=58;mybutton.dn_y1=74;mybutton.dn_x2=58;mybutton.dn_y2=23;
    mybutton.hl_x1=58;mybutton.hl_y1=97;mybutton.hl_x2=58;mybutton.hl_y2=23;
-   mb=add_bmp_button(115+rx0,432+ry0,173+rx0,455+ry0,mybutton,&wcb_quit);
+//   mb=add_bmp_button(115+rx0,432+ry0,173+rx0,455+ry0,mybutton,&wcb_quit);
+   mb=add_bmp_button(515+hx0,972+hy0,573+hx0,995+hy0,mybutton,&wcb_quit);
    wdg_bind_key(mb,KEY_Q,-1,1);
    // Clear Scores
    mybutton.up_x1=116;mybutton.up_y1=51;mybutton.up_x2=118;mybutton.up_y2=23;
    mybutton.dn_x1=116;mybutton.dn_y1=74;mybutton.dn_x2=118;mybutton.dn_y2=23;
    mybutton.hl_x1=116;mybutton.hl_y1=97;mybutton.hl_x2=118;mybutton.hl_y2=23;
-   mb=add_bmp_button(431+rx0,432+ry0,549+rx0,455+ry0,mybutton,&wcb_clearhs);
+//   mb=add_bmp_button(431+rx0,432+ry0,549+rx0,455+ry0,mybutton,&wcb_clearhs);
+   mb=add_bmp_button(831+hx0,972+hy0,949+hx0,995+hy0,mybutton,&wcb_clearhs);
    wdg_bind_key(mb,-1,-1,1);
 #else
    mb=add_button(50+rx0,432+ry0,106+rx0,450+ry0," Start ",&wcb_start);
@@ -1353,9 +1359,12 @@ char gfx_title(int numtbl) {
       if(time(NULL)>(lt+dela-1)) {
 	 if(di==0) {
 	    if(ywbmp) {
-	       blit(bgbmp,screen,TILEPILE_X+32,TILEPILE_Y+32,TILEPILE_X+32+rx0,TILEPILE_Y+32+ry0,512,304);
-	       gfx_darken_rect(screen,TILEPILE_X+32+rx0,TILEPILE_Y+32+ry0,TILEPILE_X+544+rx0,TILEPILE_Y+336+ry0);
-	       masked_blit(ywbmp,screen,0,0,TILEPILE_X+32+rx0,TILEPILE_Y+32+ry0,511,303);
+//	       blit(bgbmp,screen,TILEPILE_X+32,TILEPILE_Y+32,TILEPILE_X+32+rx0,TILEPILE_Y+32+ry0,512,304);
+//	       gfx_darken_rect(screen,TILEPILE_X+32+rx0,TILEPILE_Y+32+ry0,TILEPILE_X+544+rx0,TILEPILE_Y+336+ry0);
+//	       masked_blit(ywbmp,screen,0,0,TILEPILE_X+32+rx0,TILEPILE_Y+32+ry0,511,303);
+	       blit(bghdbmp,screen,TILEPILE_HD_X+32,TILEPILE_HD_Y+32,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,512,304);
+	       gfx_darken_rect(screen,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,TILEPILE_HD_X+544+hx0,TILEPILE_HD_Y+336+hy0);
+	       masked_blit(ywbmp,screen,0,0,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,511,303);
 	    } else
 	      di++;
 	 }
