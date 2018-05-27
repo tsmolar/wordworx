@@ -515,16 +515,19 @@ void main(int argc, char **argv) {
 #ifdef HAVE_LIBCURL
    char hstmp[210], hsset[210], hsurl[210], hstbl[96];
 #endif
-#ifdef WIDESCREEN
-   WSmode=1;
-#else
-   WSmode=0;
-#endif
+
+   WSmode=1; // always use widescreen mode   
    
-   if(WSmode==1) {
-      usex=800;
-      rx0=80;
-   }
+//#ifdef WIDESCREEN
+//   WSmode=1;
+//#else
+//   WSmode=1;
+//#endif
+   
+//   if(WSmode==1) {
+//      usex=800;
+//      rx0=80;
+//   }
    find_datadir(datadir,argv[0]);
    sprintf(hsfile,"%s%chs%c%s",datadir,mysep,mysep,"scores.dat");
 
