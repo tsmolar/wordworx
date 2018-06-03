@@ -810,8 +810,9 @@ gfx_display_scores() {
 
    // Show scor
    
-   fnt_print_string(screen,CURRWORD_HD_X+5+hx0,1+hy0,cwscore_s,makecol(255,255,224),-1,makecol(0,0,0));
-   fnt_print_string(screen,CURRWORD_HD_X+436+hx0,1+hy0,totscore_s,makecol(255,255,224),-1,makecol(0,0,0));
+//   fnt_print_string(screen,CURRWORD_HD_X+5+hx0,1+hy0,cwscore_s,makecol(255,255,224),-1,makecol(0,0,0));
+   fnt_print_string(screen,CURRWORD_HD_X+112+hx0,6+hy0,cwscore_s,makecol(255,255,224),-1,makecol(0,0,0));
+   fnt_print_string(screen,CURRWORD_HD_X+1094+hx0,6+hy0,totscore_s,makecol(255,255,224),-1,makecol(0,0,0));
    
    ActiveFont = compfont;
 }
@@ -1165,7 +1166,7 @@ void gfx_load_bitmaps() {
    widgethdbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cwwbg.pcx",datadir,mysep,mysep);
    bgbmp=load_bitmap(bmpf,p);
-   sprintf(bmpf,"%s%cgfx%cwwbghd.pcx",datadir,mysep,mysep);
+   sprintf(bmpf,"%s%cgfx%cwwbghd_n.pcx",datadir,mysep,mysep);
    bghdbmp=load_bitmap(bmpf,p);
    sprintf(bmpf,"%s%cgfx%cbanner.pcx",datadir,mysep,mysep);
    banrbmp=load_bitmap(bmpf,p);
@@ -1288,6 +1289,13 @@ gfx_display_hs(int tno) {
    hline(screen,hx+20+hx0,hy+39+hy0,hx+480+hx0,makecol(250,230,64));
    hline(screen,hx+20+hx0,hy+40+hy0,hx+480+hx0,makecol(180,30,32));
 #endif
+   fnt_setactive(TTfont);
+   //   ActiveFont = TTfont;
+   TTfont->scale_w=28;
+   TTfont->scale_h=32;
+//   ActiveFont->scale_w=32;
+//   ActiveFont->scale_h=32;
+
    for(i=1;i<=nscs;i++) {
       hs_getfield(sname,tno,i,"name");
       hs_getfield(sdate,tno,i,"date");
@@ -1295,14 +1303,26 @@ gfx_display_hs(int tno) {
       txtcolor=makecol(240,230,200);
       if(tno==2 || tno==4) {
 	 hs_getfield(sdetail,tno,i,"detail");
-	 sprintf(outln,"  %2d) %-18s%-12s%-18s%4s\n",i,sname,sdetail,sdate,sscore);
+//	 sprintf(outln,"  %2d) %-18s%-12s%-18s%4s\n",i,sname,sdetail,sdate,sscore);
+	 sprintf(outln,"%2d)",i);
+	 fnt_print_string(screen,hx+24+hx0,hy+32+(i*32)+hy0,outln,txtcolor,-1,-1);
+	 fnt_print_string(screen,hx+80+hx0,hy+32+(i*32)+hy0,sname,txtcolor,-1,-1);
+	 fnt_print_string(screen,hx+280+hx0,hy+32+(i*32)+hy0,sdetail,txtcolor,-1,-1);
+	 fnt_print_string(screen,hx+640+hx0,hy+32+(i*32)+hy0,sdate,txtcolor,-1,-1);
+	 fnt_print_string(screen,hx+1080+hx0,hy+32+(i*32)+hy0,sscore,txtcolor,-1,-1);
+	 //	 fnt_print_string(screen,hx+hx0,hy+32+(i*32)+hy0,outln,txtcolor,-1,-1);
       } else {
 	 if(atoi(sscore)==totscore && totscore>0) 
 	   txtcolor=makecol(255,255,100);
-	 sprintf(outln,"  %2d) %-20s %-20s %10s\n",i,sname,sdate,sscore);
+//	 sprintf(outln,"  %2d) %-20s %-20s %10s\n",i,sname,sdate,sscore);
+	 sprintf(outln,"%2d)",i);
+	 fnt_print_string(screen,hx+24+hx0,hy+32+(i*32)+hy0,outln,txtcolor,-1,-1);
+	 fnt_print_string(screen,hx+80+hx0,hy+32+(i*32)+hy0,sname,txtcolor,-1,-1);
+	 fnt_print_string(screen,hx+480+hx0,hy+32+(i*32)+hy0,sdate,txtcolor,-1,-1);
+	 fnt_print_string(screen,hx+1080+hx0,hy+32+(i*32)+hy0,sscore,txtcolor,-1,-1);
       }
-      fnt_print_string(screen,hx+hx0,hy+32+(i*16)+hy0,outln,txtcolor,-1,-1);
-   }   
+   }
+   fnt_setactive(compfont);
    unscare_once();
 }
 
@@ -1327,32 +1347,38 @@ char gfx_title(int numtbl) {
 //   printf("title 4\n");
    wdg_install_hilight(makecol(255,255,255),KEY_TAB,KEY_ENTER,0,KEY_DOWN,KEY_LEFT,KEY_RIGHT);
 //   printf("title 5\n");
-   sprintf(vers,"Version %s   (C)2007-2018 Tony Smolar",VERSION);
-   fnt_print_string(screen,CURRWORD_HD_X+140+hx0,CURRWORD_HD_Y+140+hy0,vers,makecol(240,128,250),-1,makecol(80,32,90));
+   sprintf(vers,"Version %s    (C)2007-2018   Tony Smolar",VERSION);
+   fnt_setactive(TTfont);
+   TTfont->scale_w=20;
+   TTfont->scale_h=20;
+
+   fnt_print_string(screen,CURRWORD_HD_X+440+hx0,CURRWORD_HD_Y+140+hy0,vers,makecol(32,32,32),-1,-1);
+   fnt_print_string(screen,CURRWORD_HD_X+438+hx0,CURRWORD_HD_Y+138+hy0,vers,makecol(250,220,200),-1,-1);
+   fnt_setactive(compfont);
 #ifdef GFXBITMAP
-   mybutton.btnupbmp=widgetbmp;
-   mybutton.btndnbmp=widgetbmp;
-   mybutton.btnhlbmp=widgetbmp;
+   mybutton.btnupbmp=widgethdbmp;
+   mybutton.btndnbmp=widgethdbmp;
+   mybutton.btnhlbmp=widgethdbmp;
    // Start
-   mybutton.up_x1=0;mybutton.up_y1=51;mybutton.up_x2=58;mybutton.up_y2=23;
-   mybutton.dn_x1=0;mybutton.dn_y1=74;mybutton.dn_x2=58;mybutton.dn_y2=23;
-   mybutton.hl_x1=0;mybutton.hl_y1=97;mybutton.hl_x2=58;mybutton.hl_y2=23;
+   mybutton.up_x1=104;mybutton.up_y1=188;mybutton.up_x2=104;mybutton.up_y2=40;
+   mybutton.dn_x1=208;mybutton.dn_y1=188;mybutton.dn_x2=104;mybutton.dn_y2=40;
+   mybutton.hl_x1=0;mybutton.hl_y1=188;mybutton.hl_x2=104;mybutton.hl_y2=40;
 //   mb=add_bmp_button(50+rx0,432+ry0,108+rx0,455+ry0,mybutton,&wcb_start);
-   mb=add_bmp_button(450+hx0,972+hy0,508+hx0,995+hy0,mybutton,&wcb_start);
+   mb=add_bmp_button(450+hx0,986+hy0,554+hx0,1025+hy0,mybutton,&wcb_start);
    wdg_bind_key(mb,KEY_S,-1,1);
    // Exit
-   mybutton.up_x1=58;mybutton.up_y1=51;mybutton.up_x2=58;mybutton.up_y2=23;
-   mybutton.dn_x1=58;mybutton.dn_y1=74;mybutton.dn_x2=58;mybutton.dn_y2=23;
-   mybutton.hl_x1=58;mybutton.hl_y1=97;mybutton.hl_x2=58;mybutton.hl_y2=23;
+   mybutton.up_x1=416;mybutton.up_y1=188;mybutton.up_x2=104;mybutton.up_y2=40;
+   mybutton.dn_x1=520;mybutton.dn_y1=188;mybutton.dn_x2=104;mybutton.dn_y2=40;
+   mybutton.hl_x1=312;mybutton.hl_y1=188;mybutton.hl_x2=104;mybutton.hl_y2=40;
 //   mb=add_bmp_button(115+rx0,432+ry0,173+rx0,455+ry0,mybutton,&wcb_quit);
-   mb=add_bmp_button(515+hx0,972+hy0,573+hx0,995+hy0,mybutton,&wcb_quit);
+   mb=add_bmp_button(570+hx0,986+hy0,674+hx0,1025+hy0,mybutton,&wcb_quit);
    wdg_bind_key(mb,KEY_Q,-1,1);
    // Clear Scores
-   mybutton.up_x1=116;mybutton.up_y1=51;mybutton.up_x2=118;mybutton.up_y2=23;
-   mybutton.dn_x1=116;mybutton.dn_y1=74;mybutton.dn_x2=118;mybutton.dn_y2=23;
-   mybutton.hl_x1=116;mybutton.hl_y1=97;mybutton.hl_x2=118;mybutton.hl_y2=23;
+   mybutton.up_x1=778;mybutton.up_y1=188;mybutton.up_x2=154;mybutton.up_y2=40;
+   mybutton.dn_x1=932;mybutton.dn_y1=188;mybutton.dn_x2=154;mybutton.dn_y2=40;
+   mybutton.hl_x1=624;mybutton.hl_y1=188;mybutton.hl_x2=154;mybutton.hl_y2=40;
 //   mb=add_bmp_button(431+rx0,432+ry0,549+rx0,455+ry0,mybutton,&wcb_clearhs);
-   mb=add_bmp_button(831+hx0,972+hy0,949+hx0,995+hy0,mybutton,&wcb_clearhs);
+   mb=add_bmp_button(1452+hx0,986+hy0,1605+hx0,1025+hy0,mybutton,&wcb_clearhs);
    wdg_bind_key(mb,-1,-1,1);
 #else
    mb=add_button(50+rx0,432+ry0,106+rx0,450+ry0," Start ",&wcb_start);
