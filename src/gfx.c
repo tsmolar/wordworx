@@ -34,7 +34,7 @@
 #endif
 */
 
-#define TILESTEP_HD1 2
+#define TILESTEP_HD1 4
 #define TILESTEP_HD2 4
 
 #if defined(ZAURUS)
@@ -162,8 +162,11 @@ gfx_liftcol_hd(int colno, int step) {
 //      printf("blit bs:  %d,%d  %d,%d  %d,%d\n",x,TILEPILE_Y+cpl+y-(step),x,TILEPILE_Y+cpl+y-(step),48,step);
       blit(bghdbmp,screen,x,TILEPILE_HD_Y+cpl+y-(step),x+hx0,TILEPILE_HD_Y+cpl+y-(step)+hy0,108,step);
 #ifdef GFXBITMAP
-      gearturn++;
-      if(gearturn>23) gearturn=0;
+      gearturn--;
+      if(gearturn<0) gearturn=23;
+      
+//      gearturn++;
+//      if(gearturn>23) gearturn=0;
       //      blit(gearbmp,screen,gearturn*56,0,584+rx0,gheight+ry0,55,90);
 //      blit(gearbmp,screen,gearturn*56,0,1784+hx0,gheight+hy0,55,90);
 //      
@@ -172,7 +175,8 @@ gfx_liftcol_hd(int colno, int step) {
       SA_AUTOUPDATE=1;
       blit(gearbmp,screen,gearturn*250,0,1660+hx0,gheight+hy0,250,500);
 #endif
-      ww_sleep(5);
+//      ww_sleep(5);
+      ww_sleep(2);
    }
    unscare_once();
    
@@ -218,16 +222,23 @@ gfx_dropcol_hd(int colno, int step) {
       blit(screen,screen,x+hx0,TILEPILE_HD_Y+y+hy0,x+hx0,TILEPILE_HD_Y+y+step+hy0,108,cpl);
       blit(bghdbmp,screen,x,TILEPILE_HD_Y+y,x+hx0,TILEPILE_HD_Y+y+hy0,108,step);
 #ifdef GFXBITMAP
-      gearturn--;
-      if(gearturn<0) gearturn=23;
+      gearturn++;
+      if(gearturn>23) gearturn=0;
+
+//      gearturn--;
+//      if(gearturn<0) gearturn=23;
 //      blit(gearbmp,screen,gearturn*56,0,584+rx0,gheight+ry0,55,90);
       SA_AUTOUPDATE=0;
       blit(bghdbmp,screen,1670+hx0,gheight+hy0,1670+hx0,gheight+hy0,250,500);
       SA_AUTOUPDATE=1;
       blit(gearbmp,screen,gearturn*250,0,1660+hx0,gheight+hy0,250,500);
 #endif
-      ww_sleep(5);
+//      ww_sleep(5);   
+      ww_sleep(2);   
    }
+   blit(screen,screen,x+hx0,TILEPILE_HD_Y+y+hy0,x+hx0,TILEPILE_HD_Y+126+hy0,108,cpl);
+//   blit(bghdbmp,screen,x,TILEPILE_HD_Y+y,x+hx0,TILEPILE_HD_Y+y+hy0,108,step);
+
    unscare_once();
 }
 
@@ -310,13 +321,13 @@ gfx_movetile_hd(int sx, int sy, int dx, int dy, int step) {
    tile_bg=create_bitmap(108,126);
    
    scare_once();
-   rectfill(screen,sx+hx0+2,sy+hy0+2,sx+hx0+104,sy+hy0+122,makecol(224,224,224));
-   blit(screen,tile_sp,sx+hx0,sy+hy0,0,0,107,125);
+//   rectfill(screen,sx+hx0+2,sy+hy0+2,sx+hx0+104,sy+hy0+122,makecol(224,224,224));
+   blit(screen,tile_sp,sx+hx0,sy+hy0,0,0,108,126);
 //   blit(tile_sp,screen,0,0,0,0,48,56);
 //   ww_sleep(2000);
-   blit(bghdbmp,screen,sx,sy,sx+hx0,sy+hy0,107,125);
-   blit(screen,tile_bg,sx+hx0,sy+hy0,0,0,107,125);
-   blit(tile_sp,screen,0,0,sx+hx0,sy+hy0,107,125);
+   blit(bghdbmp,screen,sx,sy,sx+hx0,sy+hy0-1,108,127); // extra line for garbage cleanup
+   blit(screen,tile_bg,sx+hx0,sy+hy0,0,0,108,126);
+   blit(tile_sp,screen,0,0,sx+hx0,sy+hy0,108,126);
    lx=sx;ly=sy;
    if(sy>dy) {
 //      printf("sx:%d  sy:%d  dx:%d  dy:%d\n",sx,sy,dx,dy);
@@ -327,10 +338,10 @@ gfx_movetile_hd(int sx, int sy, int dx, int dy, int step) {
 //      printf("x factor is %d  step:%d  (%d-%d)/(%d-%d)\n",xfac,step,dx,sx,sy,dy);
       for(cy=sy;cy>=dy;cy=cy-step) {
 	 cx=cfx/10;
-	 blit(tile_bg,screen,0,0,lx+hx0,ly+hy0,107,125);
-	 blit(screen,tile_bg,cx+hx0,cy+hy0,0,0,107,125);
+	 blit(tile_bg,screen,0,0,lx+hx0,ly+hy0,108,126);
+	 blit(screen,tile_bg,cx+hx0,cy+hy0,0,0,108,126);
 	 //	  printf("IAM ER %d,%d\n",sx,cy);
-	 blit(tile_sp,screen,0,0,cx+hx0,cy+hy0,107,125);
+	 blit(tile_sp,screen,0,0,cx+hx0,cy+hy0,108,126);
 //	 rect(screen,cx,cy,cx+48,cy+56,makecol(0,0,0));
 //	 printf("at %d,%d   %d=>%d  step:%d\n",cx,cy,sy,dy,step);
 //   SDL_Flip(screen);
@@ -338,6 +349,8 @@ gfx_movetile_hd(int sx, int sy, int dx, int dy, int step) {
 	 cfx=cfx+xfac;
 	 ww_sleep(5);
       }
+      blit(bghdbmp,screen,cx,cy+126,cx+hx0,cy+hy0+126,108,4); // garbage
+
    } else {
       xa=(dx-sx)*10;ya=(dy-sy)/step;
       xfac=xa/ya;
@@ -345,15 +358,20 @@ gfx_movetile_hd(int sx, int sy, int dx, int dy, int step) {
 //      printf("x factor is %d   (%d-%d)/(%d-%d)\n",xfac,dx,sx,sy,dy);
       for(cy=sy;cy<=dy;cy=cy+step) {
 	 cx=cfx/10;
-	 blit(tile_bg,screen,0,0,lx+hx0,ly+hy0,107,125);
-	 blit(screen,tile_bg,cx+hx0,cy+hy0,0,0,107,125);
+	 blit(tile_bg,screen,0,0,lx+hx0,ly+hy0,108,126);
+	 blit(screen,tile_bg,cx+hx0,cy+hy0,0,0,108,126);
 	 //	  printf("IAM ER %d,%d\n",sx,cy);
-	 blit(tile_sp,screen,0,0,cx+hx0,cy+hy0,107,125);
+	 blit(tile_sp,screen,0,0,cx+hx0,cy+hy0,108,126);
 	 ly=cy; lx=cx;
 	 cfx=cfx+xfac;
 	 ww_sleep(5);
       }
    }
+   // help cleanup garbage?
+   blit(tile_bg,screen,0,0,cx+hx0,cy+hy0,108,126);
+   blit(bghdbmp,screen,cx,cy-4,cx+hx0,cy+hy0-4,108,4);
+   blit(tile_sp,screen,0,0,dx+hx0,dy+hy0,108,126);
+  
    unscare_once();
    
    destroy_bitmap(tile_sp);
@@ -820,11 +838,7 @@ gfx_display_scores() {
 draw_bg() {
    #ifdef GFXBITMAP
    scare_once();
-//   blit(bgbmp,screen,0,0,rx0,ry0,639,479);
-//   rectfill(screen,0,0,1919,1079,makecol(0,0,0));
    blit(bghdbmp,screen,0,0,0+hx0,0+hy0,1919+hx0,1079+hy0);
-//   blit(gearbmp,screen,gearturn*56,0,584+rx0,gheight+ry0,55,90);
-//   blit(gearbmp,screen,gearturn*56,0,1784+hx0,gheight+hy0,55,90);
    blit(gearbmp,screen,gearturn*250,0,1660+hx0,gheight+hy0,250,500);
    unscare_once();
    #else
@@ -895,13 +909,15 @@ void gfx_display_pile() {
    SA_AUTOUPDATE=0;
 #endif
 //   set_font_fcolor(64,64,0);
+
+   // screen garbage cleanup
+//   blit(bghdbmp,screen,TILEPILE_HD_X,TILEPILE_HD_Y-4,TILEPILE_HD_X+hx0,TILEPILE_HD_Y+hy0-4,1296,6);
+   
    for(y=1;y<=numrows;y++)
      for(x=1;x<=12;x++) {
 	if(y>1) {
-//	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],1);
 	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108)+hx0,TILEPILE_HD_Y+((y-1)*126)+hy0,ltrpile[x][y],1);
 	} else {
-//	  gfx_drawtile(screen,TILEPILE_X+((x-1)*48)+rx0,TILEPILE_Y+((y-1)*56)+ry0,ltrpile[x][y],0);
 	  gfx_drawtile_hd(screen,TILEPILE_HD_X+((x-1)*108)+hx0,TILEPILE_HD_Y+((y-1)*126)+hy0,ltrpile[x][y],0);
 	}
      }
@@ -909,7 +925,7 @@ void gfx_display_pile() {
 #ifdef USESDL
    SA_AUTOUPDATE=1;
 //   SDL_UpdateRect(screen,TILEPILE_X+rx0,TILEPILE_Y+ry0,576,392);
-   SDL_UpdateRect(screen,TILEPILE_HD_X+hx0,TILEPILE_HD_Y+hy0,1296,882);
+   SDL_UpdateRect(screen,TILEPILE_HD_X+hx0,TILEPILE_HD_Y+hy0-4,1296,886);
 #endif
    
 // This causes the purple line.   Replace it with other visual fixes   
@@ -921,11 +937,16 @@ void gfx_display_pile() {
 
 void gfx_display_curword() {
    int i;
+   SA_AUTOUPDATE=0;
+   blit(bghdbmp,screen,CURRWORD_HD_X+hx0,CURRWORD_HD_Y+hy0,CURRWORD_HD_X+hx0,CURRWORD_HD_Y+hy0,1296,126);
+   
    for(i=0;i<12;i++) {
       if(currword[i]==0) break;
 //      gfx_drawtile(screen,CURRWORD_X+(i*48)+rx0,CURRWORD_Y+ry0,currword[i],0);
-      gfx_drawtile_hd(screen,CURRWORD_HD_X+(i*108)+hx0,CURRWORD_HD_Y+hy0,currword[i],0);      
+      gfx_drawtile_hd(screen,CURRWORD_HD_X+(i*108)+hx0,CURRWORD_HD_Y+hy0,currword[i],0);
    }
+   SA_AUTOUPDATE=1;
+   SDL_UpdateRect(screen,CURRWORD_HD_X+hx0,CURRWORD_HD_Y+hy0,1296,126);
 }
 
 gfx_anim_pile0() {
@@ -1016,8 +1037,9 @@ gfx_anim_pile_hd() {
 	 if(y>(20-(x*126))) {
 	    blit(screen,bmp2,TILEPILE_HD_X+hx0,y+(x*126)+hy0,0,0,1296,126);
 	    blit(bmp,screen,0,(x*126),TILEPILE_HD_X+hx0,y+(x*126)+hy0,1296,126);
-//	    blit(bgbmp,screen,TILEPILE_X,y+(x*56)-2,TILEPILE_X,y+(x*56)-2,576,2);
-	    ww_sleep(1);
+
+	    // This makes it too slow
+	    //ww_sleep(1);
 	    if(y<TILEPILE_HD_Y-1) {
 	       SA_AUTOUPDATE=0;
 	       blit(bmp2,screen,0,0,TILEPILE_HD_X+hx0,y+(x*126)+hy0,1296,126);
@@ -1031,7 +1053,9 @@ gfx_anim_pile_hd() {
 	    if(y2>0 && y2<126) {
 //	       blit(screen,bmp2,TILEPILE_X,CURRWORD_Y,0,0,576,56);
 	       blit(bmp,screen,0,((x*126)+126)-y2,TILEPILE_HD_X+hx0,CURRWORD_HD_Y+hy0,1296,y2);
-	       ww_sleep(1);
+	       
+	       // makes it too slow?
+	       ww_sleep(4);
 	       if(y2>52)
 		 blit(bghdbmp,screen,TILEPILE_HD_X,CURRWORD_HD_Y,TILEPILE_HD_X+hx0,CURRWORD_HD_Y+hy0,1296,126);
 	    }
@@ -1086,8 +1110,7 @@ gfx_setup_buttons() {
    mybutton.dn_x1=1000;mybutton.dn_y1=0;mybutton.dn_x2=199;mybutton.dn_y2=67;
    mb=add_bmp_button(1708+hx0,TILEPILE_HD_Y+0+hy0,1907+hx0,TILEPILE_HD_Y+67+hy0,mybutton,&wcb_accept_word);
    wdg_bind_key(mb,KEY_SPACE,-1,1);
-//   mb=add_button(596,CURRWORD_Y+130,636,CURRWORD_Y+148," SND",&wcb_sound);
-//   mb=add_invisible_button(596+rx0,CURRWORD_Y+130+ry0,636+rx0,CURRWORD_Y+148+ry0,&wcb_sound);
+
    mb=add_invisible_button(1796+hx0,CURRWORD_Y+130+hy0,1836+hx0,CURRWORD_Y+148+hy0,&wcb_sound);
    wdg_bind_key(mb,KEY_M,-1,0);
 //   mb=add_invisible_button(596+rx0,CURRWORD_Y+150+ry0,636+rx0,CURRWORD_Y+168+ry0,&wcb_hint);
