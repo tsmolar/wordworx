@@ -30,7 +30,7 @@
 fnt_t* cf8x16;
 #endif
 
-#define FONT_VERSION "3.7.4"
+#define FONT_VERSION "3.7.5"
 
 fnt_t* ActiveFont;  // Current Active Font
 

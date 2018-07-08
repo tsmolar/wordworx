@@ -1154,9 +1154,10 @@ gfx_setup_buttons() {
 #ifdef USESOUND
 gfx_load_samples() {
    char wavf[255];
-   sprintf(wavf,"%s%csounds%cbubbles.wav",datadir,mysep,mysep);
+   sprintf(wavf,"%s%csounds%ctileup18.wav",datadir,mysep,mysep);
    bubble_smp=load_wav(wavf);
-   sprintf(wavf,"%s%csounds%cdrop.wav",datadir,mysep,mysep);
+//   sprintf(wavf,"%s%csounds%cdrop.wav",datadir,mysep,mysep);
+   sprintf(wavf,"%s%csounds%ctiledown18.wav",datadir,mysep,mysep);
    drop_smp=load_wav(wavf);
    sprintf(wavf,"%s%csounds%cchaching.wav",datadir,mysep,mysep);
    chaching_smp=load_wav(wavf);
@@ -1299,7 +1300,8 @@ gfx_display_hs(int tno) {
 #ifdef GFXBITMAP
    bidx=tno-1;
    if(bidx==2 || bidx==3) bidx=bidx+2;
-   masked_blit(banrbmp,screen,0,bidx*41,hx+hx0,hy+hy0,513,41);
+//   masked_blit(banrbmp,screen,0,bidx*41,hx+hx0,hy+hy0,513,41);
+   masked_blit(widgethdbmp,screen,0,bidx*64+228,hx+hx0,hy+hy0,1232,64);
 //   masked_blit(banrbmp,screen,0,(tno-1)*41,hx,hy,513,41);
 #else
    hc=(512-(strlen(sname)*8))/2;
@@ -1427,7 +1429,7 @@ char gfx_title(int numtbl) {
 //	       masked_blit(ywbmp,screen,0,0,TILEPILE_X+32+rx0,TILEPILE_Y+32+ry0,511,303);
 	       blit(bghdbmp,screen,TILEPILE_HD_X+32,TILEPILE_HD_Y+32,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,1232,760);
 	       // FIX
-	       gfx_darken_rect(screen,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,TILEPILE_HD_X+544+hx0,TILEPILE_HD_Y+336+hy0);
+	       gfx_darken_rect(screen,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,TILEPILE_HD_X+1232+hx0,TILEPILE_HD_Y+760+hy0);
 	       masked_blit(ywbmp,screen,0,0,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,1231,759);
 	    } else
 	      di++;
@@ -1569,16 +1571,23 @@ int gfx_endgame() {
       ywbmp=create_bitmap(1232,760);
    }
    rectfill(ywbmp,0,0,1231,759,makecol(255,0,255));
-   gfx_darken_rect(screen,TILEPILE_X+32+rx0,TILEPILE_Y+32+ry0,TILEPILE_X+544+rx0,TILEPILE_Y+336+ry0);
-   fnt_print_string(ywbmp,200,0,"Your Words",makecol(240,240,240),-1,makecol(0,0,0));
-   fnt_print_string(ywbmp,140,284,"* Denotes hi-scoring word",makecol(240,240,240),-1,-1);
+//   gfx_darken_rect(screen,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,TILEPILE_HD_X+1232+hx0,TILEPILE_HD_Y+760+hy0);
+ 
+   fnt_setactive(TTfont);
+   TTfont->scale_w=26;
+   TTfont->scale_h=28;
 
+   fnt_print_string(ywbmp,536,12,"Your Words",makecol(240,240,240),-1,-1);
+   fnt_print_string(ywbmp,500,684,"* Denotes hi-scoring word",makecol(240,240,240),-1,-1);
+
+//   fnt_setactive(TTfont);
    do {
       hsca=' ';
       wscore=get_next_word(nword,wc);
       if(wscore!=0) {
 	 wx=((wc/14)*288)+4;
-	 wy=((wc%14)*16)+23;
+//	 wy=((wc%14)*16)+23;
+	 wy=((wc%14)*28)+64;   // was *16
 //	 wx=((wc/14)*288)+TILEPILE_X+36;
 //	 wy=((wc%14)*16)+TILEPILE_Y+64;
 	 wc++;
@@ -1586,12 +1595,21 @@ int gfx_endgame() {
 	    hhs++;
 	    hsca='*';
 	 }
-	 sprintf(dword,"%2d)%c%-12s        %3d",wc,hsca,nword,wscore);
+//	 sprintf(dword,"%2d)%c%-12s        %3d",wc,hsca,nword,wscore);
+	 sprintf(dword,"%2d)%c%-12s",wc,hsca,nword);
 	 // fnt_print_string(screen,wx,wy,dword,makecol(250,250,200),-1,makecol(32,32,32));   
-	 fnt_print_string(ywbmp,wx,wy,dword,makecol(250,250,200),-1,makecol(32,32,32));
+//	 fnt_print_string(ywbmp,wx,wy,dword,makecol(250,250,200),-1,makecol(32,32,32));
+	 fnt_print_string(ywbmp,wx,wy,dword,makecol(250,250,180),-1,-1);
+
+	 sprintf(dword,"%3d",wscore);
+	 fnt_print_string(ywbmp,wx+(26*14),wy,dword,makecol(250,250,180),-1,-1);	 
       }
    } while(wscore!=0);
-   masked_blit(ywbmp,screen,0,0,TILEPILE_X+32+rx0,TILEPILE_Y+32+ry0,1231,759);
+   
+   fnt_setactive(compfont);
+
+   masked_blit(ywbmp,screen,0,0,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,1232,760);
+   gfx_darken_rect(screen,TILEPILE_HD_X+32+hx0,TILEPILE_HD_Y+32+hy0,TILEPILE_HD_X+1232+hx0,TILEPILE_HD_Y+760+hx0);
    unscare_once();
 
    if(currcmd != KEY_Q) 

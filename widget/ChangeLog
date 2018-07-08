@@ -1,3 +1,6 @@
+2.1.10
+  * Fixed a bug in ttf font rendering, and updated that to 3.7.5
+
 2.1.9
   * wdg_adjust - for moving widgets on res change
   * wdg_refresh - for redrawing widgets when needed

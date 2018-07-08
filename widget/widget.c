@@ -14,7 +14,7 @@
 #include <sys/types.h>
 #include "widget.h"
 
-#define WIDGETVER "2.1.9"
+#define WIDGETVER "2.1.10"
 
 #define in_box(x1,y1,x2,y2,mx,my) ((mx)>(x1) && (mx)<(x2) && (my)>(y1) && (my)<(y2))
 
