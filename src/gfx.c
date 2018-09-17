@@ -1261,8 +1261,8 @@ gfx_findwords() {
 //      printf("Invoked yellow banner---  %d\n",flg_wc);
 //      sprintf(wst,"Checking Words...(%d) %d",flg_numlet,flg_wc);
       sprintf(wst,"Checking Words.......%d",flg_wc);
-      blit(bghdbmp,screen,CURRWORD_HD_X+500,0,CURRWORD_HD_X+500+hx0,0+hy0,224,16);
-      fnt_print_string(screen,CURRWORD_HD_X+200+hx0,16+hy0,wst,makecol(240,240,0),-1,-1);
+      blit(bghdbmp,screen,CURRWORD_HD_X+500,0,CURRWORD_HD_X+500+hx0,0+hy0,320,64);
+      fnt_print_string(screen,CURRWORD_HD_X+500+hx0,16+hy0,wst,makecol(240,240,0),-1,-1);
    }
    if(flg_wc==0)
      wrst=find_words_chunk(3,0); // start new search
@@ -1274,7 +1274,8 @@ gfx_findwords() {
    }
    if(wrst==1) {
       flg_morewords=1;
-      blit(bghdbmp,screen,CURRWORD_HD_X+500,0,CURRWORD_HD_X+500+hx0,0+hy0,224,16);
+      blit(bghdbmp,screen,CURRWORD_HD_X+500,0,CURRWORD_HD_X+500+hx0,0+hy0,320,64);
+//      SDL_UpdateRect(screen,CURRWORD_HD_X+500,,1232,760);
    }   
    if(wrst==2)
      flg_morewords=0;
@@ -1585,9 +1586,10 @@ int gfx_endgame() {
       hsca=' ';
       wscore=get_next_word(nword,wc);
       if(wscore!=0) {
-	 wx=((wc/14)*288)+4;
+//	 wx=((wc/14)*288)+4;
+	 wx=((wc/16)*641)+4;
 //	 wy=((wc%14)*16)+23;
-	 wy=((wc%14)*28)+64;   // was *16
+	 wy=((wc%16)*28)+64;   // was *16
 //	 wx=((wc/14)*288)+TILEPILE_X+36;
 //	 wy=((wc%14)*16)+TILEPILE_Y+64;
 	 wc++;
@@ -1602,7 +1604,7 @@ int gfx_endgame() {
 	 fnt_print_string(ywbmp,wx,wy,dword,makecol(250,250,180),-1,-1);
 
 	 sprintf(dword,"%3d",wscore);
-	 fnt_print_string(ywbmp,wx+(26*14),wy,dword,makecol(250,250,180),-1,-1);	 
+	 fnt_print_string(ywbmp,wx+(26*14),wy,dword,makecol(250,250,180),-1,-1);
       }
    } while(wscore!=0);
    
