@@ -70,30 +70,39 @@ then
 else
   AM_CONDITIONAL(FREETYPE,false)
 fi
-	  	  
-dnl Want Allegro or SDL, but not both!  Allegro takes precidence
-AM_PATH_ALLEGRO(5.1.0)
-if test "$allegro_CFLAGS"
-then
+
+gfx_lib=null
+dnl Want SDL2 or SDL
+dnl Check for SDL2
+AM_CONDITIONAL(USESDL2,false)
 AM_CONDITIONAL(USESDL,false)
-AM_CONDITIONAL(USEALLEGRO,true)
+
+AC_MSG_NOTICE([SDL2 check])
+AM_PATH_SDL2(2.0.0,gfx_lib=sdl2,:)
+if [[ "$gfx_lib" = sdl2 ]]; then
+  AC_MSG_NOTICE([Choosing SDL2 Library])
+  AM_CONDITIONAL(USESDL2,true)
+  CFLAGS="$CFLAGS $SDL_CFLAGS"
+  LIBS="$LIBS $SDL_LIBS"
+  AC_CHECK_LIB(SDL2_image,IMG_Load)
+  AC_CHECK_LIB(SDL2_mixer,Mix_Linked_Version)
 else
-AM_CONDITIONAL(USEALLEGRO,false)
-dnl Check for SDL
-SDL_VERSION=1.2.5
-#AM_PATH_SDL($SDL_VERSION,
-#            AM_CONDITIONAL(USESDL,true),
-#	    AC_MSG_WARN([*** SDL version $SDL_VERSION not found!])
-#)
-AM_PATH_SDL($SDL_VERSION,
-            AM_CONDITIONAL(USESDL,true),
-	    AM_CONDITIONAL(USESDL,false)
-)
-CFLAGS="$CFLAGS $SDL_CFLAGS"
-LIBS="$LIBS $SDL_LIBS"
-AC_CHECK_LIB(SDL_image,IMG_Load)
-AC_CHECK_LIB(SDL_mixer,Mix_Linked_Version)
+  AC_MSG_NOTICE([SDL1 check])
+  AM_PATH_SDL(1.2.5,gfx_lib=sdl1,:)
+  if [[ "$gfx_lib" = sdl1 ]]; then
+    AC_MSG_NOTICE([Choosing SDL1 Library])
+    AM_CONDITIONAL(USESDL,true)
+    CFLAGS="$CFLAGS $SDL_CFLAGS"
+    LIBS="$LIBS $SDL_LIBS"
+    AC_CHECK_LIB(SDL_image,IMG_Load)
+    AC_CHECK_LIB(SDL_mixer,Mix_Linked_Version)
+  else
+    if [[ "$gfx_lib" = null ]]; then
+      AC_MSG_ERROR([* * * No compatible graphics library found!])
+    fi
+  fi
 fi
+
 # Checks for header files.
 
 # Checks for typedefs, structures, and compiler characteristics.

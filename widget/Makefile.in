@@ -92,9 +92,9 @@ target_triplet = @target@
 @FREETYPE_TRUE@am__append_1 = font-ttf.c
 subdir = widget
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/allegro.m4 \
-	$(top_srcdir)/m4/freetype2.m4 $(top_srcdir)/m4/libcurl.m4 \
-	$(top_srcdir)/m4/sdl.m4 $(top_srcdir)/m4/sdl2.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/check_zlib.m4 \
+	$(top_srcdir)/m4/libcurl.m4 $(top_srcdir)/m4/sdl.m4 \
+	$(top_srcdir)/m4/sdl2.m4 $(top_srcdir)/m4/zdll.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -215,7 +215,6 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp \
 	ChangeLog TODO
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
-ALLEGRO_CONFIG = @ALLEGRO_CONFIG@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AUTOCONF = @AUTOCONF@
@@ -225,6 +224,7 @@ AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
+CPP = @CPP@
 CPPFLAGS = @CPPFLAGS@
 CYGPATH_W = @CYGPATH_W@
 DEFS = @DEFS@
@@ -232,10 +232,12 @@ DEPDIR = @DEPDIR@
 ECHO_C = @ECHO_C@
 ECHO_N = @ECHO_N@
 ECHO_T = @ECHO_T@
+EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FT2_CFLAGS = @FT2_CFLAGS@
 FT2_CONFIG = @FT2_CONFIG@
 FT2_LIBS = @FT2_LIBS@
+GREP = @GREP@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -276,8 +278,6 @@ abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
 ac_ct_CC = @ac_ct_CC@
-allegro_CFLAGS = @allegro_CFLAGS@
-allegro_LIBS = @allegro_LIBS@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
@@ -331,7 +331,6 @@ lib_LIBRARIES = libfont.a libwidget.a libdialog.a
 libfont_a_SOURCES = font.c font_legacy.c $(am__append_1)
 libdialog_a_SOURCES = dialog.c dialog-str.c
 libwidget_a_SOURCES = button.c widget.c window.c keyboard.c input.c style.c
-@USEALLEGRO_TRUE@AM_CFLAGS = -DCOMPFONT -DGFXLIB_ALLEGRO
 @USESDL2_TRUE@AM_CFLAGS = -DUSESDL -DSDL2 -DCOMPFONT -DGFXLIB_ALLEGRO
 @USESDL_TRUE@AM_CFLAGS = -DUSESDL -DSDL1 -DCOMPFONT -DGFXLIB_ALLEGRO
 @USESDL2_TRUE@INCLUDES = -I../sdlallegro

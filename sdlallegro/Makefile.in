@@ -14,6 +14,7 @@
 
 @SET_MAKE@
 
+
 VPATH = @srcdir@
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
@@ -91,13 +92,14 @@ host_triplet = @host@
 target_triplet = @target@
 subdir = sdlallegro
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/allegro.m4 \
-	$(top_srcdir)/m4/check_zlib.m4 $(top_srcdir)/m4/libcurl.m4 \
-	$(top_srcdir)/m4/sdl.m4 $(top_srcdir)/m4/zdll.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/check_zlib.m4 \
+	$(top_srcdir)/m4/libcurl.m4 $(top_srcdir)/m4/sdl.m4 \
+	$(top_srcdir)/m4/sdl2.m4 $(top_srcdir)/m4/zdll.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
+DIST_COMMON = $(srcdir)/Makefile.am $(noinst_HEADERS) \
+	$(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
@@ -140,7 +142,8 @@ am__v_AR_1 =
 libsdlallegro_a_AR = $(AR) $(ARFLAGS)
 libsdlallegro_a_LIBADD =
 am_libsdlallegro_a_OBJECTS = sdl_allegro.$(OBJEXT) sa_prims.$(OBJEXT) \
-	sa_sdlimage.$(OBJEXT) sa_timer.$(OBJEXT) sa_joystick.$(OBJEXT)
+	sa_sdlimage.$(OBJEXT) sa_timer.$(OBJEXT) sa_joystick.$(OBJEXT) \
+	sa_pcx.$(OBJEXT)
 libsdlallegro_a_OBJECTS = $(am_libsdlallegro_a_OBJECTS)
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
@@ -177,6 +180,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+HEADERS = $(noinst_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -200,7 +204,6 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp \
 	ChangeLog
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = @ACLOCAL@
-ALLEGRO_CONFIG = @ALLEGRO_CONFIG@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AUTOCONF = @AUTOCONF@
@@ -246,7 +249,11 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 RANLIB = @RANLIB@
+SDL2_CONFIG = @SDL2_CONFIG@
 SDL_CFLAGS = @SDL_CFLAGS@
 SDL_CONFIG = @SDL_CONFIG@
 SDL_LIBS = @SDL_LIBS@
@@ -260,8 +267,6 @@ abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
 ac_ct_CC = @ac_ct_CC@
-allegro_CFLAGS = @allegro_CFLAGS@
-allegro_LIBS = @allegro_LIBS@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
@@ -312,7 +317,10 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 lib_LIBRARIES = libsdlallegro.a
-libsdlallegro_a_SOURCES = sdl_allegro.c sa_prims.c sa_sdlimage.c sa_timer.c sa_joystick.c
+libsdlallegro_a_SOURCES = sdl_allegro.c sa_prims.c sa_sdlimage.c sa_timer.c sa_joystick.c sa_pcx.c
+noinst_HEADERS = sdl_allegro.h
+@USESDL2_TRUE@AM_CFLAGS = -DSDL2
+@USESDL_TRUE@AM_CFLAGS = -DSDL1
 all: all-am
 
 .SUFFIXES:
@@ -390,6 +398,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sa_joystick.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sa_pcx.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sa_prims.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sa_sdlimage.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sa_timer.Po@am__quote@
@@ -493,7 +502,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LIBRARIES)
+all-am: Makefile $(LIBRARIES) $(HEADERS)
 installdirs:
 	for dir in "$(DESTDIR)$(libdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \

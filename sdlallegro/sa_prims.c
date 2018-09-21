@@ -34,6 +34,7 @@ Uint32 getpixel(SDL_Surface *surface, int x, int y) {
    bpp = surface->format->BytesPerPixel;
    p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
 
+//   printf("getpixel bpp=%d\n",bpp);
    switch(bpp) {
     case 1:
       return *p;
@@ -42,7 +43,7 @@ Uint32 getpixel(SDL_Surface *surface, int x, int y) {
       return *(Uint16 *)p;
       
     case 3:
-      if(SDL_BYTEORDER == SDL_BIG_ENDIAN)
+      if(SDL_BYTEORDER != SDL_BIG_ENDIAN)
 	return p[0] << 16 | p[1] << 8 | p[2];
       else
 	return p[0] | p[1] << 8 | p[2] << 16;
@@ -63,6 +64,7 @@ void putpixel(SDL_Surface *bmp,int x, int y, Uint32 color) {
    
    
    int bpp = bmp->format->BytesPerPixel;
+//   printf("putpixel bpp=%d\n",bpp);
    /* Get Address */
    Uint8 *p = (Uint8 *)bmp->pixels +y * bmp->pitch +x *bpp;
    
@@ -109,8 +111,16 @@ void rectfill(SDL_Surface *bmp, int x1, int y1, int x2, int y2, int color) {
    srect.h = y2 - (y1 -1);
    
    SDL_FillRect(bmp, &srect, color); 
+#ifdef SDL1
    SDL_UpdateRect(bmp, x1, y1, srect.w, srect.h);
-   
+#endif
+#ifdef SDL2
+   if (SA_AUTOUPDATE == 1) {	
+      SDL_RenderCopy(sdlRenderer,screen,&srect,&srect);
+      SDL_RenderPresent(sdlRenderer);
+      printf("PRESENT!  rectfill()\n");
+   }
+#endif
 }
 
 void rect(SDL_Surface *bmp, int x1, int y1, int x2, int y2, int color) {
@@ -138,8 +148,14 @@ void rect(SDL_Surface *bmp, int x1, int y1, int x2, int y2, int color) {
    srect.w = x2 - (x1 -1); srect.h = y2 - (y1 -1);
    
 //   SDL_FillRect(bmp, &srect, color); 
+#ifdef SDL1
    SDL_UpdateRect(bmp, x1, y1, srect.w, srect.h);
-   
+#endif
+#ifdef SDL2
+   SDL_RenderCopy(sdlRenderer,screen,&srect,&srect);
+   SDL_RenderPresent(sdlRenderer);
+   printf("PRESENT!  rect()\n");
+#endif   
 }
 
 void hline(SDL_Surface *bmp, int x1, int y, int x2, int color) {
@@ -152,8 +168,14 @@ void hline(SDL_Surface *bmp, int x1, int y, int x2, int color) {
    srect.h = 1;
    
    SDL_FillRect(bmp, &srect, color); 
+#ifdef SDL1
    SDL_UpdateRect(bmp, x1, y, srect.w, srect.h);
-   
+#endif
+#ifdef SDL2
+   SDL_RenderCopy(sdlRenderer,screen,&srect,&srect);
+   SDL_RenderPresent(sdlRenderer);
+   printf("PRESENT!  hline()\n");
+#endif   
 }
 
 void vline(BITMAP *bmp, int x, int y1, int y2, int color) {
@@ -164,7 +186,14 @@ void vline(BITMAP *bmp, int x, int y1, int y2, int color) {
    srect.w = 1;
    srect.h = y2-y1 ;
    SDL_FillRect(bmp, &srect, color); 
+#ifdef SDL1
    SDL_UpdateRect(bmp, x, y1, srect.w, srect.h);
+#endif
+#ifdef SDL2
+   SDL_RenderCopy(sdlRenderer,screen,&srect,&srect);
+   SDL_RenderPresent(sdlRenderer);
+   printf("PRESENT!  vline()\n");
+#endif   
 }
 
 void fastline(BITMAP *bmp, int x1, int y1, int x2, int y2, int color) {
@@ -229,13 +258,27 @@ void fastline(BITMAP *bmp, int x1, int y1, int x2, int y2, int color) {
 	 // Why was this here?  It causes problems if lines are drawn in
 	 // certain directions
 //	 SDL_UpdateRect(bmp, srect.x, y1, srect.w, srect.h);
+#ifdef SDL1
 	 SDL_UpdateRect(bmp, srect.x, srect.y, srect.w, srect.h);
+#endif
+#ifdef SDL2
+	 SDL_RenderCopy(sdlRenderer,screen,&srect,&srect);
+	 SDL_RenderPresent(sdlRenderer);
+	 printf("PRESENT!  fastline()\n");
+#endif   
       } /* hline */
    } /* vline */
 }
    
 void line(BITMAP *bmp, int x1, int y1, int x2, int y2, int color) {
    fastline(bmp,x1,y1,x2,y2,color);
+}
+
+void triangle(BITMAP *bmp,int x1,int y1,int x2, int y2, int x3, int y3, int color) {
+   /* TODO, this needs to be filled,  might be able to steal code from arps */
+   fastline(bmp,x1,y1,x2,y2,color);
+   fastline(bmp,x2,y2,x3,y3,color);
+   fastline(bmp,x3,y3,x1,y1,color);
 }
 
 	 

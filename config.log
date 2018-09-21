@@ -46,32 +46,32 @@ PATH: .
 ## Core tests. ##
 ## ----------- ##
 
-configure:2265: checking for a BSD-compatible install
-configure:2333: result: /usr/bin/install -c
-configure:2344: checking whether build environment is sane
-configure:2399: result: yes
-configure:2437: WARNING: 'missing' script is too old or missing
-configure:2550: checking for a thread-safe mkdir -p
-configure:2589: result: /usr/bin/mkdir -p
-configure:2596: checking for gawk
-configure:2612: found /usr/bin/gawk
-configure:2623: result: gawk
-configure:2634: checking whether make sets $(MAKE)
-configure:2656: result: yes
-configure:2685: checking whether make supports nested variables
-configure:2702: result: yes
-configure:2881: checking for gcc
-configure:2897: found /usr/bin/gcc
-configure:2908: result: gcc
-configure:3137: checking for C compiler version
-configure:3146: gcc --version >&5
+configure:2272: checking for a BSD-compatible install
+configure:2340: result: /usr/bin/install -c
+configure:2351: checking whether build environment is sane
+configure:2406: result: yes
+configure:2444: WARNING: 'missing' script is too old or missing
+configure:2557: checking for a thread-safe mkdir -p
+configure:2596: result: /usr/bin/mkdir -p
+configure:2603: checking for gawk
+configure:2619: found /usr/bin/gawk
+configure:2630: result: gawk
+configure:2641: checking whether make sets $(MAKE)
+configure:2663: result: yes
+configure:2692: checking whether make supports nested variables
+configure:2709: result: yes
+configure:2888: checking for gcc
+configure:2904: found /usr/bin/gcc
+configure:2915: result: gcc
+configure:3144: checking for C compiler version
+configure:3153: gcc --version >&5
 gcc (GCC) 5.3.1 20160406 (Red Hat 5.3.1-6)
 Copyright (C) 2015 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-configure:3157: $? = 0
-configure:3146: gcc -v >&5
+configure:3164: $? = 0
+configure:3153: gcc -v >&5
 Using built-in specs.
 COLLECT_GCC=gcc
 COLLECT_LTO_WRAPPER=/usr/libexec/gcc/x86_64-redhat-linux/5.3.1/lto-wrapper
@@ -79,75 +79,75 @@ Target: x86_64-redhat-linux
 Configured with: ../configure --enable-bootstrap --enable-languages=c,c++,objc,obj-c++,fortran,ada,go,lto --prefix=/usr --mandir=/usr/share/man --infodir=/usr/share/info --with-bugurl=http://bugzilla.redhat.com/bugzilla --enable-shared --enable-threads=posix --enable-checking=release --enable-multilib --with-system-zlib --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-linker-build-id --with-linker-hash-style=gnu --enable-plugin --enable-initfini-array --disable-libgcj --with-isl --enable-libmpx --enable-gnu-indirect-function --with-tune=generic --with-arch_32=i686 --build=x86_64-redhat-linux
 Thread model: posix
 gcc version 5.3.1 20160406 (Red Hat 5.3.1-6) (GCC) 
-configure:3157: $? = 0
-configure:3146: gcc -V >&5
+configure:3164: $? = 0
+configure:3153: gcc -V >&5
 gcc: error: unrecognized command line option '-V'
 gcc: fatal error: no input files
 compilation terminated.
-configure:3157: $? = 1
-configure:3146: gcc -qversion >&5
+configure:3164: $? = 1
+configure:3153: gcc -qversion >&5
 gcc: error: unrecognized command line option '-qversion'
 gcc: fatal error: no input files
 compilation terminated.
-configure:3157: $? = 1
-configure:3177: checking whether the C compiler works
-configure:3199: gcc    conftest.c  >&5
-configure:3203: $? = 0
-configure:3251: result: yes
-configure:3254: checking for C compiler default output file name
-configure:3256: result: a.out
-configure:3262: checking for suffix of executables
-configure:3269: gcc -o conftest    conftest.c  >&5
-configure:3273: $? = 0
-configure:3295: result: 
-configure:3317: checking whether we are cross compiling
-configure:3325: gcc -o conftest    conftest.c  >&5
-configure:3329: $? = 0
-configure:3336: ./conftest
-configure:3340: $? = 0
-configure:3355: result: no
-configure:3360: checking for suffix of object files
-configure:3382: gcc -c   conftest.c >&5
-configure:3386: $? = 0
-configure:3407: result: o
-configure:3411: checking whether we are using the GNU C compiler
-configure:3430: gcc -c   conftest.c >&5
-configure:3430: $? = 0
-configure:3439: result: yes
-configure:3448: checking whether gcc accepts -g
-configure:3468: gcc -c -g  conftest.c >&5
-configure:3468: $? = 0
-configure:3509: result: yes
-configure:3526: checking for gcc option to accept ISO C89
-configure:3589: gcc  -c -g -O2  conftest.c >&5
-configure:3589: $? = 0
-configure:3602: result: none needed
-configure:3627: checking whether gcc understands -c and -o together
-configure:3649: gcc -c conftest.c -o conftest2.o
-configure:3652: $? = 0
-configure:3649: gcc -c conftest.c -o conftest2.o
-configure:3652: $? = 0
-configure:3664: result: yes
-configure:3692: checking for style of include used by make
-configure:3720: result: GNU
-configure:3746: checking dependency style of gcc
-configure:3857: result: gcc3
-configure:3915: checking for ranlib
-configure:3931: found /usr/bin/ranlib
-configure:3942: result: ranlib
-configure:3968: checking build system type
-configure:3982: result: x86_64-unknown-linux-gnu
-configure:4002: checking host system type
-configure:4015: result: x86_64-unknown-linux-gnu
-configure:4035: checking target system type
-configure:4048: result: x86_64-unknown-linux-gnu
-configure:4116: checking how to run the C preprocessor
-configure:4147: gcc -E  conftest.c
-configure:4147: $? = 0
-configure:4161: gcc -E  conftest.c
+configure:3164: $? = 1
+configure:3184: checking whether the C compiler works
+configure:3206: gcc    conftest.c  >&5
+configure:3210: $? = 0
+configure:3258: result: yes
+configure:3261: checking for C compiler default output file name
+configure:3263: result: a.out
+configure:3269: checking for suffix of executables
+configure:3276: gcc -o conftest    conftest.c  >&5
+configure:3280: $? = 0
+configure:3302: result: 
+configure:3324: checking whether we are cross compiling
+configure:3332: gcc -o conftest    conftest.c  >&5
+configure:3336: $? = 0
+configure:3343: ./conftest
+configure:3347: $? = 0
+configure:3362: result: no
+configure:3367: checking for suffix of object files
+configure:3389: gcc -c   conftest.c >&5
+configure:3393: $? = 0
+configure:3414: result: o
+configure:3418: checking whether we are using the GNU C compiler
+configure:3437: gcc -c   conftest.c >&5
+configure:3437: $? = 0
+configure:3446: result: yes
+configure:3455: checking whether gcc accepts -g
+configure:3475: gcc -c -g  conftest.c >&5
+configure:3475: $? = 0
+configure:3516: result: yes
+configure:3533: checking for gcc option to accept ISO C89
+configure:3596: gcc  -c -g -O2  conftest.c >&5
+configure:3596: $? = 0
+configure:3609: result: none needed
+configure:3634: checking whether gcc understands -c and -o together
+configure:3656: gcc -c conftest.c -o conftest2.o
+configure:3659: $? = 0
+configure:3656: gcc -c conftest.c -o conftest2.o
+configure:3659: $? = 0
+configure:3671: result: yes
+configure:3699: checking for style of include used by make
+configure:3727: result: GNU
+configure:3753: checking dependency style of gcc
+configure:3864: result: gcc3
+configure:3922: checking for ranlib
+configure:3938: found /usr/bin/ranlib
+configure:3949: result: ranlib
+configure:3975: checking build system type
+configure:3989: result: x86_64-unknown-linux-gnu
+configure:4009: checking host system type
+configure:4022: result: x86_64-unknown-linux-gnu
+configure:4042: checking target system type
+configure:4055: result: x86_64-unknown-linux-gnu
+configure:4123: checking how to run the C preprocessor
+configure:4154: gcc -E  conftest.c
+configure:4154: $? = 0
+configure:4168: gcc -E  conftest.c
 conftest.c:12:28: fatal error: ac_nonexistent.h: No such file or directory
 compilation terminated.
-configure:4161: $? = 1
+configure:4168: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ww"
@@ -161,13 +161,13 @@ configure: failed program was:
 | #define INSTPREFIX "/usr/local"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:4186: result: gcc -E
-configure:4206: gcc -E  conftest.c
-configure:4206: $? = 0
-configure:4220: gcc -E  conftest.c
+configure:4193: result: gcc -E
+configure:4213: gcc -E  conftest.c
+configure:4213: $? = 0
+configure:4227: gcc -E  conftest.c
 conftest.c:12:28: fatal error: ac_nonexistent.h: No such file or directory
 compilation terminated.
-configure:4220: $? = 1
+configure:4227: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ww"
@@ -181,60 +181,60 @@ configure: failed program was:
 | #define INSTPREFIX "/usr/local"
 | /* end confdefs.h.  */
 | #include <ac_nonexistent.h>
-configure:4249: checking for grep that handles long lines and -e
-configure:4307: result: /usr/bin/grep
-configure:4312: checking for egrep
-configure:4374: result: /usr/bin/grep -E
-configure:4379: checking for ANSI C header files
-configure:4399: gcc -c -g -O2  conftest.c >&5
-configure:4399: $? = 0
-configure:4472: gcc -o conftest -g -O2   conftest.c  >&5
-configure:4472: $? = 0
-configure:4472: ./conftest
-configure:4472: $? = 0
-configure:4483: result: yes
-configure:4496: checking for sys/types.h
-configure:4496: gcc -c -g -O2  conftest.c >&5
-configure:4496: $? = 0
-configure:4496: result: yes
-configure:4496: checking for sys/stat.h
-configure:4496: gcc -c -g -O2  conftest.c >&5
-configure:4496: $? = 0
-configure:4496: result: yes
-configure:4496: checking for stdlib.h
-configure:4496: gcc -c -g -O2  conftest.c >&5
-configure:4496: $? = 0
-configure:4496: result: yes
-configure:4496: checking for string.h
-configure:4496: gcc -c -g -O2  conftest.c >&5
-configure:4496: $? = 0
-configure:4496: result: yes
-configure:4496: checking for memory.h
-configure:4496: gcc -c -g -O2  conftest.c >&5
-configure:4496: $? = 0
-configure:4496: result: yes
-configure:4496: checking for strings.h
-configure:4496: gcc -c -g -O2  conftest.c >&5
-configure:4496: $? = 0
-configure:4496: result: yes
-configure:4496: checking for inttypes.h
-configure:4496: gcc -c -g -O2  conftest.c >&5
-configure:4496: $? = 0
-configure:4496: result: yes
-configure:4496: checking for stdint.h
-configure:4496: gcc -c -g -O2  conftest.c >&5
-configure:4496: $? = 0
-configure:4496: result: yes
-configure:4496: checking for unistd.h
-configure:4496: gcc -c -g -O2  conftest.c >&5
-configure:4496: $? = 0
-configure:4496: result: yes
-configure:4511: checking if zdll is wanted
-configure:4559: checking for inflateEnd in -lzdll
-configure:4584: gcc -o conftest -g -O2  -I/usr/include  -L/usr/lib conftest.c -lzdll   >&5
+configure:4256: checking for grep that handles long lines and -e
+configure:4314: result: /usr/bin/grep
+configure:4319: checking for egrep
+configure:4381: result: /usr/bin/grep -E
+configure:4386: checking for ANSI C header files
+configure:4406: gcc -c -g -O2  conftest.c >&5
+configure:4406: $? = 0
+configure:4479: gcc -o conftest -g -O2   conftest.c  >&5
+configure:4479: $? = 0
+configure:4479: ./conftest
+configure:4479: $? = 0
+configure:4490: result: yes
+configure:4503: checking for sys/types.h
+configure:4503: gcc -c -g -O2  conftest.c >&5
+configure:4503: $? = 0
+configure:4503: result: yes
+configure:4503: checking for sys/stat.h
+configure:4503: gcc -c -g -O2  conftest.c >&5
+configure:4503: $? = 0
+configure:4503: result: yes
+configure:4503: checking for stdlib.h
+configure:4503: gcc -c -g -O2  conftest.c >&5
+configure:4503: $? = 0
+configure:4503: result: yes
+configure:4503: checking for string.h
+configure:4503: gcc -c -g -O2  conftest.c >&5
+configure:4503: $? = 0
+configure:4503: result: yes
+configure:4503: checking for memory.h
+configure:4503: gcc -c -g -O2  conftest.c >&5
+configure:4503: $? = 0
+configure:4503: result: yes
+configure:4503: checking for strings.h
+configure:4503: gcc -c -g -O2  conftest.c >&5
+configure:4503: $? = 0
+configure:4503: result: yes
+configure:4503: checking for inttypes.h
+configure:4503: gcc -c -g -O2  conftest.c >&5
+configure:4503: $? = 0
+configure:4503: result: yes
+configure:4503: checking for stdint.h
+configure:4503: gcc -c -g -O2  conftest.c >&5
+configure:4503: $? = 0
+configure:4503: result: yes
+configure:4503: checking for unistd.h
+configure:4503: gcc -c -g -O2  conftest.c >&5
+configure:4503: $? = 0
+configure:4503: result: yes
+configure:4518: checking if zdll is wanted
+configure:4566: checking for inflateEnd in -lzdll
+configure:4591: gcc -o conftest -g -O2  -I/usr/include  -L/usr/lib conftest.c -lzdll   >&5
 /usr/bin/ld: cannot find -lzdll
 collect2: error: ld returned 1 exit status
-configure:4584: $? = 1
+configure:4591: $? = 1
 configure: failed program was:
 | /* confdefs.h */
 | #define PACKAGE_NAME "ww"
@@ -272,171 +272,63 @@ configure: failed program was:
 |   ;
 |   return 0;
 | }
-configure:4593: result: no
-configure:4601: checking zlib.h usability
-configure:4601: gcc -c -g -O2  -I/usr/include conftest.c >&5
-configure:4601: $? = 0
-configure:4601: result: yes
-configure:4601: checking zlib.h presence
-configure:4601: gcc -E  -I/usr/include conftest.c
-configure:4601: $? = 0
-configure:4601: result: yes
-configure:4601: checking for zlib.h
-configure:4601: result: yes
-configure:4674: checking zdll in /usr
-configure:4678: result: failed
-configure:4703: checking if zlib is wanted
-configure:4750: checking for inflateEnd in -lz
-configure:4775: gcc -o conftest -g -O2  -I/usr/include  -L/usr/lib conftest.c -lz   >&5
-configure:4775: $? = 0
-configure:4784: result: yes
-configure:4792: checking for zlib.h
-configure:4792: result: yes
-configure:4811: checking for inflateEnd in -lz
-configure:4845: result: yes
-configure:4856: checking zlib in /usr
-configure:4859: result: ok
-configure:5385: checking for freetype-config
-configure:5403: found /usr/bin/freetype-config
-configure:5415: result: /usr/bin/freetype-config
-configure:5440: checking for FreeType -- version >= 2.1.0
-configure:5521: gcc -o conftest -g -O2 -I/usr/include/freetype2  -I/usr/include  -L/usr/lib conftest.c -lfreetype -lz  >&5
-configure:5521: $? = 0
-configure:5521: ./conftest
-configure:5521: $? = 0
-configure:5538: result: yes
-configure:5668: checking for allegro-config
-configure:5686: found /usr/bin/allegro-config
-configure:5699: result: /usr/bin/allegro-config
-configure:5708: checking for Allegro - version >= 5.1.0
-configure:5812: gcc -o conftest -g -O2 -I/usr/include/freetype2 -I/usr/include  -I/usr/include  -L/usr/lib conftest.c -L/usr/lib64 -lalleg -lz  -lfreetype >&5
-configure:5812: $? = 0
-configure:5812: ./conftest
-configure:5812: $? = 1
-configure: program exited with status 1
-configure: failed program was:
-| /* confdefs.h */
-| #define PACKAGE_NAME "ww"
-| #define PACKAGE_TARNAME "ww"
-| #define PACKAGE_VERSION "1.9.0"
-| #define PACKAGE_STRING "ww 1.9.0"
-| #define PACKAGE_BUGREPORT "asmolar@sf.net"
-| #define PACKAGE_URL ""
-| #define PACKAGE "ww"
-| #define VERSION "1.9.0"
-| #define INSTPREFIX "/usr/local"
-| #define STDC_HEADERS 1
-| #define HAVE_SYS_TYPES_H 1
-| #define HAVE_SYS_STAT_H 1
-| #define HAVE_STDLIB_H 1
-| #define HAVE_STRING_H 1
-| #define HAVE_MEMORY_H 1
-| #define HAVE_STRINGS_H 1
-| #define HAVE_INTTYPES_H 1
-| #define HAVE_STDINT_H 1
-| #define HAVE_UNISTD_H 1
-| #define HAVE_LIBZ 1
-| #define USE_FREETYPE 1
-| /* end confdefs.h.  */
-| 
-| #include <stdlib.h>
-| #include <stdio.h>
-| #include <string.h>
-| #include <allegro.h>
-| 
-| int
-| main()
-| {
-|   int allegro_major_version, allegro_minor_version, allegro_micro_version;
-|   int major, minor, micro;
-|   char *tmp_version;
-|   int tmp_int_version;
-| 
-|   system("touch conf.allegrotest");
-| 
-|   /* Capture allegro-config output via autoconf/configure variables */
-|   /* HP/UX 9 (%@#!) writes to sscanf strings */
-|   tmp_version = (char *)strdup("5.1.0");
-|   if (sscanf(tmp_version, "%d.%d.%d", &major, &minor, &micro) != 3) {
-|      printf("%s, bad version string from allegro-config\n", "5.1.0");
-|      free(tmp_version);
-|      exit(1);
-|    }
-|    free(tmp_version);
-| 
-|    /* Capture the version information from the header files */
-|    allegro_major_version = ALLEGRO_VERSION;
-|    allegro_minor_version = ALLEGRO_SUB_VERSION;
-|    allegro_micro_version = ALLEGRO_WIP_VERSION;
-| 
-|  /* Compare allegro-config output to the Allegro headers */
-|   if ((allegro_major_version != 4) ||
-|       (allegro_minor_version != 4))
-| 
-|     {
-|       printf("*** Allegro header files (version %d.%d.%d) do not match\n",
-|          allegro_major_version, allegro_minor_version, allegro_micro_version);
-|       printf("*** allegro-config (version %d.%d.%d)\n",
-|          4, 4, 2);
-|       return 1;
-|     }
-| /* Compare the headers to the library to make sure we match */
-|   /* Less than ideal -- doesn't provide us with return value feedback,
-|    * only exits if there's a serious mismatch between header and library.
-|    */
-|    	/* TODO:
-| 	 * This doesnt work!
-| 	 */
-|     /* ALLEGRO_TEST_VERSION; */
-| 
-|     /* Test that the library is greater than our minimum version */
-|     if ((4 > major) ||
-|         ((4 == major) && (4 > minor)) ||
-|         ((4 == major) && (4 == minor) &&
-|         (2 >= micro)))
-|       {
-|         return 0;
-|        }
-|      else
-|       {
-|         printf("\n*** An old version of Allegro (%d.%d.%d) was found.\n",
-|                allegro_major_version, allegro_minor_version, allegro_micro_version);
-|         printf("*** You need a version of Allegro newer than %d.%d.%d. The latest version of\n",
-|            major, minor, micro);
-|         printf("*** Allegro is always available from http://alleg.sf.net.\n");
-|         printf("***\n");
-|         printf("*** If you have already installed a sufficiently new version, this error\n");
-|         printf("*** probably means that the wrong copy of the allegro-config shell script is\n");
-|         printf("*** being found. The easiest way to fix this is to remove the old version\n");
-|         printf("*** of Allegro, but you can also set the ALLEGRO_CONFIG environment to point to the\n");
-|         printf("*** correct copy of allegro-config. (In this case, you will have to\n");
-|         printf("*** modify your LD_LIBRARY_PATH enviroment variable, or edit /etc/ld.so.conf\n");
-|         printf("*** so that the correct libraries are found at run-time))\n");
-|     }
-|   return 1;
-| } END_OF_MAIN()
-| 
-configure:5831: result: no
-configure:5963: checking for sdl-config
-configure:5981: found /usr/bin/sdl-config
-configure:5994: result: /usr/bin/sdl-config
-configure:6003: checking for SDL - version >= 1.2.5
-configure:6090: gcc -o conftest -g -O2 -I/usr/include/freetype2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  -I/usr/include  -L/usr/lib conftest.c -lz  -lfreetype -lSDL -lpthread >&5
-configure:6090: $? = 0
-configure:6090: ./conftest
-configure:6090: $? = 0
-configure:6104: result: yes
-configure:6191: checking for IMG_Load in -lSDL_image
-configure:6216: gcc -o conftest -g -O2 -I/usr/include/freetype2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  -I/usr/include  -L/usr/lib conftest.c -lSDL_image  -lz  -lfreetype -lSDL -lpthread >&5
-configure:6216: $? = 0
-configure:6225: result: yes
-configure:6236: checking for Mix_Linked_Version in -lSDL_mixer
-configure:6261: gcc -o conftest -g -O2 -I/usr/include/freetype2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT  -I/usr/include  -L/usr/lib conftest.c -lSDL_mixer  -lSDL_image -lz  -lfreetype -lSDL -lpthread >&5
-configure:6261: $? = 0
-configure:6270: result: yes
-configure:6398: checking that generated files are newer than configure
-configure:6404: result: done
-configure:6475: creating ./config.status
+configure:4600: result: no
+configure:4608: checking zlib.h usability
+configure:4608: gcc -c -g -O2  -I/usr/include conftest.c >&5
+configure:4608: $? = 0
+configure:4608: result: yes
+configure:4608: checking zlib.h presence
+configure:4608: gcc -E  -I/usr/include conftest.c
+configure:4608: $? = 0
+configure:4608: result: yes
+configure:4608: checking for zlib.h
+configure:4608: result: yes
+configure:4681: checking zdll in /usr
+configure:4685: result: failed
+configure:4710: checking if zlib is wanted
+configure:4757: checking for inflateEnd in -lz
+configure:4782: gcc -o conftest -g -O2  -I/usr/include  -L/usr/lib conftest.c -lz   >&5
+configure:4782: $? = 0
+configure:4791: result: yes
+configure:4799: checking for zlib.h
+configure:4799: result: yes
+configure:4818: checking for inflateEnd in -lz
+configure:4852: result: yes
+configure:4863: checking zlib in /usr
+configure:4866: result: ok
+configure:5392: checking for freetype-config
+configure:5410: found /usr/bin/freetype-config
+configure:5422: result: /usr/bin/freetype-config
+configure:5447: checking for FreeType -- version >= 2.1.0
+configure:5528: gcc -o conftest -g -O2 -I/usr/include/freetype2  -I/usr/include  -L/usr/lib conftest.c -lfreetype -lz  >&5
+configure:5528: $? = 0
+configure:5528: ./conftest
+configure:5528: $? = 0
+configure:5545: result: yes
+configure:5653: SDL2 check
+configure:5709: checking for pkg-config
+configure:5727: found /usr/bin/pkg-config
+configure:5739: result: /usr/bin/pkg-config
+configure:5764: checking pkg-config is at least version 0.9.0
+configure:5767: result: yes
+configure:5804: checking for SDL
+configure:5811: $PKG_CONFIG --exists --print-errors "sdl2 >= $min_sdl_version"
+configure:5814: $? = 0
+configure:5828: $PKG_CONFIG --exists --print-errors "sdl2 >= $min_sdl_version"
+configure:5831: $? = 0
+configure:5869: result: yes
+configure:6116: Choosing SDL2 Library
+configure:6128: checking for IMG_Load in -lSDL2_image
+configure:6153: gcc -o conftest -g -O2 -I/usr/include/freetype2 -D_REENTRANT -I/usr/include/SDL2   -I/usr/include  -L/usr/lib conftest.c -lSDL2_image  -lz  -lfreetype -lSDL2  >&5
+configure:6153: $? = 0
+configure:6162: result: yes
+configure:6173: checking for Mix_Linked_Version in -lSDL2_mixer
+configure:6198: gcc -o conftest -g -O2 -I/usr/include/freetype2 -D_REENTRANT -I/usr/include/SDL2   -I/usr/include  -L/usr/lib conftest.c -lSDL2_mixer  -lSDL2_image -lz  -lfreetype -lSDL2  >&5
+configure:6198: $? = 0
+configure:6207: result: yes
+configure:6699: checking that generated files are newer than configure
+configure:6705: result: done
+configure:6772: creating ./config.status
 
 ## ---------------------- ##
 ## Running config.status. ##
@@ -453,14 +345,14 @@ generated by GNU Autoconf 2.69.  Invocation command line was
 
 on mallard
 
-config.status:896: creating Makefile
-config.status:896: creating src/Makefile
-config.status:896: creating widget/Makefile
-config.status:896: creating hiscore/Makefile
-config.status:896: creating sdlallegro/Makefile
-config.status:896: creating config.h
-config.status:1077: config.h is unchanged
-config.status:1125: executing depfiles commands
+config.status:897: creating Makefile
+config.status:897: creating src/Makefile
+config.status:897: creating widget/Makefile
+config.status:897: creating hiscore/Makefile
+config.status:897: creating sdlallegro/Makefile
+config.status:897: creating config.h
+config.status:1078: config.h is unchanged
+config.status:1126: executing depfiles commands
 
 ## ---------------- ##
 ## Cache variables. ##
@@ -480,6 +372,16 @@ ac_cv_env_LDFLAGS_set=
 ac_cv_env_LDFLAGS_value=
 ac_cv_env_LIBS_set=
 ac_cv_env_LIBS_value=
+ac_cv_env_PKG_CONFIG_LIBDIR_set=
+ac_cv_env_PKG_CONFIG_LIBDIR_value=
+ac_cv_env_PKG_CONFIG_PATH_set=
+ac_cv_env_PKG_CONFIG_PATH_value=
+ac_cv_env_PKG_CONFIG_set=
+ac_cv_env_PKG_CONFIG_value=
+ac_cv_env_SDL_CFLAGS_set=
+ac_cv_env_SDL_CFLAGS_value=
+ac_cv_env_SDL_LIBS_set=
+ac_cv_env_SDL_LIBS_value=
 ac_cv_env_build_alias_set=
 ac_cv_env_build_alias_value=
 ac_cv_env_host_alias_set=
@@ -498,16 +400,15 @@ ac_cv_header_sys_types_h=yes
 ac_cv_header_unistd_h=yes
 ac_cv_header_zlib_h=yes
 ac_cv_host=x86_64-unknown-linux-gnu
-ac_cv_lib_SDL_image_IMG_Load=yes
-ac_cv_lib_SDL_mixer_Mix_Linked_Version=yes
+ac_cv_lib_SDL2_image_IMG_Load=yes
+ac_cv_lib_SDL2_mixer_Mix_Linked_Version=yes
 ac_cv_lib_z_inflateEnd=yes
 ac_cv_lib_zdll_inflateEnd=no
 ac_cv_objext=o
-ac_cv_path_ALLEGRO_CONFIG=/usr/bin/allegro-config
 ac_cv_path_EGREP='/usr/bin/grep -E'
 ac_cv_path_GREP=/usr/bin/grep
-ac_cv_path_SDL_CONFIG=/usr/bin/sdl-config
 ac_cv_path_ac_pt_FT2_CONFIG=/usr/bin/freetype-config
+ac_cv_path_ac_pt_PKG_CONFIG=/usr/bin/pkg-config
 ac_cv_path_install='/usr/bin/install -c'
 ac_cv_path_mkdir=/usr/bin/mkdir
 ac_cv_prog_AWK=gawk
@@ -521,6 +422,8 @@ ac_cv_target=x86_64-unknown-linux-gnu
 am_cv_CC_dependencies_compiler_type=gcc3
 am_cv_make_support_nested_variables=yes
 am_cv_prog_cc_c_o=yes
+pkg_cv_SDL_CFLAGS='-D_REENTRANT -I/usr/include/SDL2 '
+pkg_cv_SDL_LIBS='-lSDL2 '
 zdll_cv_libz=no
 zdll_cv_zdll_h=yes
 zlib_cv_libz=yes
@@ -531,7 +434,6 @@ zlib_cv_zlib_h=yes
 ## ----------------- ##
 
 ACLOCAL='aclocal-1.15'
-ALLEGRO_CONFIG='/usr/bin/allegro-config'
 AMDEPBACKSLASH='\'
 AMDEP_FALSE='#'
 AMDEP_TRUE=''
@@ -546,7 +448,7 @@ AUTOMAKE='automake-1.15'
 AWK='gawk'
 CC='gcc'
 CCDEPMODE='depmode=gcc3'
-CFLAGS='-g -O2 -I/usr/include/freetype2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT'
+CFLAGS='-g -O2 -I/usr/include/freetype2 -D_REENTRANT -I/usr/include/SDL2 '
 CPP='gcc -E'
 CPPFLAGS=' -I/usr/include'
 CYGPATH_W='echo'
@@ -573,7 +475,7 @@ LDFLAGS=' -L/usr/lib'
 LIBCURL=''
 LIBCURL_CPPFLAGS=''
 LIBOBJS=''
-LIBS='-lSDL_mixer -lSDL_image -lz  -lfreetype -lSDL -lpthread'
+LIBS='-lSDL2_mixer -lSDL2_image -lz  -lfreetype -lSDL2 '
 LTLIBOBJS=''
 MAKEINFO='makeinfo'
 MKDIR_P='/usr/bin/mkdir -p'
@@ -586,24 +488,26 @@ PACKAGE_TARNAME='ww'
 PACKAGE_URL=''
 PACKAGE_VERSION='1.9.0'
 PATH_SEPARATOR=':'
+PKG_CONFIG='/usr/bin/pkg-config'
+PKG_CONFIG_LIBDIR=''
+PKG_CONFIG_PATH=''
 RANLIB='ranlib'
-SDL_CFLAGS='-I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT'
-SDL_CONFIG='/usr/bin/sdl-config'
-SDL_LIBS='-lSDL -lpthread'
+SDL2_CONFIG='pkg-config sdl2'
+SDL_CFLAGS='-D_REENTRANT -I/usr/include/SDL2 '
+SDL_CONFIG=''
+SDL_LIBS='-lSDL2 '
 SET_MAKE=''
 SHELL='/bin/sh'
 STRIP=''
-USEALLEGRO_FALSE=''
-USEALLEGRO_TRUE='#'
-USESDL_FALSE='#'
-USESDL_TRUE=''
+USESDL2_FALSE='#'
+USESDL2_TRUE=''
+USESDL_FALSE=''
+USESDL_TRUE='#'
 USEZ_FALSE='#'
 USEZ_TRUE=''
 VERSION='1.9.0'
 _libcurl_config=''
 ac_ct_CC='gcc'
-allegro_CFLAGS=''
-allegro_LIBS=''
 am__EXEEXT_FALSE=''
 am__EXEEXT_TRUE='#'
 am__fastdepCC_FALSE='#'
@@ -681,7 +585,7 @@ target_vendor='unknown'
 #define HAVE_UNISTD_H 1
 #define HAVE_LIBZ 1
 #define USE_FREETYPE 1
-#define HAVE_LIBSDL_IMAGE 1
-#define HAVE_LIBSDL_MIXER 1
+#define HAVE_LIBSDL2_IMAGE 1
+#define HAVE_LIBSDL2_MIXER 1
 
 configure: exit 0

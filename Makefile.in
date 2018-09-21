@@ -90,9 +90,9 @@ host_triplet = @host@
 target_triplet = @target@
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/allegro.m4 \
-	$(top_srcdir)/m4/check_zlib.m4 $(top_srcdir)/m4/libcurl.m4 \
-	$(top_srcdir)/m4/sdl.m4 $(top_srcdir)/m4/zdll.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/check_zlib.m4 \
+	$(top_srcdir)/m4/libcurl.m4 $(top_srcdir)/m4/sdl.m4 \
+	$(top_srcdir)/m4/sdl2.m4 $(top_srcdir)/m4/zdll.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -160,7 +160,7 @@ am__define_uniq_tagged_files = \
 ETAGS = etags
 CTAGS = ctags
 CSCOPE = cscope
-DIST_SUBDIRS = src hiscore sdlallegro widget
+DIST_SUBDIRS = sdlallegro hiscore widget src
 am__DIST_COMMON = $(srcdir)/Makefile.in $(srcdir)/config.h.in AUTHORS \
 	COPYING ChangeLog INSTALL NEWS README compile config.guess \
 	config.sub depcomp install-sh missing
@@ -207,7 +207,6 @@ am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
 ACLOCAL = @ACLOCAL@
-ALLEGRO_CONFIG = @ALLEGRO_CONFIG@
 AMTAR = @AMTAR@
 AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
 AUTOCONF = @AUTOCONF@
@@ -253,7 +252,11 @@ PACKAGE_TARNAME = @PACKAGE_TARNAME@
 PACKAGE_URL = @PACKAGE_URL@
 PACKAGE_VERSION = @PACKAGE_VERSION@
 PATH_SEPARATOR = @PATH_SEPARATOR@
+PKG_CONFIG = @PKG_CONFIG@
+PKG_CONFIG_LIBDIR = @PKG_CONFIG_LIBDIR@
+PKG_CONFIG_PATH = @PKG_CONFIG_PATH@
 RANLIB = @RANLIB@
+SDL2_CONFIG = @SDL2_CONFIG@
 SDL_CFLAGS = @SDL_CFLAGS@
 SDL_CONFIG = @SDL_CONFIG@
 SDL_LIBS = @SDL_LIBS@
@@ -267,8 +270,6 @@ abs_srcdir = @abs_srcdir@
 abs_top_builddir = @abs_top_builddir@
 abs_top_srcdir = @abs_top_srcdir@
 ac_ct_CC = @ac_ct_CC@
-allegro_CFLAGS = @allegro_CFLAGS@
-allegro_LIBS = @allegro_LIBS@
 am__include = @am__include@
 am__leading_dot = @am__leading_dot@
 am__quote = @am__quote@
@@ -318,9 +319,8 @@ target_vendor = @target_vendor@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-@USEALLEGRO_FALSE@@USESDL_FALSE@SUBDIRS = src hiscore
-@USEALLEGRO_FALSE@@USESDL_TRUE@SUBDIRS = sdlallegro hiscore widget src
-@USEALLEGRO_TRUE@SUBDIRS = widget hiscore src
+@USESDL_FALSE@SUBDIRS = sdlallegro hiscore widget src
+@USESDL_TRUE@SUBDIRS = sdlallegro hiscore widget src
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 

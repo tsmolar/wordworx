@@ -92,9 +92,9 @@ target_triplet = x86_64-unknown-linux-gnu
 #am__append_1 = hsnet.c
 subdir = hiscore
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/allegro.m4 \
-	$(top_srcdir)/m4/check_zlib.m4 $(top_srcdir)/m4/libcurl.m4 \
-	$(top_srcdir)/m4/sdl.m4 $(top_srcdir)/m4/zdll.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/check_zlib.m4 \
+	$(top_srcdir)/m4/libcurl.m4 $(top_srcdir)/m4/sdl.m4 \
+	$(top_srcdir)/m4/sdl2.m4 $(top_srcdir)/m4/zdll.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
@@ -201,7 +201,6 @@ CTAGS = ctags
 am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = aclocal-1.15
-ALLEGRO_CONFIG = /usr/bin/allegro-config
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 AUTOCONF = autoconf
@@ -210,7 +209,7 @@ AUTOMAKE = automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2 -I/usr/include/freetype2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
+CFLAGS = -g -O2 -I/usr/include/freetype2 -D_REENTRANT -I/usr/include/SDL2 
 CPP = gcc -E
 CPPFLAGS =  -I/usr/include
 CYGPATH_W = echo
@@ -234,7 +233,7 @@ LDFLAGS =  -L/usr/lib
 LIBCURL = 
 LIBCURL_CPPFLAGS = 
 LIBOBJS = 
-LIBS = -lSDL_mixer -lSDL_image -lz  -lfreetype -lSDL -lpthread
+LIBS = -lSDL2_mixer -lSDL2_image -lz  -lfreetype -lSDL2 
 LTLIBOBJS = 
 MAKEINFO = makeinfo
 MKDIR_P = /usr/bin/mkdir -p
@@ -247,10 +246,14 @@ PACKAGE_TARNAME = ww
 PACKAGE_URL = 
 PACKAGE_VERSION = 1.9.0
 PATH_SEPARATOR = :
+PKG_CONFIG = /usr/bin/pkg-config
+PKG_CONFIG_LIBDIR = 
+PKG_CONFIG_PATH = 
 RANLIB = ranlib
-SDL_CFLAGS = -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
-SDL_CONFIG = /usr/bin/sdl-config
-SDL_LIBS = -lSDL -lpthread
+SDL2_CONFIG = pkg-config sdl2
+SDL_CFLAGS = -D_REENTRANT -I/usr/include/SDL2 
+SDL_CONFIG = 
+SDL_LIBS = -lSDL2 
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
@@ -261,8 +264,6 @@ abs_srcdir = /local/src/x86_64/games/wordworx/wordworx.git/trunk/hiscore
 abs_top_builddir = /local/src/x86_64/games/wordworx/wordworx.git/trunk
 abs_top_srcdir = /local/src/x86_64/games/wordworx/wordworx.git/trunk
 ac_ct_CC = gcc
-allegro_CFLAGS = 
-allegro_LIBS = 
 am__include = include
 am__leading_dot = .
 am__quote = 

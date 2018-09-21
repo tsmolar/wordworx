@@ -1493,7 +1493,7 @@ gfx_init() {
    }
 
 //   printf("c 2\n");
-#if defined(USESDL) && defined(GFXBITMAP) && !defined(ZAURUS)
+#if (defined(USESDL) || defined(USESDL2)) && defined(GFXBITMAP) 
    // This was a pain to get to work
    sprintf(ifn,"%s%cicons%cicon32.bmp",datadir,mysep,mysep);
 //   printf("loading %s\n",ifn);

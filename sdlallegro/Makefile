@@ -15,6 +15,7 @@
 
 
 
+
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
     false; \
@@ -91,13 +92,14 @@ host_triplet = x86_64-unknown-linux-gnu
 target_triplet = x86_64-unknown-linux-gnu
 subdir = sdlallegro
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/m4/allegro.m4 \
-	$(top_srcdir)/m4/check_zlib.m4 $(top_srcdir)/m4/libcurl.m4 \
-	$(top_srcdir)/m4/sdl.m4 $(top_srcdir)/m4/zdll.m4 \
+am__aclocal_m4_deps = $(top_srcdir)/m4/check_zlib.m4 \
+	$(top_srcdir)/m4/libcurl.m4 $(top_srcdir)/m4/sdl.m4 \
+	$(top_srcdir)/m4/sdl2.m4 $(top_srcdir)/m4/zdll.m4 \
 	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-DIST_COMMON = $(srcdir)/Makefile.am $(am__DIST_COMMON)
+DIST_COMMON = $(srcdir)/Makefile.am $(noinst_HEADERS) \
+	$(am__DIST_COMMON)
 mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
@@ -140,7 +142,8 @@ am__v_AR_1 =
 libsdlallegro_a_AR = $(AR) $(ARFLAGS)
 libsdlallegro_a_LIBADD =
 am_libsdlallegro_a_OBJECTS = sdl_allegro.$(OBJEXT) sa_prims.$(OBJEXT) \
-	sa_sdlimage.$(OBJEXT) sa_timer.$(OBJEXT) sa_joystick.$(OBJEXT)
+	sa_sdlimage.$(OBJEXT) sa_timer.$(OBJEXT) sa_joystick.$(OBJEXT) \
+	sa_pcx.$(OBJEXT)
 libsdlallegro_a_OBJECTS = $(am_libsdlallegro_a_OBJECTS)
 AM_V_P = $(am__v_P_$(V))
 am__v_P_ = $(am__v_P_$(AM_DEFAULT_VERBOSITY))
@@ -177,6 +180,7 @@ am__can_run_installinfo = \
     n|no|NO) false;; \
     *) (install-info --version) >/dev/null 2>&1;; \
   esac
+HEADERS = $(noinst_HEADERS)
 am__tagged_files = $(HEADERS) $(SOURCES) $(TAGS_FILES) $(LISP)
 # Read a list of newline-separated strings from the standard input,
 # and print each of them once, without duplicates.  Input order is
@@ -200,7 +204,6 @@ am__DIST_COMMON = $(srcdir)/Makefile.in $(top_srcdir)/depcomp \
 	ChangeLog
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 ACLOCAL = aclocal-1.15
-ALLEGRO_CONFIG = /usr/bin/allegro-config
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
 AUTOCONF = autoconf
@@ -209,7 +212,7 @@ AUTOMAKE = automake-1.15
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2 -I/usr/include/freetype2 -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
+CFLAGS = -g -O2 -I/usr/include/freetype2 -D_REENTRANT -I/usr/include/SDL2 
 CPP = gcc -E
 CPPFLAGS =  -I/usr/include
 CYGPATH_W = echo
@@ -233,7 +236,7 @@ LDFLAGS =  -L/usr/lib
 LIBCURL = 
 LIBCURL_CPPFLAGS = 
 LIBOBJS = 
-LIBS = -lSDL_mixer -lSDL_image -lz  -lfreetype -lSDL -lpthread
+LIBS = -lSDL2_mixer -lSDL2_image -lz  -lfreetype -lSDL2 
 LTLIBOBJS = 
 MAKEINFO = makeinfo
 MKDIR_P = /usr/bin/mkdir -p
@@ -246,10 +249,14 @@ PACKAGE_TARNAME = ww
 PACKAGE_URL = 
 PACKAGE_VERSION = 1.9.0
 PATH_SEPARATOR = :
+PKG_CONFIG = /usr/bin/pkg-config
+PKG_CONFIG_LIBDIR = 
+PKG_CONFIG_PATH = 
 RANLIB = ranlib
-SDL_CFLAGS = -I/usr/include/SDL -D_GNU_SOURCE=1 -D_REENTRANT
-SDL_CONFIG = /usr/bin/sdl-config
-SDL_LIBS = -lSDL -lpthread
+SDL2_CONFIG = pkg-config sdl2
+SDL_CFLAGS = -D_REENTRANT -I/usr/include/SDL2 
+SDL_CONFIG = 
+SDL_LIBS = -lSDL2 
 SET_MAKE = 
 SHELL = /bin/sh
 STRIP = 
@@ -260,8 +267,6 @@ abs_srcdir = /local/src/x86_64/games/wordworx/wordworx.git/trunk/sdlallegro
 abs_top_builddir = /local/src/x86_64/games/wordworx/wordworx.git/trunk
 abs_top_srcdir = /local/src/x86_64/games/wordworx/wordworx.git/trunk
 ac_ct_CC = gcc
-allegro_CFLAGS = 
-allegro_LIBS = 
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -312,7 +317,10 @@ top_build_prefix = ../
 top_builddir = ..
 top_srcdir = ..
 lib_LIBRARIES = libsdlallegro.a
-libsdlallegro_a_SOURCES = sdl_allegro.c sa_prims.c sa_sdlimage.c sa_timer.c sa_joystick.c
+libsdlallegro_a_SOURCES = sdl_allegro.c sa_prims.c sa_sdlimage.c sa_timer.c sa_joystick.c sa_pcx.c
+noinst_HEADERS = sdl_allegro.h
+AM_CFLAGS = -DSDL2
+#AM_CFLAGS = -DSDL1
 all: all-am
 
 .SUFFIXES:
@@ -390,6 +398,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/sa_joystick.Po
+include ./$(DEPDIR)/sa_pcx.Po
 include ./$(DEPDIR)/sa_prims.Po
 include ./$(DEPDIR)/sa_sdlimage.Po
 include ./$(DEPDIR)/sa_timer.Po
@@ -493,7 +502,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(LIBRARIES)
+all-am: Makefile $(LIBRARIES) $(HEADERS)
 installdirs:
 	for dir in "$(DESTDIR)$(libdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \

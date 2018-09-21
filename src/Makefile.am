@@ -25,16 +25,9 @@ ww_LDADD=../widget/libwidget.a ../widget/libfont.a ../sdlallegro/libsdlallegro.a
 INCLUDES = -I../sdlallegro -I../widget
 endif
 
-if USEALLEGRO
+if USESDL2
 ww_SOURCES+=gfx.c
-AM_CFLAGS=-DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)
-AM_CXXFLAGS=-DUSEALLEGRO -DUSEGFX $(allegro_CFLAGS)
-ww_LDADD=../hiscore/libhiscore.a ../widget/libfont.a ../widget/libwidget.a $(allegro_LIBS)
-INCLUDES = -I../widget
+AM_CFLAGS=-DUSESDL -DUSEGFX -g
+ww_LDADD=../widget/libwidget.a ../widget/libfont.a ../sdlallegro/libsdlallegro.a ../hiscore/libhiscore.a 
+INCLUDES = -I../sdlallegro -I../widget
 endif
-
-
-
-
-
-
